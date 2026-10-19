@@ -16,7 +16,7 @@ if($Mode -eq 'Menu'){
  if($choice -eq '0'){exit 0}
  $Mode=if($choice -eq '2'){'Check'}elseif($choice -eq '3'){'Uninstall'}else{'Install'}
 }
-Write-Host '=== COGMIND // SUNBERRY ZH v0.1.1 ===' -ForegroundColor Green
+Write-Host '=== COGMIND // SUNBERRY ZH v0.1.2 ===' -ForegroundColor Green
 Import-Module (Join-Path $PSHOME 'Modules/Microsoft.PowerShell.Utility/Microsoft.PowerShell.Utility.psd1') -ErrorAction Stop
 Import-Module (Join-Path $PSHOME 'Modules/Microsoft.PowerShell.Management/Microsoft.PowerShell.Management.psd1') -ErrorAction Stop
 $owner='CogmindSunberryZH-010-v1'
@@ -131,7 +131,7 @@ try {
     }
     $languageBefore=Test-Path -LiteralPath (Join-Path $game 'native-language.txt')
     if($languageBefore){AtomicCopy (Join-Path $game 'native-language.txt') (Join-Path $zhDirectory 'backups/language.before-install')}
-    $state=@{owner=$owner;version='0.1.1';proxyHash=$proxyHash;aliasBefore=[bool]$aliasBefore;files=$files;legacyHash=$legacyHash;languageBefore=[bool]$languageBefore;languageHash='';complete=$false}
+    $state=@{owner=$owner;version='0.1.2';proxyHash=$proxyHash;aliasBefore=[bool]$aliasBefore;files=$files;legacyHash=$legacyHash;languageBefore=[bool]$languageBefore;languageHash='';complete=$false}
     SaveState $state
     try {
      foreach($file in $files){
