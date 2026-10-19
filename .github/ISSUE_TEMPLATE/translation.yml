@@ -1,0 +1,32 @@
+name: 漏译与显示入口
+description: 反馈英文残留、名称不一致、排版或链接问题
+title: "[汉化] "
+body:
+  - type: input
+    id: version
+    attributes:
+      label: 游戏版本与汉化版本
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 界面与触发步骤
+      description: 例如右键机器人详情、维修部件清单、终端记录正文。
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 英文原文、截图与相关日志片段
+      description: 不要上传完整存档、数据库或本机完整日志；删除个人路径。
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 表现
+      options:
+        - 保留英文
+        - 同一名称翻译不一致
+        - 错位、残留或颜色异常
+        - 链接或语言切换异常
+        - 不确定
