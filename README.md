@@ -2,7 +2,9 @@
 
 **按一下，让另一种语言逐字接管画面。**
 
-![Cogmind 局内中英文逐字替换演示](assets/language-switch.gif)
+<p align="center">
+  <a href="assets/language-switch.gif"><img src="assets/language-switch.gif" width="420" alt="Cogmind 局内中英文逐字替换演示"></a>
+</p>
 
 **右 Alt＋F9**，局内切换中文与英文。新文字逐个替换旧文字，保留游戏的终端感。
 
