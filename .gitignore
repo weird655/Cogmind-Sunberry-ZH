@@ -1,0 +1,11 @@
+build/
+bin/
+test-data/
+__pycache__/
+*.dll
+*.exe
+*.bin
+*.sav
+*.log
+*.zip
+*.tsv
