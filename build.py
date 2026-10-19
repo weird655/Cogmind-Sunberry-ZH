@@ -23,10 +23,10 @@ core=out/'native_zh.dll'
 run([cc,'-O2','-Wall','-Wextra','-Werror','-DCHINESE_DEMO','-DSHELL_PROBE','-shared',r/'src/probe.c',r/'src/text_core.c',r/'src/glyph_registry.c','-lgdi32','-Wl,--kill-at','-o',core])
 loader=out/'loader';shutil.copytree(r/'loader',loader,dirs_exist_ok=True)
 hashes=[hashlib.sha256(p.read_bytes()).hexdigest() for p in [core]+[d/n for n in names]]
-header=loader/'verified_build.h';text=header.read_text();matches=list(re.finditer(r'\{L"[^\"]+","([0-9a-f]{64})",20[1-6]\}',text))
+header=loader/'payload_hashes.h';text=header.read_text();matches=list(re.finditer(r'\{L"[^\"]+","([0-9a-f]{64})"\}',text))
 if len(matches)!=6:raise RuntimeError('Expected exactly six Chinese hash entries')
 for m,h in zip(reversed(matches),reversed(hashes)):text=text[:m.start(1)]+h+text[m.end(1):]
 header.write_text(text)
-run([cc,'-O2','-Wall','-Wextra','-Werror','-static','-shared',loader/'personal_loader.c',loader/'proxy.def','-lbcrypt','-o',out/'physfs.dll'])
+run([cc,'-O2','-Wall','-Wextra','-Werror','-static','-shared',loader/'autoload.c',loader/'physfs_proxy.def','-lbcrypt','-o',out/'physfs.dll'])
 (out/'ChineseHashes.ini').write_text('[Chinese]\n'+''.join('SHA'+str(i)+'='+h+'\n' for i,h in enumerate(hashes)))
-print('Production build ready in build/. Install only with matching game/data/catalog verification.')
+print('Production build ready in build/. Use package.py to create the standalone installer; no Mod prerequisite.')

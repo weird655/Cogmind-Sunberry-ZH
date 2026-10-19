@@ -6,11 +6,14 @@ Windows、Python 3、LLVM MinGW x86 工具链。标准库即可，无需安装 P
 $env:COGMIND_CRT_TOOLCHAIN = 'C:\Tools\llvm-mingw\bin'
 python build.py --smoke
 python build.py --translations 'C:\Translations\CogmindZH' --tests
+python package.py --translations 'C:\Translations\CogmindZH'
 ```
 
 译表目录需提供 zh_para.tsv、item_names.tsv、zh_trans.tsv、zh_extra.tsv、runtime_patches.tsv。它们不在这个公开源码准备包内。完整语料回归有当前数据的基线数量约束，换用其他语料时应更新预期值，不能直接删去失败断言。
 
-输出在 build/。build.py 会同步汉化核心、五份数据的六项校验，生成共享加载器。安装目录的 mods/catalog.ini 也必须同步 SHA0～SHA5；请使用匹配版本的安装脚本，不能只手动覆盖一个 DLL。加载器严格校验已适配 EXE 与游戏数据，不应为支持新版本直接关闭校验。
+输出在 build/。独立 PhysFS 自动加载器只校验原版 EXE、数据库及六项汉化资源，不读取 Mod 目录，不注册或生成新物品。package.py 会生成 ZIP 安装包；原版 physfs.dll 由安装器在用户本机备份并建立转发文件，不随包分发。旧 Mod Loader 必须先用自己的卸载入口移除。
+
+安装器源码在 installer/，CMD仅负责安装、检查和卸载。游戏直接EXE或Steam启动，不需要另一个启动脚本。
 
 四种入口 profile：显示、终端、维修、名称。统一函数返回 1成功、0未命中、负值错误。底层精确/模板的1/2区分不泄漏到原生适配器。解析先临时写入，成功才提交，失败保持原文和规则编号。
 

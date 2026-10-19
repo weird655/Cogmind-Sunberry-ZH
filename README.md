@@ -13,19 +13,21 @@
 
 ## 安装
 
-**[下载 v0.1.0 安装包](https://github.com/weird655/Cogmind-Sunberry-ZH/releases/download/v0.1.0/Cogmind-Sunberry-ZH-v0.1.0-update.zip)** · [版本说明](https://github.com/weird655/Cogmind-Sunberry-ZH/releases/tag/v0.1.0)
+**[下载 v0.1.0 安装包](https://github.com/weird655/Cogmind-Sunberry-ZH/releases/download/v0.1.0/Cogmind-Sunberry-ZH-v0.1.0.zip)** · [版本说明](https://github.com/weird655/Cogmind-Sunberry-ZH/releases/tag/v0.1.0)
 
-这是首个公开版本。**当前附件为增量更新，需要已安装第三轮统一版；不能直接安装在纯净原版上。** 安装器会核对基础文件，不匹配时停止安装。
+这是首个公开版本。**独立汉化安装包，不需要 Mod 前置，不包含专属 Mod，也不需要先装前几轮补丁。** 仅支持已验证文件指纹的 Windows Beta 17.1 原版；安装器会核对版本。
 
 1. 下载 ZIP，并将整个压缩包解压到一个文件夹。
 2. 在游戏中正常保存退出。
-3. 双击解压后的 `安装修复.cmd`，填写含 `COGMIND.exe` 的游戏目录。
+3. 双击解压后的 `安装汉化.cmd`，填写含 `COGMIND.exe` 的游戏目录。
 4. 提示安装完成后，照常通过游戏 EXE 或 Steam 启动。
 5. 局内按 **右 Alt＋F9** 切换中英文。
 
 安装前会备份当前存档。CMD 用于安装、检查和还原，不是游戏启动器；不要在压缩包内直接运行。
 
-检查安装：运行 `检查修复.cmd`。撤销此次更新：保存退出后运行 `还原修复.cmd`，不会覆盖之后的游戏进度。
+若已有其他 Mod Loader 或旧版汉化，请先用原来的卸载入口恢复原版；本安装器不会强行覆盖其他代理。带 Mod 新物品的存档也不要直接迁回原版。
+
+检查安装：运行 `检查安装.cmd`。撤销此次更新：保存退出后运行 `卸载汉化.cmd`，不会覆盖之后的游戏进度。
 
 已通过十二套离线回归与原生显示测试。仍可能存在未接通的界面或漏译，欢迎附截图、游戏版本和触发步骤反馈。
 
