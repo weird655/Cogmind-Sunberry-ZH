@@ -26,3 +26,7 @@ python package.py --translations 'C:\Translations\CogmindZH'
 GitHub 发布准备：保留 LICENSE/NOTICE，上传 assets/language-switch.gif，发布对应安装 ZIP 与版本说明。不要上传游戏程序、数据库、存档、完整未获授权译表及本机运行日志。
 
 安装ZIP仅包含“cogmind汉化261019”文件夹；顶层为安装汉化.cmd、使用说明.txt、资源/。资源平铺保存，无内层ZIP。Install.ps1从所在目录向上定位COGMIND.exe，普通用户无需输入路径。单入口菜单回车安装、2检查、3卸载。
+
+切换动画在 replacement_animation.h 中独立实现：按原坐标覆盖新字，未替换的旧字不重排；CJK 字形保持成对，长度不同时沿两种文本的共同占位范围推进。live_language.h 管理 UI 线程上的状态、原生合成与排队反向切换。无译表烟测包含动画与可逆文字缓存检查。
+
+原生动画取帧宏 ANIMATION_VISUAL_PROBE 需与 CAPTURE_DIAGNOSTICS 一起使用；LIVE_RAPID_PROBE 用于 LIVE_RESOURCE_PROBE / CONTENT_NATIVE_PROBE 的排队反向切换测试。这些测试宏均不得放入正式发行核心。

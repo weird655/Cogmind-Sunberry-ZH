@@ -11,7 +11,7 @@ if not cc or not Path(cc).is_file():parser.error('Set COGMIND_CRT_TOOLCHAIN to t
 os.environ['COGMIND_CRT_TOOLCHAIN']=str(Path(cc).parent)
 def run(args,**kwargs):subprocess.run([str(x) for x in args],check=True,**kwargs)
 if a.smoke:
- for name in ['owner_index_tests','canonical_item_names_tests','linked_tests']:
+ for name in ['owner_index_tests','canonical_item_names_tests','linked_tests','replacement_animation_tests','live_cells_tests']:
   exe=out/(name+'.exe');run([cc,'-O2','-Wall','-Wextra','-Werror',r/'src'/(name+'.c'),r/'src/text_core.c',r/'src/glyph_registry.c','-o',exe]);run([exe],cwd=out)
  print('Synthetic smoke tests passed.');sys.exit(0)
 d=a.translations.resolve() if a.translations else None

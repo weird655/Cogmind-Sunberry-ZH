@@ -2,8 +2,8 @@
 #define COGMIND_REPLACEMENT_ANIMATION_H
 #include <stdint.h>
 #include <string.h>
-/* A cell contains only native display data. Never erase the outgoing label:
-   concatenate a growing target prefix with the still-unconsumed old suffix. */
+/* A cell contains native display data. Replace in place: an unreplaced old
+   cell never changes its coordinates. No concatenation or suffix shifting. */
 static uint32_t replacement_glyph(const unsigned char *p){uint32_t g;memcpy(&g,p+4,4);return g;}
 static int replacement_pair(const unsigned char *grid,unsigned rows,unsigned y,unsigned x,unsigned right,unsigned threshold){
  uint32_t g=replacement_glyph(grid+((size_t)x*rows+y)*20);
@@ -12,23 +12,23 @@ static int replacement_pair(const unsigned char *grid,unsigned rows,unsigned y,u
 static void replacement_span(const unsigned char *old,const unsigned char *target,unsigned char *out,unsigned rows,unsigned y,unsigned left,unsigned right,unsigned elapsed,unsigned duration,unsigned threshold){
  if(!duration||elapsed>=duration)return;
  if(!elapsed){for(unsigned x=left;x<=right;x++)memcpy(out+((size_t)x*rows+y)*20,old+((size_t)x*rows+y)*20,20);return;}
- unsigned end=right+1,total=0;
- while(end>left){uint32_t g=replacement_glyph(target+((size_t)(end-1)*rows+y)*20);if(g&&g!=32)break;end--;}
- for(unsigned x=left;x<end;x++){total++;if(replacement_pair(target,rows,y,x,end-1,threshold))x++;}
- if(!total){for(unsigned x=left;x<=right;x++)memcpy(out+((size_t)x*rows+y)*20,old+((size_t)x*rows+y)*20,20);return;}
- unsigned reveal=(unsigned)(((uint64_t)elapsed*total)/duration),prefix=left;
- for(unsigned i=0;i<reveal&&prefix<end;i++){unsigned width=replacement_pair(target,rows,y,prefix,end-1,threshold)?2:1;prefix+=width;}
- unsigned consumed=left;
- while(consumed<=right&&consumed-left<prefix-left)consumed+=replacement_pair(old,rows,y,consumed,right,threshold)?2:1;
- unsigned at=left;
- for(unsigned x=left;x<prefix;x++,at++)memcpy(out+((size_t)at*rows+y)*20,target+((size_t)x*rows+y)*20,20);
- for(unsigned x=consumed;x<=right;){
-  unsigned width=replacement_pair(old,rows,y,x,right,threshold)?2:1;if(at+width>right+1)break;
-  for(unsigned half=0;half<width;half++,at++)memcpy(out+((size_t)at*rows+y)*20,old+((size_t)(x+half)*rows+y)*20,20);x+=width;
+ unsigned width=right-left+1;
+ /* Scan the union footprint, not the shorter target's character count. This
+    also consumes surplus outgoing text/padding without a deadline cut-off. */
+ unsigned columns=(unsigned)(((uint64_t)elapsed*(width+1u))/duration);if(columns>width)columns=width;
+ unsigned boundary=left+columns;
+ /* An incoming Hanzi appears whole. It may consume one extra old column. */
+ if(boundary>left&&boundary<=right&&replacement_pair(target,rows,y,boundary-1,right,threshold))boundary++;
+ for(unsigned x=left;x<boundary;x++)memcpy(out+((size_t)x*rows+y)*20,target+((size_t)x*rows+y)*20,20);
+ unsigned suffix=boundary;
+ /* If an outgoing Hanzi straddles the frontier, retire its remaining half.
+    Use only a one-cell seam; all later old cells retain their native positions. */
+ if(boundary>left&&boundary<=right&&replacement_pair(old,rows,y,boundary-1,right,threshold)){
+  unsigned char *cell=out+((size_t)boundary*rows+y)*20;memcpy(cell,target+((size_t)boundary*rows+y)*20,20);
+  uint32_t blank=32;memcpy(cell+4,&blank,4);memcpy(cell+8,&blank,4);suffix++;
  }
- /* Only the natural trailing padding is blank; the live prefix and suffix
-    always meet, including when a one-cell English letter consumes a Hanzi. */
- for(;at<=right;at++){unsigned char *cell=out+((size_t)at*rows+y)*20;uint32_t blank=32;memcpy(cell+4,&blank,4);memcpy(cell+8,&blank,4);}
+ for(unsigned x=suffix;x<=right;x++)memcpy(out+((size_t)x*rows+y)*20,old+((size_t)x*rows+y)*20,20);
+
 }
 static void replacement_frame(const unsigned char *old,const unsigned char *target,unsigned char *out,unsigned columns,unsigned rows,unsigned elapsed,unsigned duration,unsigned threshold){
  memcpy(out,target,(size_t)columns*rows*20);if(!duration||elapsed>=duration)return;

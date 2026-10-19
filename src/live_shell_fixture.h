@@ -85,9 +85,13 @@ static void live_fixture_close(void){
  live_shell_remove(self);uint32_t *children=(void*)((char*)live_fixture_parent+0x44);unsigned n=vector_count(children),index=n;for(unsigned i=0;i<n;i++)if(((void**)children[0])[i]==self){index=i;break;}
  if(index<n){*(uint32_t*)self=va(0xc2ef14);typedef void (__cdecl *Remove)(void*,unsigned);((Remove)va(0x9cea50))(children,index);}else live_fixture_errors++;
  live_shell_fixture_owner=NULL;queue_fixture=NULL;
+ live_fixture_errors+=live_queued_frame!=NULL||live_replacement_old!=NULL||live_replacement_target!=NULL;
  live_fixture_errors+=owner_count()!=live_fixture_owner_baseline;live_fixture_errors+=vector_count(children)!=live_fixture_child_baseline;
  fprintf(logfile,"LIVE-FIXTURE-SUMMARY switches=%u recorded-display-events=2 business-commands-issued=0 links=%u owners=%u baseline-owners=%u children=%u baseline-children=%u bytes=%u errors=%u\n",live_switches,live_fixture_links,owner_count(),live_fixture_owner_baseline,vector_count(children),live_fixture_child_baseline,(unsigned)live_shell_bytes,live_fixture_errors);fflush(logfile);live_fixture_stage=4;
  #ifdef CONTENT_NATIVE_PROBE
+ #ifdef LIVE_RAPID_PROBE
+ live_fixture_errors+=live_rapid_capture_errors;
+ #endif
  fprintf(logfile,"CONTENT-NATIVE-FINAL terminal-errors=%u log-errors=%u\n",live_fixture_errors,log_fixture_errors);fflush(logfile);ExitProcess(live_fixture_errors||log_fixture_errors?87:0);
  #endif
 }
@@ -127,9 +131,19 @@ static void live_fixture(void *parent){
   fprintf(logfile,"LIVE-FIXTURE-CREATE shell=%p source-events=2\n",shell);fflush(logfile);return;
  }
  live_fixture_settle();DWORD age=GetTickCount()-live_fixture_born;if(age>20000){live_fixture_errors++;fprintf(logfile,"LIVE-FIXTURE-TIMEOUT stage=%u\n",live_fixture_stage);live_fixture_close();return;}
+ #ifdef LIVE_RAPID_PROBE
+ static int queued_reverse;
+ if(live_fixture_stage==2&&live_phase&&!queued_reverse&&GetTickCount()-live_phase_start>=400){queued_reverse=1;live_request(1);fprintf(logfile,"RAPID-REQUEST queued-during-animation=1\n");fflush(logfile);}
+ #endif
  if(!live_shell_idle()||live_phase)return;
  if(live_fixture_stage==1&&age>=1000){live_fixture_check("initial-zh",1);live_fixture_stage=2;live_request(0);}
+ #ifdef LIVE_RAPID_PROBE
+ else if(live_fixture_stage==2&&live_chinese&&live_pending<0&&queued_reverse){live_fixture_check("queued-return-zh",1);live_fixture_errors+=owner_count()!=live_fixture_cn_owners;live_fixture_stage=3;live_request(0);}
+ else if(live_fixture_stage==3&&!live_chinese&&live_pending<0){live_fixture_check("rapid-then-en",0);live_fixture_stage=5;live_request(1);}
+ else if(live_fixture_stage==5&&live_chinese&&live_pending<0){live_fixture_check("rapid-final-zh",1);live_fixture_close();}
+ #else
  else if(live_fixture_stage==2&&!live_chinese&&live_pending<0){live_fixture_check("switched-en",0);live_fixture_stage=3;live_request(1);}
  else if(live_fixture_stage==3&&live_chinese&&live_pending<0){live_fixture_check("returned-zh",1);live_fixture_close();}
+ #endif
 }
 #endif

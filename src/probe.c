@@ -19,6 +19,9 @@ static void live_shell_capture_add(void*,void*,int,int,int);
 static void live_shell_capture_meta(void*,void*);
 static void live_tick(void);
 static void *live_draw_view(void*);
+#ifdef ANIMATION_VISUAL_PROBE
+static void animation_visual_frame(void*);
+#endif
 static int live_install(void);
 static int live_shell_is_valid(void*);
 #ifdef LIVE_RESOURCE_PROBE
@@ -130,6 +133,9 @@ static void switch_font_smoke(DWORD elapsed) {
 static int (__cdecl *original_flip)(void*);
 static int __cdecl capture_flip(void *surface) {
  int r=original_flip(surface);
+ #ifdef ANIMATION_VISUAL_PROBE
+ animation_visual_frame(surface);
+ #endif
  #ifdef REAL_SHELL_OBSERVER
  static void *real_previous;static unsigned last_rows=~0u,last_pending=~0u,last_lock=~0u;static int last_scroll=-999;
  uint32_t *real_shell=*(void**)va(0xcec100);
