@@ -6,11 +6,11 @@ if(!$GameDirectory){
   if([IO.File]::Exists((Join-Path $candidate.FullName 'COGMIND.exe'))){$GameDirectory=$candidate.FullName;break}
   $candidate=$candidate.Parent
  }
- if(!$GameDirectory){Write-Host '请把整个“太阳莓汉化”文件夹放到 COGMIND.exe 旁边，再打开安装。' -ForegroundColor Yellow;exit 1}
+ if(!$GameDirectory){Write-Host '请把整个“cogmind汉化261019”文件夹放到 COGMIND.exe 旁边，再打开安装。' -ForegroundColor Yellow;exit 1}
 }
 if(!$ResourceDirectory){$ResourceDirectory=$PSScriptRoot}
 if($Mode -eq 'Menu'){
- Write-Host '=== 太阳莓汉化 ===' -ForegroundColor Green
+ Write-Host '=== cogmind汉化261019 ===' -ForegroundColor Green
  Write-Host '回车：安装汉化    2：检查安装    3：卸载汉化    0：退出' -ForegroundColor Green
  do{$choice=Read-Host '请选择'}while($choice -notin @('','1','2','3','0'))
  if($choice -eq '0'){exit 0}

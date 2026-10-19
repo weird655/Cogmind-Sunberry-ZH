@@ -2,7 +2,7 @@ from pathlib import Path
 import argparse,hashlib,json,shutil,zipfile,subprocess,sys,uuid
 r=Path(__file__).resolve().parent;p=argparse.ArgumentParser();p.add_argument('--translations',type=Path,required=True);a=p.parse_args();d=a.translations.resolve()
 subprocess.run([sys.executable,str(r/'build.py'),'--translations',str(d)],check=True)
-version=(r/'VERSION').read_text().strip();stage=r/'build'/('package-simple-'+uuid.uuid4().hex);folder=stage/'太阳莓汉化';resources=folder/'资源';resources.mkdir(parents=True)
+version=(r/'VERSION').read_text().strip();stage=r/'build'/('package-simple-'+uuid.uuid4().hex);folder=stage/'cogmind汉化261019';resources=folder/'资源';resources.mkdir(parents=True)
 assert stage.resolve().is_relative_to((r/'build').resolve())
 files={}
 for rel,source in [('autoload/physfs.dll',r/'build/physfs.dll'),('CogmindZH/bin/native_zh.dll',r/'build/native_zh.dll')]+[('CogmindZH/'+n,d/n) for n in ['zh_para.tsv','item_names.tsv','zh_trans.tsv','zh_extra.tsv','runtime_patches.tsv']]:files[rel]=source.read_bytes()

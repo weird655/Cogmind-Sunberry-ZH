@@ -25,4 +25,4 @@ python package.py --translations 'C:\Translations\CogmindZH'
 
 GitHub 发布准备：保留 LICENSE/NOTICE，上传 assets/language-switch.gif，发布对应安装 ZIP 与版本说明。不要上传游戏程序、数据库、存档、完整未获授权译表及本机运行日志。
 
-安装ZIP仅包含“太阳莓汉化”文件夹；顶层为安装汉化.cmd、使用说明.txt、资源/。资源平铺保存，无内层ZIP。Install.ps1从所在目录向上定位COGMIND.exe，普通用户无需输入路径。单入口菜单回车安装、2检查、3卸载。
+安装ZIP仅包含“cogmind汉化261019”文件夹；顶层为安装汉化.cmd、使用说明.txt、资源/。资源平铺保存，无内层ZIP。Install.ps1从所在目录向上定位COGMIND.exe，普通用户无需输入路径。单入口菜单回车安装、2检查、3卸载。
