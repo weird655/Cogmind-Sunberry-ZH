@@ -1,8 +1,22 @@
-﻿param([string]$GameDirectory,[ValidateSet('Install','Uninstall','Check')][string]$Mode='Install',[string]$PayloadZip,[string]$InstallerPath,[string]$ResultFile)
+﻿param([string]$GameDirectory,[ValidateSet('Menu','Install','Uninstall','Check')][string]$Mode='Menu',[string]$ResourceDirectory,[string]$InstallerPath,[string]$ResultFile)
 $ErrorActionPreference='Stop'
-if(!$GameDirectory){$GameDirectory=Read-Host 'Cogmind directory containing COGMIND.exe'}
-if(!$PayloadZip){$PayloadZip=Join-Path $PSScriptRoot 'payload.zip'}
-Write-Host '=== COGMIND // SUNBERRY ZH v0.1.0 ===' -ForegroundColor Green
+if(!$GameDirectory){
+ $candidate=[IO.DirectoryInfo]$PSScriptRoot
+ for($depth=0;$candidate -and $depth -lt 6;$depth++){
+  if([IO.File]::Exists((Join-Path $candidate.FullName 'COGMIND.exe'))){$GameDirectory=$candidate.FullName;break}
+  $candidate=$candidate.Parent
+ }
+ if(!$GameDirectory){Write-Host '请把整个“太阳莓汉化”文件夹放到 COGMIND.exe 旁边，再打开安装。' -ForegroundColor Yellow;exit 1}
+}
+if(!$ResourceDirectory){$ResourceDirectory=$PSScriptRoot}
+if($Mode -eq 'Menu'){
+ Write-Host '=== 太阳莓汉化 ===' -ForegroundColor Green
+ Write-Host '回车：安装汉化    2：检查安装    3：卸载汉化    0：退出' -ForegroundColor Green
+ do{$choice=Read-Host '请选择'}while($choice -notin @('','1','2','3','0'))
+ if($choice -eq '0'){exit 0}
+ $Mode=if($choice -eq '2'){'Check'}elseif($choice -eq '3'){'Uninstall'}else{'Install'}
+}
+Write-Host '=== COGMIND // SUNBERRY ZH v0.1.1 ===' -ForegroundColor Green
 Import-Module (Join-Path $PSHOME 'Modules/Microsoft.PowerShell.Utility/Microsoft.PowerShell.Utility.psd1') -ErrorAction Stop
 Import-Module (Join-Path $PSHOME 'Modules/Microsoft.PowerShell.Management/Microsoft.PowerShell.Management.psd1') -ErrorAction Stop
 $owner='CogmindSunberryZH-010-v1'
@@ -79,17 +93,7 @@ try {
   $message='已卸载本次汉化，并恢复安装前的 DLL 与旧插件。备份和卸载器保留在 CogmindZH 文件夹，可自行保留或删除。'
  } else {
   if((Hash $exe) -ne $expectedExe -or (Hash (Join-Path $game 'data/particles.bin')) -ne $expectedP -or (Hash (Join-Path $game 'data/messages.bin')) -ne $expectedM){throw '此游戏版本或数据库不受支持，未安装汉化。当前只支持已验证的 Beta 17.1 原版数据库。'}
-  Add-Type -AssemblyName System.IO.Compression.FileSystem
-  $stage=Join-Path ([IO.Path]::GetTempPath()) ('CogmindZH-stage-'+[Guid]::NewGuid().ToString('N'))
-  [IO.Directory]::CreateDirectory($stage)|Out-Null
-  $archive=[IO.Compression.ZipFile]::OpenRead($PayloadZip)
-  try {
-   foreach($entry in $archive.Entries){
-    $resolved=[IO.Path]::GetFullPath((Join-Path $stage $entry.FullName))
-    if(!$resolved.StartsWith($stage+'\',[StringComparison]::OrdinalIgnoreCase)){throw '安装资源路径无效。'}
-   }
-  } finally {$archive.Dispose()}
-  [IO.Compression.ZipFile]::ExtractToDirectory($PayloadZip,$stage)
+  $stage=[IO.Path]::GetFullPath($ResourceDirectory)
   $manifest=Get-Content -LiteralPath (Join-Path $stage 'manifest.json') -Raw -Encoding UTF8|ConvertFrom-Json
   $allowed=@('autoload/physfs.dll','CogmindZH/bin/native_zh.dll','CogmindZH/zh_para.tsv','CogmindZH/item_names.tsv','CogmindZH/zh_trans.tsv','CogmindZH/zh_extra.tsv','CogmindZH/runtime_patches.tsv','CogmindZH/VERSION')
   if(@($manifest.files).Count -ne $allowed.Count -or @($manifest.files.relative|Select-Object -Unique).Count -ne $allowed.Count){throw 'Unexpected payload file set.'}
@@ -127,7 +131,7 @@ try {
     }
     $languageBefore=Test-Path -LiteralPath (Join-Path $game 'native-language.txt')
     if($languageBefore){AtomicCopy (Join-Path $game 'native-language.txt') (Join-Path $zhDirectory 'backups/language.before-install')}
-    $state=@{owner=$owner;version='0.1.0';proxyHash=$proxyHash;aliasBefore=[bool]$aliasBefore;files=$files;legacyHash=$legacyHash;languageBefore=[bool]$languageBefore;languageHash='';complete=$false}
+    $state=@{owner=$owner;version='0.1.1';proxyHash=$proxyHash;aliasBefore=[bool]$aliasBefore;files=$files;legacyHash=$legacyHash;languageBefore=[bool]$languageBefore;languageHash='';complete=$false}
     SaveState $state
     try {
      foreach($file in $files){
@@ -143,7 +147,7 @@ try {
      AtomicCopy (Join-Path $stage 'autoload/physfs.dll') (Join-Path $game 'physfs.dll')
      $state.complete=$true;SaveState $state
     } catch { $errorText=$_.Exception.Message;try{Restore $state}catch{throw ($errorText+'；恢复未完成：'+$_.Exception.Message)};throw ($errorText+'；已恢复安装前 DLL。') }
-    $message='汉化安装成功！以后直接启动原版 COGMIND.exe，或在 Steam 中点“开始游戏”，即可加载中文。右 Alt＋F9 切换中英文。卸载入口在 CogmindZH/卸载汉化.cmd。'
+    $message='汉化安装成功！以后直接启动原版 COGMIND.exe，或在 Steam 中点“开始游戏”，即可加载中文。右 Alt＋F9 切换中英文。要卸载时，再打开安装汉化.cmd，输入 3。'
    }
   }
  }
@@ -154,10 +158,4 @@ try {
  Write-Host $_.Exception.Message -ForegroundColor Red
  if($ResultFile){[IO.File]::WriteAllText($ResultFile,$_.Exception.Message,[Text.Encoding]::Unicode)}
  exit 1
-} finally {
- if($stage -and (Test-Path -LiteralPath $stage)){
-  # Only this invocation's validated GUID directory in the system temp root.
-  $resolved=[IO.Path]::GetFullPath($stage);$tempRoot=[IO.Path]::GetFullPath([IO.Path]::GetTempPath())
-  if($resolved.StartsWith($tempRoot,[StringComparison]::OrdinalIgnoreCase) -and (Split-Path -Leaf $resolved) -match '^CogmindZH-stage-[0-9a-f]{32}$'){Remove-Item -LiteralPath $resolved -Recurse -Force}
- }
 }

@@ -24,3 +24,5 @@ python package.py --translations 'C:\Translations\CogmindZH'
 原生 fixture 必须在独立合法游戏副本中运行，其宏会自动结束测试进程，禁止放进正式发行核心。测试显示成功不等于 Mod 注册、物品生成或真实黑入业务成功。
 
 GitHub 发布准备：保留 LICENSE/NOTICE，上传 assets/language-switch.gif，发布对应安装 ZIP 与版本说明。不要上传游戏程序、数据库、存档、完整未获授权译表及本机运行日志。
+
+安装ZIP仅包含“太阳莓汉化”文件夹；顶层为安装汉化.cmd、使用说明.txt、资源/。资源平铺保存，无内层ZIP。Install.ps1从所在目录向上定位COGMIND.exe，普通用户无需输入路径。单入口菜单回车安装、2检查、3卸载。
