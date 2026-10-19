@@ -22,6 +22,32 @@ static int linked_spans(const char *s,size_t n,int ascii_labels,LinkedSpan spans
  }
  if(inside)return 0;*count=k;return 1;
 }
+/* Recover brackets omitted by a reviewed translation only when every native
+   link label has one exact dictionary translation occurring once, in order.
+   Ambiguous prose, partial markup and unknown labels remain untouched. */
+static inline int linked_target_restore(const char *raw,size_t rn,const char *target,size_t tn,size_t expected,const ZhDictionary *const *dicts,size_t nd,char *out,size_t cap){
+ LinkedSpan source[LINKED_COUNT_LIMIT],marked[LINKED_COUNT_LIMIT],found[LINKED_COUNT_LIMIT];size_t ns,nt;
+ if(!out||!expected||!linked_spans(raw,rn,1,source,&ns)||ns!=expected||!linked_spans(target,tn,0,marked,&nt))return 0;
+ if(nt==expected){if(tn>=cap)return -1;memmove(out,target,tn);out[tn]=0;return 1;}
+ if(nt)return 0;size_t previous=0;
+ char *text=malloc(tn+1);if(!text)return -1;memcpy(text,target,tn);text[tn]=0;
+ for(size_t i=0;i<expected;i++){
+  size_t begin=source[i].begin+1,end=source[i].end-1;if(raw[begin]=='!')begin++;
+  char label[1024];int match=0;
+  for(size_t d=0;d<nd&&!match;d++)if(dicts[d])match=zh_translate_exact(dicts[d],raw+begin,end-begin,label,sizeof label,NULL);
+  if(match!=1||!label[0]||strpbrk(label,"[]\n\r`")){free(text);return 0;}
+  char *at=strstr(text,label);size_t length=strlen(label);
+  if(!at||strstr(at+1,label)||(size_t)(at-text)<previous){free(text);return 0;}
+  found[i].begin=(size_t)(at-text);found[i].end=found[i].begin+length;previous=found[i].end;
+ }
+ size_t size=tn+expected*2;if(size>=cap||size>LINKED_TEXT_LIMIT){free(text);return -1;}
+ char *stage=malloc(size+1);if(!stage){free(text);return -1;}size_t at=0,pos=0;
+ for(size_t i=0;i<expected;i++){
+  size_t n=found[i].begin-pos;memcpy(stage+at,text+pos,n);at+=n;stage[at++]='[';
+  n=found[i].end-found[i].begin;memcpy(stage+at,text+found[i].begin,n);at+=n;stage[at++]=']';pos=found[i].end;
+ }
+ memcpy(stage+at,text+pos,tn-pos);stage[size]=0;memcpy(out,stage,size+1);free(stage);free(text);return 1;
+}
 /* Return 1 success, 0 unsupported/malformed, -1 output capacity. No failure
    changes out. Target bracket labels may be Chinese; source labels stay ASCII.
    Raw and processed link order is validated, target labels map by ordinal. */

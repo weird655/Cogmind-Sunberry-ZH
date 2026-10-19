@@ -7,14 +7,18 @@ static ScratchRow scratch_rows[SCRATCH_ROW_LIMIT];
 static unsigned scratch_row_count;
 typedef struct {void *owner;unsigned first,count,columns;int manual;} ScratchContext;
 static _Thread_local ScratchContext scratch_context;
+static void scratch_reject(const char *reason,void *self,void *s,uintptr_t caller,int width,int rows){
+ static unsigned traced;if(caller!=va(0x8089d1)||traced>=32)return;traced++;
+ fprintf(logfile,"SCRATCH-REJECT reason=%s owner=%p width=%d rows=%d\n",reason,self,width,rows);audit_native_string("SCRATCH-INPUT",s);fflush(logfile);
+}
 static int scratch_paragraph(void *self,int x,int y,int width,int maxrows,void *s,uintptr_t caller,int *result){
  memset(&scratch_context,0,sizeof scratch_context);
  if((caller!=va(0x790a33)&&caller!=va(0x8089d1))||x||y||width<9||width>512||maxrows<1||!readable(self,24))return 0;
- const char *source;size_t bytes;if(!plain_source(s,&source,&bytes))return 0;char target[32768];
- if(message_resolve(source,bytes,target,sizeof target)!=1)return 0;
+ const char *source;size_t bytes;if(!plain_source(s,&source,&bytes)){scratch_reject("source",self,s,caller,width,maxrows);return 0;}char target[32768];
+ if(message_resolve(source,bytes,target,sizeof target)!=1){scratch_reject("lookup",self,s,caller,width,maxrows);return 0;}
  ZhPlan p={0},en={0};int limit=maxrows>200?200:maxrows;
  if(zh_plan(target,strlen(target),width,limit,&p)||zh_plan(source,bytes,width,limit,&en)){
-  zh_plan_free(&p);zh_plan_free(&en);return 0;
+  scratch_reject("layout",self,s,caller,width,maxrows);zh_plan_free(&p);zh_plan_free(&en);return 0;
  }
  unsigned count=(unsigned)(p.used_rows>en.used_rows?p.used_rows:en.used_rows);
  if(!count||count>SCRATCH_ROW_LIMIT-scratch_row_count){zh_plan_free(&p);zh_plan_free(&en);return 0;}
@@ -85,10 +89,10 @@ static int notification_literal_print(void *self,int x,int y,void *ns,uintptr_t 
 #ifdef SCRATCH_RESOURCE_PROBE
 static void scratch_fixture(void *parent){
  static int done;if(done||GetTickCount()-probe_start<6500)return;done=1;unsigned passed=0,before=vector_count((char*)parent+0x44);
- const char *sources[]={"This manual is not an exhaustive description of everything that may happen in the game. Rather it provides an overview of the core rules necessary for a fundamental understanding of how to play, while also explaining some features that may not be made explicitly known during normal play.","ALERT: Potential suspicious activity detected, Programmers report to Factory Zone 4Z."};
- for(unsigned kind=0;kind<2;kind++){
-  int width=kind?56:68;void *temp=(*(NativeNew*)va(0xb6132c))(0x6c);((ConsoleCtor)va(0x48c060))(temp,parent,width,200,0,0,0,1,-1);
-  unsigned char input[28]={0};((StringCtor)va(0x9af0f0))(input,sources[kind]);int rows=0;int accepted=scratch_paragraph(temp,0,0,width,200,input,va(kind?0x8089d1:0x790a33),&rows);((NativeVoid)va(0x9af350))(input);int ok=accepted&&rows>0;
+ const char *sources[]={"This manual is not an exhaustive description of everything that may happen in the game. Rather it provides an overview of the core rules necessary for a fundamental understanding of how to play, while also explaining some features that may not be made explicitly known during normal play.","ALERT: Potential suspicious activity detected, Programmers report to Factory Zone 4Z.","A damaged part is partially visible under some rubble. There's a note attached: \"Everyone keeps telling us we should avoid high-traffic areas because that's where patrols are more likely to show up, but that doesn't do us much good if we can't spot those areas until they're on top of us... With this we can! Deliver it to Megawrench for repairs then we'll never be afraid of an ambush while sneaking around Materials again, ha.\""};
+ for(unsigned kind=0;kind<3;kind++){
+  int width=kind?94:68;void *temp=(*(NativeNew*)va(0xb6132c))(0x6c);((ConsoleCtor)va(0x48c060))(temp,parent,width,200,0,0,0,1,-1);
+  unsigned char input[28]={0};((StringCtor)va(0x9af0f0))(input,sources[kind]);int rows=0;int accepted=scratch_paragraph(temp,0,0,width,kind==2?5:200,input,va(kind?0x8089d1:0x790a33),&rows);((NativeVoid)va(0x9af350))(input);int ok=accepted&&rows>0;
   for(int row=0;ok&&row<rows;row++){
    unsigned char line[28]={0};int point[2]={0,row};ok=scratch_extract(temp,line,point,width,va(kind?0x808a12:0x790a92))!=NULL;if(!ok)break;
    void *o=(*(NativeNew*)va(0xb6132c))(0x70);
@@ -121,6 +125,23 @@ static void scratch_fixture(void *parent){
   }
   uint32_t *pv=(void*)((char*)parent+0x44);unsigned count=vector_count(pv);for(unsigned j=0;j<count;j++)if(((void**)pv[0])[j]==temp){memmove((void*)(pv[0]+j*4),(void*)(pv[0]+(j+1)*4),(count-j-1)*4);pv[1]-=4;break;}((DeleteFn)(*(uintptr_t**)temp)[0])(temp,1);passed+=ok;
  }
- memset(&scratch_context,0,sizeof scratch_context);fprintf(logfile,"SCRATCH-FIXTURE-SUMMARY passed=%u expected=2 child-before=%u child-after=%u\n",passed,before,vector_count((char*)parent+0x44));fflush(logfile);
+ /* Story-event bottom panel has a distinct centered final paragraph caller. */
+ void *event=(*(NativeNew*)va(0xb6132c))(0x6c);((ConsoleCtor)va(0x48c060))(event,parent,94,5,0,0,0,1,-1);
+ unsigned char input[28]={0};((StringCtor)va(0x9af0f0))(input,sources[2]);uintptr_t saved_site=display_origin_site;display_origin_site=va(0x875329);int result;
+ int accepted=display_bridge(event,47,0,94,5,1,3,input,&result);display_origin_site=saved_site;((NativeVoid)va(0x9af350))(input);
+ uint32_t *ev=event;unsigned cjk=0,bad=0;
+ for(unsigned x=0;x<ev[2];x++)for(unsigned y=0;y<ev[3];y++){
+  unsigned char *cell=(void*)(ev[4]+(x*ev[3]+y)*20);unsigned g=*(uint32_t*)(cell+4);
+  if(g>=320&&g<320+2*zh_registry_count&&!(g&1)){cjk++;if(x+1>=ev[2]||*(uint32_t*)(cell+ev[3]*20+4)!=g+1||memcmp(cell+12,cell+ev[3]*20+12,6))bad++;}
+ }
+ unsigned char *english=live_cells_view(event);unsigned en=0;
+ if(english)for(unsigned x=0;x<ev[2];x++)for(unsigned y=0;y<ev[3];y++){unsigned g=*(uint32_t*)(english+(x*ev[3]+y)*20+4);en+=g>=320;}
+ int event_ok=accepted&&cjk&&!bad&&english&&!en;passed+=event_ok;free(english);
+ fprintf(logfile,"STORY-POPUP-FIXTURE accepted=%d cjk=%u pair-errors=%u english-cjk=%u passed=%d\n",accepted,cjk,bad,en,event_ok);
+ uint32_t *children=(void*)((char*)parent+0x44);for(unsigned j=0;j<vector_count(children);j++)if(((void**)children[0])[j]==event){live_cells_remove(event);typedef void (__cdecl *Remove)(void*,unsigned);((Remove)va(0x9cea50))(children,j);break;}
+ memset(&scratch_context,0,sizeof scratch_context);fprintf(logfile,"SCRATCH-FIXTURE-SUMMARY passed=%u expected=4 child-before=%u child-after=%u\n",passed,before,vector_count((char*)parent+0x44));fflush(logfile);
+ #ifdef SCRATCH_EXIT_PROBE
+ ExitProcess(passed==4&&before==vector_count((char*)parent+0x44)?0:87);
+ #endif
 }
 #endif

@@ -42,5 +42,7 @@ int main(int argc,char **argv){
   CHECK(!strstr(resolved,"hauler")&&!strstr(resolved,"surveillance"));
   CHECK(message_resolve_terminal(input,length,resolved,sizeof resolved,NULL)==1);CHECK(!strcmp(resolved,direct));
  }
+ const char *variants[]={"Huge Storage Unit","Huge Storage Unit!","Huge Storage Unit [1]","Huge Storage Unit! [1]"};
+ for(unsigned i=0;i<4;i++){char named[32768],shown[32768];size_t n=strlen(variants[i]);CHECK(message_resolve_profile(MESSAGE_NAME,variants[i],n,named,sizeof named,NULL)==1);CHECK(strstr(named,"超大型存储单元"));CHECK(message_resolve(variants[i],n,shown,sizeof shown)==1);CHECK(!strcmp(named,shown));}
  printf("PASS %u typed-set, alias, atomic commit, rule preservation and cross-path/layout checks\n",checks);return 0;
 }

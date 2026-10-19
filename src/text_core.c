@@ -6,7 +6,7 @@
 #include <ctype.h>
 typedef struct {char *key,*value;const char *anchor;size_t keylen,prefix,next_pattern,anchor_length;unsigned specificity;int pattern;} Rule;
 typedef struct {char *key;size_t rule;int conflict;} NormalRule;
-struct ZhDictionary {char *data;Rule *rules;size_t count,*table,table_size,pattern_heads[257];NormalRule *normal;size_t *normal_table;};
+struct ZhDictionary {char *data;Rule *rules;size_t count,*table,table_size,pattern_heads[257];NormalRule *normal;size_t *normal_table;Rule **literals;size_t literal_count;};
 unsigned zh_rule_specificity(const ZhDictionary *d,size_t rule){return d&&rule<d->count?d->rules[rule].specificity:0;}
 int zh_rule_is_template(const ZhDictionary *d,size_t rule){return d&&rule<d->count?d->rules[rule].pattern:0;}
 typedef struct {const char *p;size_t n;int set,numeric;} Capture;
@@ -32,7 +32,8 @@ int zh_glyph(uint32_t cp){
 static uint64_t hash_key(const char *p,size_t n){uint64_t h=14695981039346656037ULL;for(size_t i=0;i<n;i++){h^=(unsigned char)p[i];h*=1099511628211ULL;}return h;}
 static int placeholder(const char *p){return p[0]=='{'&&p[1]&&p[2]=='}'&&(p[1]=='n'||p[1]=='*'||(p[1]>='1'&&p[1]<='9'));}
 static void error_text(char *out,size_t cap,const char *s){if(out&&cap)snprintf(out,cap,"%s",s);}
-void zh_dictionary_free(ZhDictionary *d){if(d){if(d->normal){for(size_t i=0;i<d->count;i++)free(d->normal[i].key);}free(d->normal);free(d->normal_table);free(d->table);free(d->rules);free(d->data);free(d);}}
+void zh_dictionary_free(ZhDictionary *d){if(d){if(d->normal){for(size_t i=0;i<d->count;i++)free(d->normal[i].key);}free(d->literals);free(d->normal);free(d->normal_table);free(d->table);free(d->rules);free(d->data);free(d);}}
+static int literal_compare(const void *a,const void *b){return strcmp((*(Rule *const*)a)->key,(*(Rule *const*)b)->key);}
 ZhDictionary *zh_dictionary_load(const char *path,size_t *count,char *error,size_t cap){
  FILE *f=fopen(path,"rb");if(!f){error_text(error,cap,"open failed");return NULL;}
  if(fseek(f,0,SEEK_END)){fclose(f);return NULL;}long length=ftell(f);rewind(f);
@@ -88,6 +89,10 @@ ZhDictionary *zh_dictionary_load(const char *path,size_t *count,char *error,size
   unsigned bucket=r->prefix?(unsigned char)r->key[0]:256;
   r->next_pattern=d->pattern_heads[bucket];d->pattern_heads[bucket]=i;
  }
+ d->literals=calloc(d->count?d->count:1,sizeof *d->literals);
+ if(!d->literals){zh_dictionary_free(d);return NULL;}
+ for(size_t i=0;i<d->count;i++)if(!d->rules[i].pattern)d->literals[d->literal_count++]=&d->rules[i];
+ qsort(d->literals,d->literal_count,sizeof *d->literals,literal_compare);
  if(count)*count=d->count;error_text(error,cap,"ok");return d;
 }
 int zh_translate_exact(const ZhDictionary *d,const char *src,size_t n,char *out,size_t cap,size_t *rule){
@@ -204,4 +209,16 @@ int zh_plan(const char *text,size_t n,int cols,int rows,ZhPlan *out){
  p.used_rows=p.count?y+1:0;*out=p;return 0;
 overflow:zh_plan_free(&p);return -2;
 invalid:zh_plan_free(&p);return -3;
+}
+
+/* For native ellipsis labels only. Binary search literal keys; never templates.
+   Any second completion is ambiguous, even if its translation is identical. */
+int zh_translate_unique_prefix(const ZhDictionary *d,const char *src,size_t n,char *out,size_t cap){
+ if(!d||!src||!out||n<12)return 0;
+ size_t lo=0,hi=d->literal_count;
+ while(lo<hi){size_t mid=lo+(hi-lo)/2;if(strncmp(d->literals[mid]->key,src,n)<0)lo=mid+1;else hi=mid;}
+ if(lo==d->literal_count||strncmp(d->literals[lo]->key,src,n))return 0;
+ if(lo+1<d->literal_count&&!strncmp(d->literals[lo+1]->key,src,n))return -2;
+ const Rule *r=d->literals[lo];if(r->keylen<=n)return 0;
+ size_t size=strlen(r->value);if(size>=cap)return -1;memcpy(out,r->value,size+1);return 1;
 }

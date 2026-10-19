@@ -11,7 +11,7 @@ static int item_name_safe_target(const char *p,size_t n){
  }return 1;
 }
 /* Dedicated literal item-name dictionary only. Accept an exact plain name or
-   one suffix: NAME+, NAME (digits), NAME [ASCII-tag]. Preserve the entire suffix
+   one suffix: NAME+, NAME (digits), NAME [ASCII-tag], or native NAME! with an optional bracket tag. Preserve the entire suffix
    byte-for-byte; no template lookup, normalization, trimming, or chain parsing.
    1 success, 0 unsupported/not found, -1 bad argument/capacity. Failure atomic. */
 static int item_name_translate_exact(const ZhDictionary *items,const char *source,size_t length,char *out,size_t capacity){
@@ -30,8 +30,9 @@ static int item_name_translate_exact(const ZhDictionary *items,const char *sourc
    unsigned char c=(unsigned char)source[i];if(!((c>='a'&&c<='z')||(c>='A'&&c<='Z')||(c>='0'&&c<='9')||strchr(".+*/_%:#?=!,;-",c)))return 0;
   }base=open-1;
  }
+ if(base&&source[base-1]=='!')base--;
  if(!base||base>ITEM_NAME_BASE_LIMIT||source[0]==' '||source[base-1]==' ')return 0;
- for(size_t i=0;i<base;i++)if(strchr("[]()+",source[i]))return 0;
+ for(size_t i=0;i<base;i++)if(strchr("[]()+!",source[i]))return 0;
  char translated[512],temporary[672];size_t rule;
  int r=zh_translate_exact(items,source,base,translated,sizeof translated,&rule);if(r<=0)return r<0?-1:0;
  size_t n=strlen(translated);if(!item_name_safe_target(translated,n))return 0;

@@ -20,8 +20,38 @@ static int display_literal_base(const ZhDictionary *items,const ZhDictionary *sh
  }
  return 0;
 }
+/* Combat name + native numeric hit calculation, e.g. Rifle(66-1=66%).
+   Translate only the complete known name; preserve every numeric byte. */
+static int display_combat_name(const ZhDictionary *items,const ZhDictionary *shorts,const ZhDictionary *paragraphs,const char *s,size_t n,char *out,size_t cap){
+ const char *open=memchr(s,'(',n);if(!open||open==s||n<6||s[n-1]!=')')return 0;
+ size_t prefix=(size_t)(open-s),end=n-1;unsigned digits=0,percent=0;
+ if(end-prefix>80)return 0;
+ for(size_t i=prefix+1;i<end;i++){unsigned char c=s[i];if(c>='0'&&c<='9')digits++;else if(c=='%')percent++;else if(!strchr("+-=./",c))return 0;}
+ if(!digits||percent!=1||s[n-2]!='%')return 0;
+ char name[2048];int result=canonical_item_name_translate(display_extra_dictionary,items,shorts,paragraphs,s,prefix,name,sizeof name);if(result<=0)return result;
+ size_t bytes=strlen(name),tail=n-prefix;if(bytes+tail>=cap)return -1;
+ char staged[4096];if(bytes+tail>=sizeof staged)return -1;memcpy(staged,name,bytes);memcpy(staged+bytes,s+prefix,tail);staged[bytes+tail]=0;memcpy(out,staged,bytes+tail+1);return 1;
+}
+/* Robot detail rows: complete NAME (0..100%) followed by optional xCOUNT.
+   This is a display suffix, never a repair command or an item identifier. */
+static int display_part_condition(const ZhDictionary *items,const ZhDictionary *shorts,const ZhDictionary *paragraphs,const char *s,size_t n,char *out,size_t cap){
+ if(n<6||n>240)return 0;const char *open=memchr(s,'(',n);if(!open||open==s||open[-1]!=' ')return 0;
+ size_t at=(size_t)(open-s)+1,start=at;unsigned value=0;
+ while(at<n&&s[at]>='0'&&s[at]<='9'){if(at-start>=3)return 0;value=value*10+(unsigned)(s[at++]-'0');}
+ if(at==start||value>100||at+1>=n||s[at]!='%'||s[at+1]!=')')return 0;at+=2;
+ if(at<n){if(at+2>=n||s[at]!=' '||s[at+1]!='x')return 0;at+=2;start=at;
+  while(at<n&&s[at]>='0'&&s[at]<='9')at++;
+  if(at==start||at-start>6||s[start]=='0')return 0;
+ }
+ if(at!=n)return 0;size_t base=(size_t)(open-s)-1;char name[2048];
+ int r=canonical_item_name_translate(display_extra_dictionary,items,shorts,paragraphs,s,base,name,sizeof name);if(r!=1)return r;
+ size_t bytes=strlen(name),tail=n-base;if(bytes+tail>=cap||bytes+tail>=sizeof name)return -1;
+ memcpy(name+bytes,s+base,tail);name[bytes+tail]=0;memcpy(out,name,bytes+tail+1);return 1;
+}
 static int display_literal(const ZhDictionary *items,const ZhDictionary *shorts,const ZhDictionary *paragraphs,const char *s,size_t n,char *out,size_t cap){
  if(display_extra_dictionary){int r=zh_translate_exact(display_extra_dictionary,s,n,out,cap,NULL);if(r)return r;}
+ int condition=display_part_condition(items,shorts,paragraphs,s,n,out,cap);if(condition)return condition;
+ int combat=display_combat_name(items,shorts,paragraphs,s,n,out,cap);if(combat)return combat;
  int r=display_literal_base(items,shorts,paragraphs,s,n,out,cap);if(r)return r;
  if(n>2&&s[0]=='('&&s[n-1]==')'){
   char inner[2048];r=display_literal_base(items,shorts,paragraphs,s+1,n-2,inner,sizeof inner);
@@ -72,6 +102,20 @@ static int display_lookup(const ZhDictionary *items,const ZhDictionary *shorts,c
  const char *verbs[]={"Record","Schematic"};const char *labels[]={"记录","图纸"};
  for(unsigned i=0;i<2;i++){
   size_t k=strlen(verbs[i]),mark=k;if(n>k&&s[k]=='!')mark++;
+  /* Native truncation can remove the closing quote. Complete only an
+     unambiguous literal title, and keep the translated label within its footprint. */
+  size_t end=n;if(end&&s[end-1]=='"')end--;
+  if(end>mark+17&&!memcmp(s,verbs[i],k)&&s[mark]==' '&&s[mark+1]=='"'&&
+     !memcmp(s+end-3,"...",3)&&!memchr(s+mark+2,'"',end-mark-2)){
+   size_t prefix=end-mark-5;char arg[1024];
+   int known=zh_translate_unique_prefix(paragraphs,s+mark+2,prefix,arg,sizeof arg);
+   if(!known)known=zh_translate_unique_prefix(shorts,s+mark+2,prefix,arg,sizeof arg);
+   if(known==1){char staged[2048];int written=snprintf(staged,sizeof staged,"%s%s \"%s\"",labels[i],mark>k?"!":"",arg);
+    if(written<0||(size_t)written>=sizeof staged)return -1;
+    int width=display_columns(staged);if(width<0||(size_t)width>n)return 0;
+    if((size_t)written>=cap)return -1;memcpy(out,staged,(size_t)written+1);return 1;
+   }
+  }
   if(n>mark+3&&!memcmp(s,verbs[i],k)&&s[mark]==' '&&s[mark+1]=='"'&&s[n-1]=='"'&&!memchr(s+mark+2,'"',n-mark-3)){
    char arg[1024];size_t length=n-mark-3;int known=display_literal(items,shorts,paragraphs,s+mark+2,length,arg,sizeof arg);
    if(known!=1){if(length>=sizeof arg)return -1;memcpy(arg,s+mark+2,length);arg[length]=0;}

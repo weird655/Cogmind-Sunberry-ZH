@@ -55,7 +55,8 @@ static int display_bridge_impl(void *self,int x,int y,int width,int maxrows,int 
  if(columns<1||rows<1)return 0;
  /* Unscoped base consoles may be byte readback buffers. Keep them English
     until their readback boundary has an explicit Unicode owner. */
- if(mode>=2&&o[0]==va(0xc2ef14)&&!display_override_target)return 0;
+ int event_popup=mode==3&&display_origin_site==va(0x875329)&&o[0]==va(0xc2ef14)&&!o[5]&&align==1&&y==0&&x==(int)o[2]/2&&o[3]<=16&&width>0&&width<=(int)o[2];
+ if(mode>=2&&o[0]==va(0xc2ef14)&&!display_override_target&&!event_popup)return 0;
  display_busy=1;char translated[32768];int match;unsigned long long lookup_start=perf_now();
  if(display_override_target){size_t length=strlen(display_override_target);match=length<sizeof translated?1:-1;if(match==1)memcpy(translated,display_override_target,length+1);}
  else match=message_resolve(raw,n,translated,sizeof translated);
@@ -121,7 +122,9 @@ static void __attribute__((fastcall)) hooked_align_text(void *self,void *unused,
  (void)unused;int result;if(!display_bridge(self,x,y,0,0,align,1,s,&result))original_align_text(self,x,y,align,s);
 }
 static int __attribute__((fastcall)) hooked_align_paragraph(void *self,void *unused,int x,int y,int width,int maxrows,int align,void *s){
- (void)unused;int result;if(display_bridge(self,x,y,width,maxrows,align,3,s,&result))return result;return original_align_paragraph(self,x,y,width,maxrows,align,s);
+ (void)unused;int result;uintptr_t saved=display_origin_site;display_origin_site=(uintptr_t)__builtin_return_address(0);
+ int handled=display_bridge(self,x,y,width,maxrows,align,3,s,&result);display_origin_site=saved;
+ if(handled)return result;return original_align_paragraph(self,x,y,width,maxrows,align,s);
 }
 #ifdef DISPLAY_RESOURCE_PROBE
 static void display_fixture(void *parent){

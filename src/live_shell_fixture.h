@@ -22,6 +22,25 @@ static int live_fixture_context_install(void){
  return live_shell_patch_call(0x90d9e4,0x9b64f0,live_fixture_resolve)&&live_shell_patch_call(0x90da0d,0x9b64f0,live_fixture_resolve)&&live_shell_patch_call(0x90da14,0x45cb30,live_fixture_get_state)&&live_shell_patch_call(0x90e38d,0x9b64f0,live_fixture_resolve)&&live_shell_patch_call(0x90e3af,0x9b64f0,live_fixture_resolve)&&live_shell_patch_call(0x90e3b6,0x45cb30,live_fixture_get_state);
 }
 static const char *live_fixture_lore="Derelicts have been working to develop longer-range cannons for use by larger robots, likely to facilitate guerilla warfare tactics to reduce their generally enormous losses whenever they decide to enter [Complex 0b10]. The first known type, a version of the gauss cannon, is known as the slug cannon and certainly does significant damage for its weight, but at a reduced accuracy. The newer hypervelocity variant, the bore cannon, is even less accurate, but capable of penetrating multiple targets with a high chance of disabling whatever it penetrates.";
+static unsigned live_fixture_lore_index=255;
+#ifdef DSF_RESOURCE_PROBE
+static int live_fixture_select_dsf(void){
+ const char *dsf="Distributed [Storage] Facility. An area designated for storage of materials and components. Distribution serves two purposes, making local access to resources easier while also minimizing losses in the event that one is compromised. DSF entrances are temporarily sealed in the event that potential threats appear in the areas they serve.";
+ uint32_t *records=(void*)va(0xd35b58);unsigned count=safe_native_vector(records,8192);
+ for(unsigned i=0;i<count;i++){
+  void *record=((void**)records[0])[i];if(!readable(record,0xc0))continue;
+  for(unsigned off=0;off+24<=0xb0;off+=4){const char *raw;size_t n;
+   if(!plain_source((char*)record+off,&raw,&n))continue;
+   char decoded[16385];for(size_t k=0;k<n;k++){unsigned char c=raw[k];decoded[k]=c>='A'&&c<='Z'?'A'+(c-'A'+13)%26:c>='a'&&c<='z'?'a'+(c-'a'+13)%26:c;}decoded[n]=0;
+   if((n==3&&(!memcmp(raw,"DSF",3)||!memcmp(decoded,"DSF",3)))||
+      (n>=28&&(!memcmp(raw,"Distributed [Storage] Facili",28)||!memcmp(decoded,"Distributed [Storage] Facili",28)))){
+    live_fixture_lore=dsf;live_fixture_lore_index=i;fprintf(logfile,"DSF-NATIVE-RECORD index=%u field=%u\n",i,off);return 1;
+   }
+  }
+ }
+ fprintf(logfile,"DSF-NATIVE-RECORD unavailable=1 records=%u\n",count);return 0;
+}
+#endif
 static DWORD live_fixture_clock(void){typedef DWORD (__cdecl *Clock)(void);return (*(Clock*)va(0xb6143c))();}
 static void __attribute__((fastcall)) live_fixture_update(void *self,void *unused){(void)self;(void)unused;}
 /* A title-screen fixture has no gameplay selection panel. Do not run its
@@ -49,7 +68,7 @@ static void live_fixture_check(const char *phase,int chinese){
  errors+=!s||!s->complete||s->count!=2;
  #endif
  errors+=pending!=0;
- uint32_t *lore_vector=(void*)va(0xd35b58),*lore=((void**)lore_vector[0])[255],*expected=(void*)((char*)lore+0xb0);unsigned expected_count=safe_native_vector(expected,32);
+ uint32_t *lore_vector=(void*)va(0xd35b58),*lore=((void**)lore_vector[0])[live_fixture_lore_index],*expected=(void*)((char*)lore+0xb0);unsigned expected_count=safe_native_vector(expected,32);
  for(unsigned i=0;i<rows;i++){uint32_t *row=((void**)v[0])[i];if(!row)continue;
   unsigned width=row[2];for(unsigned x=0;x<width;x++){uint32_t token=*(uint32_t*)(row[4]+x*20+4);cjk+=token>=320;}
   uint32_t *children=(void*)((char*)row+0x70);unsigned count=safe_native_vector(children,32);
@@ -88,6 +107,9 @@ static void live_fixture(void *parent){
  if(!live_fixture_stage){
   if(GetTickCount()-probe_start<6000||!live_shell_idle())return;
   uint32_t *records=(void*)va(0xd35b58);if(safe_native_vector(records,8192)<=255){fprintf(logfile,"LIVE-FIXTURE-SKIP lore-table-unavailable\n");live_fixture_stage=4;return;}
+  #ifdef DSF_RESOURCE_PROBE
+  if(!live_fixture_select_dsf()){live_fixture_errors++;live_fixture_stage=4;fflush(logfile);ExitProcess(88);return;}
+  #endif
   if(!live_fixture_context_install()){fprintf(logfile,"LIVE-FIXTURE-ERROR mock-context-callsite-validation\n");live_fixture_errors++;live_fixture_stage=4;return;}
   #ifdef CONTENT_NATIVE_PROBE
   log_content_fixture(parent);
@@ -98,7 +120,7 @@ static void live_fixture(void *parent){
   memcpy(live_fixture_vtable,(void*)va(0xc36224),sizeof live_fixture_vtable);live_fixture_vtable[6]=(uintptr_t)live_fixture_update;*(void**)shell=live_fixture_vtable;
   ((NativeVoid)va(0x9b8e80))((char*)shell+0x74);((NativeVoid)va(0x9b8e80))((char*)shell+0x8c);((uint32_t*)shell)[0x70/4]=0;((uint32_t*)shell)[24]=3;((uint32_t*)shell)[0x9c/4]=live_fixture_clock();
   void *scratch=(*(NativeNew*)va(0xb6132c))(0x128);if(!scratch){live_fixture_errors++;live_fixture_close();return;}memset(scratch,0,0x128);((ConsoleCtor)va(0x48c060))(scratch,shell,46,200,0,0,0,1,-1);*(void**)((char*)shell+0x88)=scratch;
-  live_chinese=1;live_native_english=0;live_fixture_stage=1;live_fixture_send("Current Alert Level: Low",-1);live_fixture_send(live_fixture_lore,255);
+  live_chinese=1;live_native_english=0;live_fixture_stage=1;live_fixture_send("Current Alert Level: Low",-1);live_fixture_send(live_fixture_lore,(int)live_fixture_lore_index);
   #ifdef CONTENT_NATIVE_PROBE
   for(unsigned i=0;i<sizeof content_fixture_sources/sizeof content_fixture_sources[0];i++)live_fixture_send(content_fixture_sources[i],-1);
   #endif

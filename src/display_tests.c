@@ -15,6 +15,14 @@ int main(int argc,char **argv){
  ZhDictionary *paragraphs=zh_dictionary_load(argv[3],&count,error,sizeof error);CHECK(paragraphs&&count==16378);
  display_extra_dictionary=zh_dictionary_load(argv[4],&count,error,sizeof error);CHECK(display_extra_dictionary!=NULL);
  const struct {const char *source,*must,*preserve;} cases[]={
+  {"Record! \"Lightweight Power Sour...","轻型动力源","!"},
+ {"Light Angular Momentum Engine (11%)","轻型","(11%)"},
+ {"Carbon-fiber Leg (15%) x2","碳纤维腿","(15%) x2"},
+ {"Improved Heat Sink (3%) x2","改进型","(3%) x2"},
+ {"Huge Storage Unit! [1]","超大型存储单元","! [1]"},
+  {"Huge Storage Unit!","超大型存储单元","!"},
+  {"Assault Rifle(66-1=66%)","突击步枪","(66-1=66%)"},
+  {"Lgt. Assault Rifle(67-2=65%)","轻型突击步枪","(67-2=65%)"},
   {" E X P L O R E R ","探 险 家",NULL},{" A D V E N T U R E R ","冒 险 家",NULL},{" R O G U E ","浪 人",NULL},
   {" VIRUS DETECTED ","检出病毒",NULL},{" FRAGMENTED ","发生碎片",NULL},{" FAILED ","失败",NULL},{" SECURED ","已加固",NULL},{" STABLE ","稳定",NULL},{"SEQUENCE INITIATED","序列启动",NULL},{"PREPARING CONTROL OVERLAY","控制界面",NULL},{"Systems online...","系统",NULL},{"Loading variables...","变量",NULL},{"CORE=UNSTABLE","不稳定",NULL},{"Type","类型",NULL},{"Overview","概述",NULL},{"Integrity","耐久度",NULL},
   {"Standard","标准",NULL},{"Effect","效果",NULL},{"34 MATTER","物质","34"},
@@ -56,5 +64,12 @@ int main(int argc,char **argv){
  overlay="Programmers report to Factory Zone 2V.";CHECK(zh_translate_overlay(paragraphs,display_extra_dictionary,overlay,strlen(overlay),out,sizeof out,&overlay_rule)>0);CHECK(strstr(out,"2V"));CHECK(strstr(out,"工厂区域"));
  memset(out,0x53,sizeof out);CHECK(display_translate(items,shorts,paragraphs,"Unknown UI QA9283",17,out,sizeof out)==0);CHECK(out[0]==0x53);
  CHECK(display_translate(items,shorts,paragraphs,"Type",4,out,2)==-1);CHECK(out[0]==0x53);
+ const char *ambiguous="Lightweight ";memset(out,0x53,sizeof out);
+ CHECK(zh_translate_unique_prefix(paragraphs,ambiguous,strlen(ambiguous),out,sizeof out)==-2);CHECK(out[0]==0x53);
+ CHECK(zh_translate_unique_prefix(paragraphs,"Lightweight Power Sour",22,out,2)==-1);CHECK(out[0]==0x53);
+ const char *bad_combat[]={"Assault Rifle(foo%)","Assault Rifle(66%%)","Assault Rifle(66)","Unknown Rifle(66%)"};
+ for(unsigned i=0;i<4;i++){memset(out,0x53,sizeof out);CHECK(display_combat_name(items,shorts,paragraphs,bad_combat[i],strlen(bad_combat[i]),out,sizeof out)==0);CHECK(out[0]==0x53);}
+ const char *bad_condition[]={"Carbon-fiber Leg (101%)","Carbon-fiber Leg (-1%)","Carbon-fiber Leg (15%) x0","Carbon-fiber Leg (15%) x2tail"};
+ for(unsigned i=0;i<4;i++){memset(out,0x53,sizeof out);CHECK(display_part_condition(items,shorts,paragraphs,bad_condition[i],strlen(bad_condition[i]),out,sizeof out)==0);CHECK(out[0]==0x53);}
  zh_dictionary_free(items);zh_dictionary_free(shorts);zh_dictionary_free(paragraphs);printf("PASS %u checks: real UI gaps, hover, terminal states, detail text, capture names, fixed color columns, numbers and atomic fallback.\n",checks);return 0;
 }
