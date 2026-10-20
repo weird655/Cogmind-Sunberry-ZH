@@ -44,5 +44,16 @@ int main(int argc,char **argv){
  }
  const char *variants[]={"Huge Storage Unit","Huge Storage Unit!","Huge Storage Unit [1]","Huge Storage Unit! [1]"};
  for(unsigned i=0;i<4;i++){char named[32768],shown[32768];size_t n=strlen(variants[i]);CHECK(message_resolve_profile(MESSAGE_NAME,variants[i],n,named,sizeof named,NULL)==1);CHECK(strstr(named,"超大型存储单元"));CHECK(message_resolve(variants[i],n,shown,sizeof shown)==1);CHECK(!strcmp(named,shown));}
+ for(unsigned e=0;e<TEXT_ENTRY_COUNT;e++)for(unsigned i=0;i<sizeof sources/sizeof sources[0];i++){
+  const TextEntrySpec *spec=text_entry_spec((TextEntry)e);CHECK(spec&&spec->name);
+  const MessageProfile profiles[]={MESSAGE_DISPLAY,MESSAGE_TERMINAL,MESSAGE_REPAIR,MESSAGE_NAME};
+  char a[32768]="sentinel",b[32768]="sentinel";size_t ra=999,rb=999;
+  int direct=message_resolve_profile(profiles[spec->semantic],sources[i],strlen(sources[i]),a,sizeof a,&ra);
+  TextObject object={(TextEntry)e,sources[i],strlen(sources[i])};
+  CHECK(message_resolve_object(&object,b,sizeof b,&rb)==direct);CHECK(!strcmp(a,b)&&ra==rb);
+ }
+ TextObject invalid={(TextEntry)999,"A",1};strcpy(output,"unchanged");rule=123;
+ CHECK(message_resolve_object(&invalid,output,sizeof output,&rule)==-1);CHECK(!strcmp(output,"unchanged")&&rule==123);
+ CHECK(message_resolve_object(NULL,output,sizeof output,&rule)==-1);
  printf("PASS %u typed-set, alias, atomic commit, rule preservation and cross-path/layout checks\n",checks);return 0;
 }

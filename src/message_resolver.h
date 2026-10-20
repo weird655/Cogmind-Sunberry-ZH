@@ -4,6 +4,7 @@
    caller-specific dictionary order. Adapters own native layout and links. */
 #include "display_text.h"
 #include "repair_text.h"
+#include "text_context.h"
 typedef enum {MESSAGE_DISPLAY, MESSAGE_TERMINAL, MESSAGE_REPAIR, MESSAGE_NAME} MessageProfile;
 static int message_resolve_inner(MessageProfile profile,const char *source,size_t bytes,char *target,size_t capacity,size_t *rule){
  if(rule)*rule=(size_t)-5;
@@ -38,6 +39,21 @@ static int message_resolve_profile(MessageProfile profile,const char *source,siz
     adapter consumes one public success code; never leak 2 to ==1 callers. */
  if(result>0)result=1;
  MESSAGE_OBSERVE(profile,result,source,bytes);return result;
+}
+/* One typed boundary for registered native adapters. The registry owns policy;
+   callers cannot silently turn a NAME request into a sentence fallback. */
+#ifndef TEXT_OBJECT_OBSERVE
+#define TEXT_OBJECT_OBSERVE(object,result) ((void)0)
+#endif
+static inline int message_resolve_object(const TextObject *object,char *target,size_t capacity,size_t *rule){
+ if(!object||!object->source||!object->bytes||object->bytes>16384||memchr(object->source,0,object->bytes)||!target||!capacity||capacity>32768)return -1;
+ const TextEntrySpec *spec=text_entry_spec(object->entry);if(!spec)return -1;
+ static const MessageProfile profiles[]={MESSAGE_DISPLAY,MESSAGE_TERMINAL,MESSAGE_REPAIR,MESSAGE_NAME};
+ int result=message_resolve_profile(profiles[spec->semantic],object->source,object->bytes,target,capacity,rule);
+ TEXT_OBJECT_OBSERVE(object,result);return result;
+}
+static inline int message_resolve_entry(TextEntry entry,const char *source,size_t bytes,char *target,size_t capacity,size_t *rule){
+ TextObject object={entry,source,bytes};return message_resolve_object(&object,target,capacity,rule);
 }
 static inline int message_resolve(const char *source,size_t bytes,char *target,size_t capacity){return message_resolve_profile(MESSAGE_DISPLAY,source,bytes,target,capacity,NULL);}
 static inline int message_resolve_terminal(const char *source,size_t bytes,char *target,size_t capacity,size_t *rule){return message_resolve_profile(MESSAGE_TERMINAL,source,bytes,target,capacity,rule);}

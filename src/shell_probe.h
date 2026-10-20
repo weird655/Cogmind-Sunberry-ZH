@@ -79,7 +79,7 @@ static int write_owned_translation(void *self,int x,int y,void *s){
  else {
   if(command_scope)return 0;
   if(!plain_source(s,&source,&bytes))return 0;
-  match=message_resolve_terminal(source,bytes,translated,sizeof translated,&rule);if(match<=0)return 0;
+  match=message_resolve_entry(TEXT_ENTRY_TERMINAL_SHELL,source,bytes,translated,sizeof translated,&rule);if(match<=0)return 0;
   if(zh_plan(translated,strlen(translated),cols,1,&plan)){fprintf(logfile,"TRANSLATION-NOFIT bytes=%u columns=%d\n",(unsigned)strlen(translated),cols);return 0;}
  }
  if(!extend_demo_fonts()){zh_plan_free(&plan);return 0;}
@@ -170,7 +170,7 @@ static unsigned char __attribute__((fastcall)) hooked_events(void *self,void *un
 #ifdef EXPERIMENT_INJECT
 static void create_paragraph_probe(void *parent){
  const char *source="Aside from the options menu, there are many more interface features and behavior you can tweak in Cogmind's advanced.cfg file, the functionality of which is described in the manual under Advanced UI: Advanced Options.";
- char target[16384];size_t rule;ZhPlan plan={0};if(message_resolve_terminal(source,strlen(source),target,sizeof target,&rule)!=1||zh_plan(target,strlen(target),60,8,&plan))return;
+ char target[16384];size_t rule;ZhPlan plan={0};if(message_resolve_entry(TEXT_ENTRY_TERMINAL_SHELL,source,strlen(source),target,sizeof target,&rule)!=1||zh_plan(target,strlen(target),60,8,&plan))return;
  void *object=(*(NativeNew*)va(0xb6132c))(0x80);if(!object){zh_plan_free(&plan);return;}
  unsigned char carrier[28]={0};test_owner=object;test_creating=1;test_width=60;
  ((StringCtor)va(0x9af0f0))(carrier," ");((ShellFn)va(0x4b0b30))(object,(int)(uintptr_t)parent,carrier,1);((NativeVoid)va(0x9af350))(carrier);test_creating=0;test_owner=NULL;
@@ -199,7 +199,7 @@ static void create_shell_probe(void *parent){
  static int failure_created;if(failure_created||GetTickCount()-probe_start<5000)return;failure_created=1;
  for(unsigned i=0;i<2;i++){
   const char *query="Failed 40% (near success, encountered trap node).";char target[16384];size_t rule;
-  if(message_resolve_terminal(query,strlen(query),target,sizeof target,&rule)<=0)continue;
+  if(message_resolve_entry(TEXT_ENTRY_TERMINAL_SHELL,query,strlen(query),target,sizeof target,&rule)<=0)continue;
   ZhPlan plan={0};if(zh_plan(target,strlen(target),46,1,&plan))continue;test_width=0;
   for(size_t j=0;j<plan.count;j++)if(plan.runs[j].x+plan.runs[j].width>test_width)test_width=plan.runs[j].x+plan.runs[j].width;zh_plan_free(&plan);
   void *object=(*(NativeNew*)va(0xb6132c))(0x80);test_owner=object;test_creating=1;
@@ -214,7 +214,7 @@ static void create_shell_probe(void *parent){
  const char *samples[]={"Connecting with Door Terminal...","Connecting with QA-17/TEST...","Deep Access #37","`f0`Terminal is limited access only.`x`","Connecting with Door Terminal..."};
  for(unsigned i=0;i<5;i++){
   const char *query=samples[i];size_t len=strlen(query);if(i==3){query+=4;len-=7;}
-  char target[16384];size_t rule;if(message_resolve_terminal(query,len,target,sizeof target,&rule)<=0)continue;
+  char target[16384];size_t rule;if(message_resolve_entry(TEXT_ENTRY_TERMINAL_SHELL,query,len,target,sizeof target,&rule)<=0)continue;
   ZhPlan plan={0};if(zh_plan(target,strlen(target),44,1,&plan))continue;test_width=0;for(size_t j=0;j<plan.count;j++)if(plan.runs[j].x+plan.runs[j].width>test_width)test_width=plan.runs[j].x+plan.runs[j].width;zh_plan_free(&plan);
   if(i==4)test_width=44;
   void *object=(*(NativeNew*)va(0xb6132c))(0x80);if(!object)continue;test_owner=object;test_creating=1;

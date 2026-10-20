@@ -22,7 +22,7 @@ static int __attribute__((fastcall)) hooked_paragraph(void *self,void *unused,in
   if(linked_text_prepare(ctx->raw,ctx->raw_length,source,bytes,ctx->target,strlen(ctx->target),ctx->expected,cols,translated,sizeof translated)!=1||linked_plan_atomic(translated,strlen(translated),cols,128,&full)!=1){ctx->fallback="link-validation-or-layout";return original_paragraph(self,x,y,width,maxrows,s);}
   rule=(size_t)-2;fprintf(logfile,"LINK-LAYOUT expected=%u rows=%d\n",ctx->expected,full.used_rows);
  }else{
-  int match=message_resolve_profile(ctx->kind==1?MESSAGE_REPAIR:MESSAGE_TERMINAL,source,bytes,translated,sizeof translated,&rule);
+  int match=message_resolve_entry(ctx->kind==1?TEXT_ENTRY_REPAIR_SERIAL:TEXT_ENTRY_TERMINAL_SERIAL,source,bytes,translated,sizeof translated,&rule);
   if(match<=0){ctx->fallback=match==0?"no-rule":match==-2?"ambiguous-rule":"invalid-or-capacity";return original_paragraph(self,x,y,width,maxrows,s);}
   if(zh_plan(translated,strlen(translated),cols,128,&full)){ctx->fallback="unicode-layout-limit";return original_paragraph(self,x,y,width,maxrows,s);}
  }
@@ -54,7 +54,7 @@ static int linked_context_prepare(SerialContext *ctx,void *output,int link){
  void *lore=((void**)v[0])[link];if(!readable(lore,0xc0))return 0;unsigned count=safe_native_vector((char*)lore+0xb0,32);if(!count)return 0;
  uint32_t *links=(void*)((char*)lore+0xb0);
  for(unsigned i=0;i<count;i++){uint32_t *item=((void**)links[0])[i];if(!readable(item,8))return 0;ctx->ids[i]=item[1];}
- const char *source;size_t bytes,rule;if(!plain_source(output,&source,&bytes)||bytes>=sizeof ctx->raw||message_resolve_terminal(source,bytes,ctx->target,sizeof ctx->target,&rule)<=0)return 0;
+ const char *source;size_t bytes,rule;if(!plain_source(output,&source,&bytes)||bytes>=sizeof ctx->raw||message_resolve_entry(TEXT_ENTRY_TERMINAL_SERIAL,source,bytes,ctx->target,sizeof ctx->target,&rule)<=0)return 0;
  const ZhDictionary *link_dicts[]={display_extra_dictionary,item_dictionary,short_dictionary,dictionary};
  if(linked_target_restore(source,bytes,ctx->target,strlen(ctx->target),count,link_dicts,4,ctx->target,sizeof ctx->target)!=1)return 0;
  memcpy(ctx->raw,source,bytes);ctx->raw[bytes]=0;ctx->raw_length=bytes;ctx->expected=count;ctx->link=link;return 1;

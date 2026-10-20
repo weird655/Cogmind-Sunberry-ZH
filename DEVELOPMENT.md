@@ -30,3 +30,5 @@ GitHub 发布准备：保留 LICENSE/NOTICE，上传 assets/language-switch.gif�
 切换动画在 replacement_animation.h 中独立实现：按原坐标覆盖新字，未替换的旧字不重排；CJK 字形保持成对，长度不同时沿两种文本的共同占位范围推进。live_language.h 管理 UI 线程上的状态、原生合成与排队反向切换。无译表烟测包含动画与可逆文字缓存检查。
 
 原生动画取帧宏 ANIMATION_VISUAL_PROBE 需与 CAPTURE_DIAGNOSTICS 一起使用；LIVE_RAPID_PROBE 用于 LIVE_RESOURCE_PROBE / CONTENT_NATIVE_PROBE 的排队反向切换测试。这些测试宏均不得放入正式发行核心。
+
+入口集合、文本对象和本轮迁移范围见 [文本架构](TEXT_ARCHITECTURE.md)。
