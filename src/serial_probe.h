@@ -3,7 +3,7 @@ typedef int (__attribute__((thiscall)) *ParagraphFn)(void*,int,int,int,int,void*
 typedef void* (__attribute__((thiscall)) *ExtractFn)(void*,void*,const int*,unsigned);
 typedef void (__attribute__((thiscall)) *CommandFn)(void*,void*,void*,int,int,int);
 static ParagraphFn original_paragraph;static ExtractFn original_extract;static CommandFn original_command;
-typedef struct {void *shell,*console;ZhPlan *rows;int count,kind,link;unsigned expected,before;uint32_t ids[32];size_t rule,raw_length;char raw[16385],target[16385],prefix[128];const char *fallback;} SerialContext;
+typedef struct {void *shell,*console;ZhPlan *rows;int count,kind,link,record_index;unsigned expected,before;uint32_t ids[32];RecordBinding binding;int bound;size_t rule,raw_length;char raw[16385],target[16385],prefix[128];const char *fallback;} SerialContext;
 static _Thread_local SerialContext *serial_context;
 static unsigned serial_layouts,serial_extracts;
 static void serial_context_free(SerialContext *ctx){if(ctx->rows){for(int i=0;i<ctx->count;i++)zh_plan_free(&ctx->rows[i]);free(ctx->rows);ctx->rows=NULL;}}
@@ -22,9 +22,10 @@ static int __attribute__((fastcall)) hooked_paragraph(void *self,void *unused,in
   if(linked_text_prepare(ctx->raw,ctx->raw_length,source,bytes,ctx->target,strlen(ctx->target),ctx->expected,cols,translated,sizeof translated)!=1||linked_plan_atomic(translated,strlen(translated),cols,128,&full)!=1){ctx->fallback="link-validation-or-layout";return original_paragraph(self,x,y,width,maxrows,s);}
   rule=(size_t)-2;fprintf(logfile,"LINK-LAYOUT expected=%u rows=%d\n",ctx->expected,full.used_rows);
  }else{
-  int match=message_resolve_entry(ctx->kind==1?TEXT_ENTRY_REPAIR_SERIAL:TEXT_ENTRY_TERMINAL_SERIAL,source,bytes,translated,sizeof translated,&rule);
+  TextObject object={ctx->kind==1&&ctx->record_index<0?TEXT_ENTRY_REPAIR_SERIAL:TEXT_ENTRY_TERMINAL_SERIAL,source,bytes,ctx->bound?&ctx->binding:NULL};
+  int match=message_resolve_object(&object,translated,sizeof translated,&rule);
   if(match<=0){ctx->fallback=match==0?"no-rule":match==-2?"ambiguous-rule":"invalid-or-capacity";return original_paragraph(self,x,y,width,maxrows,s);}
-  if(message_plan_entry(ctx->kind==1?TEXT_ENTRY_REPAIR_SERIAL:TEXT_ENTRY_TERMINAL_SERIAL,translated,strlen(translated),cols,128,&full)){ctx->fallback="unicode-layout-limit";return original_paragraph(self,x,y,width,maxrows,s);}
+  if(message_plan_entry(ctx->kind==1&&ctx->record_index<0?TEXT_ENTRY_REPAIR_SERIAL:TEXT_ENTRY_TERMINAL_SERIAL,translated,strlen(translated),cols,128,&full)){ctx->fallback="unicode-layout-limit";return original_paragraph(self,x,y,width,maxrows,s);}
  }
  int count=full.used_rows;ZhPlan *rows=calloc(count?count:1,sizeof *rows);int ready=rows&&count>0&&count<=(int)(OWNER_LIMIT-owner_count());
  for(int i=0;ready&&i<count;i++)if(zh_plan_row(&full,i,&rows[i]))ready=0;
@@ -47,14 +48,23 @@ static unsigned safe_native_vector(void *v,unsigned limit){
  return n<=limit&&(!n||readable((void*)p[0],n*4))?n:0;
 }
 static int linked_context_prepare(SerialContext *ctx,void *output,int link){
- if(link<0||*(unsigned char*)va(0xd28c8a)||*(uint32_t*)va(0xcf4738))return 0;
+ if(link<0)return 0;
+ uint32_t *v=(void*)va(0xd35b58);unsigned total=safe_native_vector(v,8192);if((unsigned)link>=total)return 0;
+ void *lore=((void**)v[0])[link];if(!readable(lore,0xc0))return 0;
+ uint32_t *links=(void*)((char*)lore+0xb0);
+ if(links[1]<links[0]||(links[1]-links[0])%4||links[1]-links[0]>32*4||
+    (links[1]!=links[0]&&!readable((void*)(uintptr_t)links[0],links[1]-links[0])))return 0;
+ unsigned count=(links[1]-links[0])/4;
+ const char *source;size_t bytes,rule;if(!plain_source(output,&source,&bytes)||bytes>=sizeof ctx->raw)return 0;
+ ctx->record_index=link;ctx->bound=native_terminal_record_binding(link,source,bytes,&ctx->binding);
+ /* A valid record with zero links is ordinary prose, not an unsupported link.
+    Native options may also render the same record with links disabled. */
+ if(!count||*(unsigned char*)va(0xd28c8a)||*(uint32_t*)va(0xcf4738))return 1;
  const char *marker;size_t n;
  if(!plain_source((void*)va(0xd2ed44),&marker,&n)||n!=1||marker[0]!='['||!plain_source((void*)va(0xd2f26c),&marker,&n)||n!=1||marker[0]!=']')return 0;
- uint32_t *v=(void*)va(0xd35b58);unsigned total=safe_native_vector(v,8192);if((unsigned)link>=total)return 0;
- void *lore=((void**)v[0])[link];if(!readable(lore,0xc0))return 0;unsigned count=safe_native_vector((char*)lore+0xb0,32);if(!count)return 0;
- uint32_t *links=(void*)((char*)lore+0xb0);
  for(unsigned i=0;i<count;i++){uint32_t *item=((void**)links[0])[i];if(!readable(item,8))return 0;ctx->ids[i]=item[1];}
- const char *source;size_t bytes,rule;if(!plain_source(output,&source,&bytes)||bytes>=sizeof ctx->raw||message_resolve_entry(TEXT_ENTRY_TERMINAL_SERIAL,source,bytes,ctx->target,sizeof ctx->target,&rule)<=0)return 0;
+ TextObject object={TEXT_ENTRY_TERMINAL_SERIAL,source,bytes,ctx->bound?&ctx->binding:NULL};
+ if(message_resolve_object(&object,ctx->target,sizeof ctx->target,&rule)<=0)return 0;
  const ZhDictionary *link_dicts[]={display_extra_dictionary,item_dictionary,short_dictionary,dictionary};
  if(linked_target_restore(source,bytes,ctx->target,strlen(ctx->target),count,link_dicts,4,ctx->target,sizeof ctx->target)!=1)return 0;
  memcpy(ctx->raw,source,bytes);ctx->raw[bytes]=0;ctx->raw_length=bytes;ctx->expected=count;ctx->link=link;return 1;
@@ -77,7 +87,7 @@ static void __attribute__((fastcall)) hooked_command(void *self,void *unused,voi
  (void)unused;live_shell_capture_command(self,command,output,kind,link,spoken);fprintf(logfile,"REAL-COMMAND-BEGIN shell=%p kind=%d link=%d spoken=%d owners=%u\n",self,kind,link,spoken,owner_count());
  if(kind==1&&link>=0){fprintf(logfile,"LINK-CANDIDATE index=%d numeric=%u disabled=%u\n",link,*(unsigned char*)va(0xd28c8a),*(uint32_t*)va(0xcf4738));audit_native_string("LINK-OPEN-MARKER",(void*)va(0xd2ed44));audit_native_string("LINK-CLOSE-MARKER",(void*)va(0xd2f26c));}
  audit_native_string("REAL-COMMAND-INPUT",command);audit_native_string("REAL-COMMAND-OUTPUT",output);fflush(logfile);
- SerialContext ctx={0};ctx.link=-1;SerialContext *saved_ctx=serial_context;ZhPlan *saved_plan=queue_pending_row;void *saved_parent=queue_pending_parent;size_t saved_rule=queue_pending_rule;
+ SerialContext ctx={0};ctx.link=-1;ctx.record_index=-1;SerialContext *saved_ctx=serial_context;ZhPlan *saved_plan=queue_pending_row;void *saved_parent=queue_pending_parent;size_t saved_rule=queue_pending_rule;
  int base_eligible=live_chinese&&!live_native_english&&!saved_ctx&&(kind==1||kind==2)&&spoken==0&&live_shell_is_valid(self);
  int eligible=base_eligible&&(link==-1||(kind==1&&linked_context_prepare(&ctx,output,link)));
  ctx.fallback=eligible?"paragraph-path-not-used":base_eligible?"link-precheck":"scope-kind-or-spoken";
@@ -112,7 +122,7 @@ static void serial_create(void *parent){
  ((ConsoleCtor)va(0x48c060))(queue_fixture,parent,60,8,2,12,0,0,20);memcpy(serial_vtable,*(void**)queue_fixture,sizeof serial_vtable);serial_vtable[6]=(uintptr_t)serial_native_update;*(void**)queue_fixture=serial_vtable;
  ((NativeVoid)va(0x9b8e80))((char*)queue_fixture+0x74);((NativeVoid)va(0x9b8e80))((char*)queue_fixture+0x8c);((uint32_t*)queue_fixture)[24]=3;((uint32_t*)queue_fixture)[0x9c/4]=serial_clock();
  serial_scratch=(*(NativeNew*)va(0xb6132c))(0x128);((ConsoleCtor)va(0x48c060))(serial_scratch,queue_fixture,46,1,0,0,0,1,-1);*(void**)((char*)queue_fixture+0x88)=serial_scratch;
- serial_cycle++;serial_born=GetTickCount();SerialContext ctx={0};ctx.link=-1;ctx.shell=queue_fixture;ctx.console=serial_scratch;ctx.kind=1;serial_context=&ctx;
+ serial_cycle++;serial_born=GetTickCount();SerialContext ctx={0};ctx.link=-1;ctx.record_index=-1;ctx.shell=queue_fixture;ctx.console=serial_scratch;ctx.kind=1;serial_context=&ctx;
  const char *source="Scanning Imp. Spread Laser...\nReady to Repair:\n  Imp. Spread Laser\n  Rating: 4p\n  Time: 23";
  #ifdef TERMINAL_CORPUS_PROBE
  const char *corpus_sources[]={"NOTICE: Protoforge disruption unresolved, advanced fortification protocols active.","ALERT: LRC-V3 rejoined 0b10. Threat protocols amended."};

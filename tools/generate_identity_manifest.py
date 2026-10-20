@@ -8,7 +8,7 @@ def text_hash(raw):
  for b in raw:h=((h^b)*1099511628211)&0xffffffffffffffff
  return h
 
-def generate(extracted,data_dir,output):
+def generate(extracted,data_dir,output,terminal_export=None):
  with extracted.open(encoding='utf-8-sig',newline='') as f:records=identify(list(csv.DictReader(f,delimiter='\t')),data_dir)
  packed=(data_dir/'particles.bin').read_bytes();data=gzip.decompress(packed);names={}
  for row in records:
@@ -21,6 +21,23 @@ def generate(extracted,data_dir,output):
  lines=['/* Generated private provenance, no raw English or translated text. */','#define RECORD_PARTICLES_SHA256 "'+hashlib.sha256(packed).hexdigest()+'"','#define RECORD_NAME_COUNT 1359','static const RecordName record_names[RECORD_NAME_COUNT]={']
  for i in sorted(names):
   row,raw=names[i];lines.append('{%du,%du,%du,%du,UINT64_C(0x%016x),"%s"},'%(i,row['prefix_offset'],row['payload_offset'],len(raw),text_hash(raw),row['identity']))
- lines.append('};');output.write_text('\n'.join(lines)+'\n',encoding='utf-8');return len(names)
+ lines.append('};')
+ if terminal_export:
+  from terminal_records import parse_bank,compare_native
+  bank=parse_bank(packed)
+  with terminal_export.open(encoding='utf-8-sig',newline='') as f:exported=list(csv.DictReader(f,delimiter='\t'))
+  compare_native(bank,exported)
+  decoded={(int(row['ordinal']),int(row['field_offset'])):bytes.fromhex(row['decoded_hex']) for row in exported}
+  lines.extend(['#define RECORD_TERMINAL_COUNT 917','static const TerminalRecordName terminal_fields[917][4]={'])
+  for record in bank['records']:
+   entries=[]
+   for field in record['fields'][1:]:
+    raw=bytes.fromhex(field['raw_hex']);plain=decoded[(record['ordinal'],field['field_offset'])]
+    location=('particles.bin',bank['source_sha256'],field['prefix_offset'],field['payload_offset'])
+    identity=hashlib.sha256(json.dumps(location,separators=(',',':')).encode()).hexdigest()
+    entries.append('{{%du,%du,%du,%du,UINT64_C(0x%016x),"%s"},UINT64_C(0x%016x),%du,%du}'%(record['ordinal'],field['prefix_offset'],field['payload_offset'],len(raw),text_hash(raw),identity,text_hash(plain),len(plain),field['field_offset']))
+   lines.append('{'+','.join(entries)+'},')
+  lines.append('};')
+ output.write_text('\n'.join(lines)+'\n',encoding='utf-8');return len(names)
 if __name__=='__main__':
- p=argparse.ArgumentParser();p.add_argument('--extracted',type=Path,required=True);p.add_argument('--data-dir',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args();print('Verified identity metadata:',generate(a.extracted,a.data_dir,a.output))
+ p=argparse.ArgumentParser();p.add_argument('--extracted',type=Path,required=True);p.add_argument('--data-dir',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--terminal-native-export',type=Path);a=p.parse_args();print('Verified identity metadata:',generate(a.extracted,a.data_dir,a.output,a.terminal_native_export))

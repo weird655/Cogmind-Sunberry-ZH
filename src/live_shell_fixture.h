@@ -34,6 +34,7 @@ static void record_identity_fixture(void *parent){
  fprintf(logfile,"RECORD-IDENTITY-FIXTURE created-native-item=1 ordinal=%lu bound=%d stale-rejected=%d errors=%u isolated-process-only=1\n",(unsigned long)binding.ordinal,bound,!stale,errors);fflush(logfile);
 }
 #endif
+#include "terminal_resource_fixture.h"
 static DWORD live_fixture_born;
 static uint32_t live_fixture_machine[64],live_fixture_ref[2],live_fixture_state[8];
 static void* __attribute__((fastcall)) live_fixture_resolve(void *self,void *unused){
@@ -89,11 +90,14 @@ static void live_fixture_send(const char *text,int link){
 }
 static void live_fixture_check(const char *phase,int chinese){
  void *self=live_shell_fixture_owner;LiveShell *s=live_shell_get(self,0);unsigned errors=0,cjk=0,links=0,rows=vector_count((char*)self+0x74),pending=vector_count((char*)self+0x8c);uint32_t *v=(void*)((char*)self+0x74);
+ unsigned expected_events=2;
  #ifdef CONTENT_NATIVE_PROBE
- errors+=!s||!s->complete||s->count!=2+sizeof content_fixture_sources/sizeof content_fixture_sources[0];
- #else
- errors+=!s||!s->complete||s->count!=2;
+ expected_events+=sizeof content_fixture_sources/sizeof content_fixture_sources[0];
  #endif
+ #ifdef TERMINAL_RESOURCE_PROBE
+ expected_events++;
+ #endif
+ errors+=!s||!s->complete||s->count!=expected_events;
  errors+=pending!=0;
  uint32_t *lore_vector=(void*)va(0xd35b58),*lore=((void**)lore_vector[0])[live_fixture_lore_index],*expected=(void*)((char*)lore+0xb0);unsigned expected_count=safe_native_vector(expected,32);
  for(unsigned i=0;i<rows;i++){uint32_t *row=((void**)v[0])[i];if(!row)continue;
@@ -138,6 +142,9 @@ static void live_fixture(void *parent){
  if(!live_fixture_stage){
   if(GetTickCount()-probe_start<6000||!live_shell_idle())return;
   uint32_t *records=(void*)va(0xd35b58);if(safe_native_vector(records,8192)<=255){fprintf(logfile,"LIVE-FIXTURE-SKIP lore-table-unavailable\n");live_fixture_stage=4;return;}
+  #ifdef TERMINAL_RESOURCE_PROBE
+  terminal_resource_fixture();
+  #endif
   #ifdef DSF_RESOURCE_PROBE
   if(!live_fixture_select_dsf()){live_fixture_errors++;live_fixture_stage=4;fflush(logfile);ExitProcess(88);return;}
   #endif
@@ -155,6 +162,9 @@ static void live_fixture(void *parent){
  record_identity_fixture(parent);
  #endif
  live_chinese=1;live_native_english=0;live_fixture_stage=1;live_fixture_send("Current Alert Level: Low",-1);live_fixture_send(live_fixture_lore,(int)live_fixture_lore_index);
+ #ifdef TERMINAL_RESOURCE_PROBE
+ live_fixture_send("Holding area for both raw materials and components based on old technology.",32);
+ #endif
   #ifdef CONTENT_NATIVE_PROBE
   for(unsigned i=0;i<sizeof content_fixture_sources/sizeof content_fixture_sources[0];i++)live_fixture_send(content_fixture_sources[i],-1);
   #endif

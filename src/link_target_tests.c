@@ -14,5 +14,9 @@ int main(int argc,char **argv){
  for(unsigned i=0;i<3;i++){memset(out,0x53,sizeof out);CHECK(linked_target_restore(raw,strlen(raw),bad[i],strlen(bad[i]),1,dicts,2,out,sizeof out)==0);CHECK(out[0]==0x53);}
  memset(out,0x53,sizeof out);CHECK(linked_target_restore(raw,strlen(raw),target,strlen(target),1,dicts,2,out,2)==-1);CHECK(out[0]==0x53);
  strcpy(out,target);CHECK(linked_target_restore(raw,strlen(raw),out,strlen(out),1,dicts,2,out,sizeof out)==1);CHECK(strstr(out,"[存储]"));
+ const char *auth="Requires an [Authchip].",*retained="需要 Authchip 才能继续。";
+ CHECK(linked_target_restore(auth,strlen(auth),retained,strlen(retained),1,dicts,2,out,sizeof out)==1);CHECK(strstr(out,"[Authchip]"));
+ const char *unsafe[]={"Authchip Authchip","MyAuthchip","Authchip2","_Authchip","Authchip_","未保留术语"};
+ for(unsigned i=0;i<sizeof unsafe/sizeof unsafe[0];i++){strcpy(out,"sentinel");CHECK(!linked_target_restore(auth,strlen(auth),unsafe[i],strlen(unsafe[i]),1,dicts,2,out,sizeof out));CHECK(!strcmp(out,"sentinel"));}
  zh_dictionary_free(para);zh_dictionary_free(shorts);puts("PASS DSF real corpus, native link preparation, atomic layout, ambiguity and capacity guards");return 0;
 }

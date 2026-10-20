@@ -4,6 +4,7 @@ r=Path(__file__).resolve().parent
 parser=argparse.ArgumentParser(description='Build the exact-version Cogmind translation adapter; no game/data redistribution.')
 parser.add_argument('--translations',type=Path)
 parser.add_argument('--identity-extracted',type=Path,help='Optional schema-extracted TSV for verified item record binding')
+parser.add_argument('--terminal-native-export',type=Path,help='Optional verified native terminal field export for physical record binding')
 parser.add_argument('--game-data',type=Path,help='Read-only matching original data directory')
 parser.add_argument('--smoke',action='store_true',help='Run synthetic tests without translation tables or a game installation')
 parser.add_argument('--tests',action='store_true',help='Run all current-corpus regression tests before building')
@@ -22,10 +23,11 @@ names=['zh_para.tsv','item_names.tsv','zh_trans.tsv','zh_extra.tsv','runtime_pat
 if d is None or any(not (d/n).is_file() for n in names):parser.error('--translations must name a directory containing the five required TSV files.')
 if a.tests:
  os.environ['COGMIND_TRANSLATION_DIR']=str(d);run([sys.executable,r/'verify.py'])
+if a.terminal_native_export and not a.identity_extracted:parser.error('--terminal-native-export requires --identity-extracted')
 identity_flags=[]
 if a.identity_extracted:
  if not a.game_data:parser.error('--identity-extracted requires --game-data')
- run([sys.executable,r/'tools/generate_identity_manifest.py','--extracted',a.identity_extracted.resolve(),'--data-dir',a.game_data.resolve(),'--output',out/'record_identity_generated.h'])
+ run([sys.executable,r/'tools/generate_identity_manifest.py','--extracted',a.identity_extracted.resolve(),'--data-dir',a.game_data.resolve(),'--output',out/'record_identity_generated.h',*(['--terminal-native-export',a.terminal_native_export.resolve()] if a.terminal_native_export else [])])
  identity_flags=['-DRECORD_IDENTITY_MANIFEST','-I'+str(out)]
 core=out/'native_zh.dll'
 run([cc,'-O2','-Wall','-Wextra','-Werror','-DCHINESE_DEMO','-DSHELL_PROBE',*identity_flags,'-shared',r/'src/probe.c',r/'src/text_core.c',r/'src/glyph_registry.c','-lgdi32','-lbcrypt','-Wl,--kill-at','-o',core])

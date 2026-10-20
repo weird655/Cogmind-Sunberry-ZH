@@ -2,6 +2,7 @@
 #define COGMIND_NATIVE_RECORD_BINDING_H
 #ifdef RECORD_IDENTITY_MANIFEST
 #include <bcrypt.h>
+typedef struct {RecordName stored;uint64_t decoded_hash;uint32_t decoded_length,field;} TerminalRecordName;
 #include "record_identity_generated.h"
 static int record_manifest_ready(void){
  static int checked,ready;if(checked)return ready;checked=1;
@@ -30,7 +31,31 @@ static int native_record_binding(uint32_t handle,RecordBinding *out){
  const char *text=name[5]>=16?(void*)(uintptr_t)name[0]:(void*)name;if(!readable(text,name[4]))return 0;
  return record_binding_verify(handle,*gen,item[2],pointers[ordinal],ordinal,&record_names[ordinal],text,name[4],out);
 }
+/* A terminal request carries the actual lore bank index. Its original encoded
+   field and decoded output must both match the verified, version-pinned record.
+   Identical fields are ambiguous: do not invent a field identity. */
+static int native_terminal_record_binding(int index,const char *source,size_t bytes,RecordBinding *out){
+#ifdef RECORD_TERMINAL_COUNT
+ if(index<0||index>=RECORD_TERMINAL_COUNT||!source||!bytes||!out||!record_manifest_ready())return 0;
+ uint32_t *bank=(void*)va(0xd35b58);if(!readable(bank,12)||bank[1]<bank[0]||bank[1]-bank[0]!=RECORD_TERMINAL_COUNT*4||!readable((void*)(uintptr_t)bank[0],RECORD_TERMINAL_COUNT*4))return 0;
+ uint32_t pointer=((uint32_t*)(uintptr_t)bank[0])[index];uint32_t *record=(void*)(uintptr_t)pointer;if(!readable(record,0xc0)||record[0]!=(uint32_t)index)return 0;
+ uint64_t decoded=record_text_hash(source,bytes);int have=0;RecordBinding staged={0};
+ for(unsigned i=0;i<4;i++){
+  const TerminalRecordName *field=&terminal_fields[index][i];if(field->decoded_length!=bytes||field->decoded_hash!=decoded)continue;
+  uint32_t *str=(void*)(uintptr_t)(pointer+field->field);if(str[4]!=field->stored.length||str[4]>str[5]||str[4]>16384)continue;
+  const char *raw=str[5]<16?(void*)str:(void*)(uintptr_t)str[0];if(!readable(raw,str[4]?str[4]:1)||record_text_hash(raw,str[4])!=field->stored.text_hash)continue;
+  if(have)return 0;have=1;
+  /* For this entry, runtime key is a bank record pointer, not an item handle. */
+  staged=(RecordBinding){pointer,pointer,(uint32_t)index,field->stored.prefix,field->stored.payload,field->stored.physical_id};
+ }
+ if(!have)return 0;*out=staged;return 1;
+#else
+ (void)index;(void)source;(void)bytes;(void)out;return 0;
+#endif
+}
+
 #else
 static int native_record_binding(uint32_t handle,RecordBinding *out){(void)handle;(void)out;return 0;}
+static int native_terminal_record_binding(int index,const char *source,size_t bytes,RecordBinding *out){(void)index;(void)source;(void)bytes;(void)out;return 0;}
 #endif
 #endif

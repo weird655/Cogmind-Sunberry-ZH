@@ -35,9 +35,21 @@ static inline int linked_target_restore(const char *raw,size_t rn,const char *ta
   size_t begin=source[i].begin+1,end=source[i].end-1;if(raw[begin]=='!')begin++;
   char label[1024];int match=0;
   for(size_t d=0;d<nd&&!match;d++)if(dicts[d])match=zh_translate_exact(dicts[d],raw+begin,end-begin,label,sizeof label,NULL);
-  if(match!=1||!label[0]||strpbrk(label,"[]\n\r`")){free(text);return 0;}
-  char *at=strstr(text,label);size_t length=strlen(label);
-  if(!at||strstr(at+1,label)||(size_t)(at-text)<previous){free(text);return 0;}
+  char *at=NULL;size_t length=0;
+  if(match==1&&label[0]&&!strpbrk(label,"[]\n\r`")){
+   at=strstr(text,label);length=strlen(label);
+   if(at&&(strstr(at+1,label)||(size_t)(at-text)<previous))at=NULL;
+  }
+  /* A reviewed paragraph may retain the original technical term. Accept it
+     only once, at ASCII word boundaries; never guess a translated synonym. */
+  if(!at){
+   length=end-begin;if(!length||length>=sizeof label){free(text);return 0;}
+   memcpy(label,raw+begin,length);label[length]=0;at=strstr(text,label);
+   if(!at||strstr(at+1,label)||(size_t)(at-text)<previous){free(text);return 0;}
+   unsigned char left=at==text?0:(unsigned char)at[-1],right=(unsigned char)at[length];
+   if((left>='A'&&left<='Z')||(left>='a'&&left<='z')||(left>='0'&&left<='9')||left=='_'||
+      (right>='A'&&right<='Z')||(right>='a'&&right<='z')||(right>='0'&&right<='9')||right=='_'){free(text);return 0;}
+  }
   found[i].begin=(size_t)(at-text);found[i].end=found[i].begin+length;previous=found[i].end;
  }
  size_t size=tn+expected*2;if(size>=cap||size>LINKED_TEXT_LIMIT){free(text);return -1;}
