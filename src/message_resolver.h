@@ -7,6 +7,19 @@
 #include "text_context.h"
 static _Thread_local unsigned message_object_depth;
 typedef enum {MESSAGE_DISPLAY, MESSAGE_TERMINAL, MESSAGE_REPAIR, MESSAGE_NAME} MessageProfile;
+/* Native effect text sometimes prefixes a whole equipment category. Resolve
+   that typed prefix independently; never split arbitrary prose on a colon. */
+static int message_part_effect(const char *source,size_t bytes,char *out,size_t cap){
+ const char *prefixes[]={"Light Treads: ","Medium Treads: ","Heavy Treads: ","Treads: "};
+ const char *labels[]={"轻型履带：","中型履带：","重型履带：","履带："};
+ for(unsigned i=0;i<4;i++){
+  size_t prefix=strlen(prefixes[i]);if(bytes<=prefix||memcmp(source,prefixes[i],prefix))continue;
+  char effect[32768];int r=terminal_translate(dictionary,short_dictionary,display_extra_dictionary,source+prefix,bytes-prefix,effect,sizeof effect,NULL);
+  if(r<=0)return r;size_t a=strlen(labels[i]),b=strlen(effect);if(a+b>=cap)return -1;
+  memcpy(out,labels[i],a);memcpy(out+a,effect,b+1);return 1;
+ }
+ return 0;
+}
 static int message_resolve_inner(MessageProfile profile,const char *source,size_t bytes,char *target,size_t capacity,size_t *rule){
  if(rule)*rule=(size_t)-5;
  if(profile==MESSAGE_NAME)return canonical_item_name_translate(display_extra_dictionary,item_dictionary,short_dictionary,dictionary,source,bytes,target,capacity);
@@ -19,7 +32,9 @@ static int message_resolve_inner(MessageProfile profile,const char *source,size_
   int result=terminal_translate(dictionary,short_dictionary,display_extra_dictionary,source,bytes,target,capacity,rule);
   if(result!=0)return result;
  }
- int result=display_translate(item_dictionary,short_dictionary,dictionary,source,bytes,target,capacity);
+ int result=message_part_effect(source,bytes,target,capacity);
+ if(result!=0)return result;
+ result=display_translate(item_dictionary,short_dictionary,dictionary,source,bytes,target,capacity);
  if(result!=0)return result;
  if(profile!=MESSAGE_DISPLAY)return 0;
  return terminal_translate(dictionary,short_dictionary,display_extra_dictionary,source,bytes,target,capacity,rule);

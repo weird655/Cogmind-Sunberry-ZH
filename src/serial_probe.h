@@ -88,7 +88,7 @@ static void __attribute__((fastcall)) hooked_command(void *self,void *unused,voi
  if(kind==1&&link>=0){fprintf(logfile,"LINK-CANDIDATE index=%d numeric=%u disabled=%u\n",link,*(unsigned char*)va(0xd28c8a),*(uint32_t*)va(0xcf4738));audit_native_string("LINK-OPEN-MARKER",(void*)va(0xd2ed44));audit_native_string("LINK-CLOSE-MARKER",(void*)va(0xd2f26c));}
  audit_native_string("REAL-COMMAND-INPUT",command);audit_native_string("REAL-COMMAND-OUTPUT",output);fflush(logfile);
  SerialContext ctx={0};ctx.link=-1;ctx.record_index=-1;SerialContext *saved_ctx=serial_context;ZhPlan *saved_plan=queue_pending_row;void *saved_parent=queue_pending_parent;size_t saved_rule=queue_pending_rule;
- int base_eligible=live_chinese&&!live_native_english&&!saved_ctx&&(kind==1||kind==2)&&spoken==0&&live_shell_is_valid(self);
+ int base_eligible=live_chinese&&!live_native_english&&!saved_ctx&&(kind==1||kind==2||(kind==3&&link==-1))&&spoken==0&&live_shell_is_valid(self);
  int eligible=base_eligible&&(link==-1||(kind==1&&linked_context_prepare(&ctx,output,link)));
  ctx.fallback=eligible?"paragraph-path-not-used":base_eligible?"link-precheck":"scope-kind-or-spoken";
  queue_pending_row=NULL;queue_pending_parent=NULL;queue_pending_rule=0;serial_context=NULL;command_scope++;

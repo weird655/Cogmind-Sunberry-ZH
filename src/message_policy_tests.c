@@ -11,7 +11,7 @@ int main(int argc,char **argv){
  repair_short_dictionary=short_dictionary;repair_extra_dictionary=display_extra_dictionary;repair_paragraph_dictionary=dictionary;
  terminal_item_dictionary=item_dictionary;terminal_runtime_dictionary=zh_dictionary_load(argv[5],&count,error,sizeof error);
  CHECK(dictionary&&short_dictionary&&display_extra_dictionary&&item_dictionary&&terminal_runtime_dictionary);
- const char *sources[]={"Lgt. Ion Engine","Beam Cannon","Sunberry Melta Gun","Retrieving latest reported positions...\nFound 6 active transport squads.\nDownloaded coordinate data.","Scanning Imp. Spread Laser...\nReady to Repair:\n  Imp. Spread Laser\n  Rating: 4p\n  Time: 23","Unknown untranslated message 93276"};
+ const char *sources[]={"Lgt. Ion Engine","Beam Cannon","Sunberry Melta Gun","Retrieving latest reported positions...\nFound 6 active transport squads.\nDownloaded coordinate data.","Scanning Imp. Spread Laser...\nReady to Repair:\n  Imp. Spread Laser\n  Rating: 4p\n  Time: 23","Unknown untranslated message 93276","Light Treads: -1 recoil from each weapon, and immunity to knockback.","10% chance to crush robots when ramming them. Cannot crush targets of large or greater size, or those with more than 60 core integrity.\n <stacks, capped at 40%>","Unpacking derelicts EP-RG9(u)","Inventory empty."};
  for(unsigned i=0;i<sizeof sources/sizeof sources[0];i++)for(int profile=0;profile<=MESSAGE_NAME;profile++){
   const char *input=sources[i];size_t n=strlen(input),rule=937;char output[32768];memset(output,0x55,sizeof output);
   int result=message_resolve_profile(profile,input,n,output,sizeof output,&rule);

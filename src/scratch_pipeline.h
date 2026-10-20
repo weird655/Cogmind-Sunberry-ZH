@@ -81,7 +81,7 @@ static int notification_literal_print(void *self,int x,int y,void *ns,uintptr_t 
  if(caller!=va(0x808ce3)||x||y||!readable(self,0x3c)||!readable(ns,24))return 0;uint32_t *o=self,*v=ns;
  if(o[0]!=va(0xc2ef14)||o[5]||o[3]!=1||o[2]<9||o[2]>512)return 0;
  const char *source;size_t n;if(!plain_source(ns,&source,&n))return 0;char translated[32768];
- int match=message_resolve_entry(TEXT_ENTRY_SCRATCH,source,n,translated,sizeof translated,NULL);if(match<=0)return 0;
+ int match=message_resolve_entry(TEXT_ENTRY_NOTIFICATION,source,n,translated,sizeof translated,NULL);if(match<=0)return 0;
  (void)v;const char *saved=display_override_target;unsigned prior=display_owned_literal_scope;
  display_override_target=translated;display_owned_literal_scope++;int result;int ok=display_bridge(self,x,y,0,0,-1,0,ns,&result);display_owned_literal_scope=prior;display_override_target=saved;
  if(ok){fprintf(logfile,"NOTIFICATION-CONNECT command-scope=%u columns=%u translated=%s\n",command_scope,o[2],translated);fflush(logfile);}return ok;

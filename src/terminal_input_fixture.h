@@ -1,6 +1,15 @@
 #ifdef TERMINAL_INPUT_FIXTURE
 /* Own, detached native controls. Gameplay globals and hack callbacks are never
    dispatched; the native-key boundary is counted by the fixture event sink. */
+static uint32_t effect_fixture_machine[64],effect_fixture_ref[2],effect_fixture_state[8];
+static void* __attribute__((fastcall)) effect_fixture_resolve(void *self,void *unused){
+ (void)unused;if(live_replay)return effect_fixture_ref;
+ typedef void* (__attribute__((thiscall)) *Resolve)(void*);return ((Resolve)va(0x9b64f0))(self);
+}
+static void* __attribute__((fastcall)) effect_fixture_state_get(void *self,void *unused){
+ (void)unused;if(self==effect_fixture_ref)return effect_fixture_state;
+ typedef void* (__attribute__((thiscall)) *State)(void*);return ((State)va(0x45cb30))(self);
+}
 static void terminal_input_fixture(void *parent){
  static int stage;static DWORD born;static void *shell,*manual,*widget,*target;static unsigned errors;
  if(stage==3)return;
@@ -21,21 +30,33 @@ static void terminal_input_fixture(void *parent){
   /* Detached native render owners: repaint translated rows repeatedly, then
      compare every reconstructed English glyph with a pristine native owner. */
   {void *actual=(*(NativeNew*)va(0xb6132c))(0xc4),*reference=(*(NativeNew*)va(0xb6132c))(0xc4);
-   ((ConsoleCtor)va(0x48c060))(actual,shell,50,4,0,0,0,0,20);((ConsoleCtor)va(0x48c060))(reference,shell,50,4,0,0,0,0,20);
-   const char *samples[]={"Scanning nodes...","Network defenses at 100%...","Terminal M005 - Restricted Access","/ R E S U L T S /","Assault Status"};unsigned repaint_errors=0,handled=0;
-   for(unsigned sample=0;sample<5;sample++){
-    live_cells_remove(actual);for(unsigned x=0;x<50;x++)for(unsigned y=0;y<4;y++){original_display_cell(actual,x,y,32);original_display_cell(reference,x,y,32);}
-    NativeStringValue text={{0}};((StringCtor)va(0x9af0f0))(&text,samples[sample]);int mode=sample==3?1:0,x=mode?25:0;
-    display_original(reference,x,0,0,0,mode,mode,&text);
+   ((ConsoleCtor)va(0x48c060))(actual,shell,50,8,0,0,0,0,20);((ConsoleCtor)va(0x48c060))(reference,shell,50,8,0,0,0,0,20);
+   *(uint32_t*)actual=va(0xc34b30);*(uint32_t*)reference=va(0xc34b30);
+   const char *samples[]={"Scanning nodes...","Network defenses at 100%...","Terminal M005 - Restricted Access","/ R E S U L T S /","Unpacking derelicts EP-RG9(u)","Light Treads: -1 recoil from each weapon, and immunity to knockback.","5% chance to crush robots when ramming them. Cannot crush targets of large or greater size, or those with more than 50 core integrity.\n <stacks, capped at 35%>"};unsigned repaint_errors=0,handled=0;
+   for(unsigned sample=0;sample<7;sample++){
+    live_cells_remove(actual);for(unsigned x=0;x<50;x++)for(unsigned y=0;y<8;y++){original_display_cell(actual,x,y,32);original_display_cell(reference,x,y,32);}
+    NativeStringValue text={{0}};((StringCtor)va(0x9af0f0))(&text,samples[sample]);int mode=sample==3?1:sample>=5?2:0,x=sample==3?25:0;
+    display_original(reference,x,0,50,8,0,mode,&text);
     for(unsigned pass=0;pass<12;pass++){
-     int result;int ok=display_bridge_impl(actual,x,0,0,0,mode,mode,&text,&result);handled+=ok;
+     int result;int ok=display_bridge_impl(actual,x,0,50,8,0,mode,&text,&result);handled+=ok;
      unsigned char *english=live_cells_view(actual);if(!english){repaint_errors++;continue;}
-     for(unsigned cell=0;cell<200;cell++)repaint_errors+=*(uint32_t*)(english+cell*20+4)!=*(uint32_t*)(((uint32_t*)reference)[4]+cell*20+4);
+     for(unsigned cell=0;cell<400;cell++)repaint_errors+=*(uint32_t*)(english+cell*20+4)!=*(uint32_t*)(((uint32_t*)reference)[4]+cell*20+4);
      free(english);
     }
     ((NativeVoid)va(0x9af350))(&text);
    }
-   fprintf(logfile,"IME-FIXTURE-REPAINT passes=60 handled=%u glyph-errors=%u\n",handled,repaint_errors);errors+=repaint_errors;fflush(logfile);
+   fprintf(logfile,"IME-FIXTURE-REPAINT passes=84 handled=%u glyph-errors=%u\n",handled,repaint_errors);errors+=repaint_errors;fflush(logfile);
+  }
+  {void *scratch=(*(NativeNew*)va(0xb6132c))(0x128);memset(scratch,0,0x128);((ConsoleCtor)va(0x48c060))(scratch,shell,46,200,0,0,0,1,-1);
+   ((NativeVoid)va(0x9b8e80))((char*)shell+0x74);((NativeVoid)va(0x9b8e80))((char*)shell+0x8c);((uint32_t*)shell)[24]=3;((uint32_t*)shell)[0x70/4]=0;((uint32_t*)shell)[0x88/4]=(uint32_t)(uintptr_t)scratch;
+   NativeStringValue command={{0}},output={{0}};((StringCtor)va(0x9af0f0))(&command,"Retrieve(Components)");((StringCtor)va(0x9af0f0))(&output,"Inventory empty.");
+   effect_fixture_ref[1]=(uint32_t)(uintptr_t)effect_fixture_machine;
+   errors+=!live_shell_patch_call(0x90b88f,0x9b64f0,effect_fixture_resolve)||!live_shell_patch_call(0x90d9e4,0x9b64f0,effect_fixture_resolve)||!live_shell_patch_call(0x90da0d,0x9b64f0,effect_fixture_resolve)||!live_shell_patch_call(0x90da14,0x45cb30,effect_fixture_state_get);
+   live_replay++;hooked_command(shell,NULL,&command,&output,3,-1,0);live_replay--;
+   uint32_t *rows=(void*)((char*)shell+0x74);unsigned translated=0;
+   for(unsigned i=0;i<vector_count(rows);i++)translated+=owner_find(((void**)rows[0])[i])!=NULL;
+   fprintf(logfile,"IME-FIXTURE-KIND3 translated-rows=%u native-business-dispatch=0\n",translated);errors+=translated!=1;
+   ((NativeVoid)va(0x9af350))(&command);((NativeVoid)va(0x9af350))(&output);
   }
   input_fixture_shell=(uint32_t)(uintptr_t)shell;input_fixture_target=(uint32_t)(uintptr_t)target;
   terminal_input_tick();errors+=!input_edit||!IsWindowUnicode(input_edit)||input_registry.count==0;

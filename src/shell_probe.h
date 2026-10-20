@@ -52,7 +52,7 @@ static void owner_remove(void *p){
 static void* __attribute__((fastcall)) hooked_delete(void *self,void *unused,unsigned flags){(void)unused;live_cells_remove(self);if(owner_find(self))owner_destructors++;owner_remove(self);return original_delete(self,flags);}
 static void* __attribute__((fastcall)) hooked_console_ctor(void *self,void *unused,void *parent,int w,int h,int x,int y,int font,int hidden,int depth){
  (void)unused;live_cells_remove(self);if(test_creating&&self==test_owner){depth=20;w=test_width;}
- if(queue_pending_row&&(constructing_kind==1||constructing_kind==2||constructing_kind==4)&&parent==queue_pending_parent&&font==0){w=queue_pending_row->columns;if(parent==queue_fixture)depth=21;}
+ if(queue_pending_row&&(constructing_kind==1||constructing_kind==2||constructing_kind==3||constructing_kind==4)&&parent==queue_pending_parent&&font==0){w=queue_pending_row->columns;if(parent==queue_fixture)depth=21;}
  return original_console_ctor(self,parent,w,h,x,y,font,hidden,depth);
 }
 static int plain_source(void *s,const char **out,size_t *length){
@@ -72,7 +72,7 @@ static void audit_native_string(const char *label,void *s){
 }
 static int write_owned_translation(void *self,int x,int y,void *s){
  if(live_native_english||!live_chinese)return 0;
- if(constructing_owner!=self||(constructing_kind!=1&&!((constructing_kind==2||constructing_kind==4)&&(queue_pending_row||test_creating)))||x||y||!readable(self,24))return 0;
+ if(constructing_owner!=self||(constructing_kind!=1&&!((constructing_kind==2||constructing_kind==3||constructing_kind==4)&&(queue_pending_row||test_creating)))||x||y||!readable(self,24))return 0;
  uint32_t *native=self;int cols=native[2];if(native[5]||native[3]!=1||cols<1||cols>512)return 0;
  const char *source;size_t bytes,rule=0;char translated[16384]="[preplanned native queue row]";int match;ZhPlan plan={0};
  if(queue_pending_row&&native[1]==(uint32_t)queue_pending_parent){plan=*queue_pending_row;memset(queue_pending_row,0,sizeof *queue_pending_row);rule=queue_pending_rule;match=3;}
