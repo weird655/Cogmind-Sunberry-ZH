@@ -22,7 +22,11 @@ static void live_request(int chinese){
 }
 static int __cdecl live_poll(void *event){
  perf_flush();message_route_flush();
- live_tick();int r;
+ live_tick();terminal_input_tick();
+ #ifdef TERMINAL_INPUT_FIXTURE
+ terminal_input_fixture(NULL);
+ #endif
+ int r;
  while((r=live_original_poll(event))!=0){
   if(!event)return r;
   unsigned char *e=event;int symbol=0,mod=0;
@@ -40,7 +44,11 @@ static int __cdecl live_poll(void *event){
   if(live_phase&&(e[0]==5||e[0]==6))continue;
   return r;
  }
- live_tick();return r;
+ live_tick();terminal_input_tick();
+ #ifdef TERMINAL_INPUT_FIXTURE
+ terminal_input_fixture(NULL);
+ #endif
+ return r;
 }
 #define LIVE_REPLACEMENT_MS 1600u
 static void *live_last_canvas;

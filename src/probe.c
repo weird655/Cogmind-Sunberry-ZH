@@ -18,6 +18,11 @@ static void live_shell_capture_command(void*,void*,void*,int,int,int);
 static void live_shell_capture_add(void*,void*,int,int,int);
 static void live_shell_capture_meta(void*,void*);
 static void live_tick(void);
+static void terminal_input_tick(void);
+static void terminal_input_note_print(void*,void*,const char*);
+#ifdef TERMINAL_INPUT_FIXTURE
+static void terminal_input_fixture(void*);
+#endif
 static void *live_draw_view(void*);
 #ifdef ANIMATION_VISUAL_PROBE
 static void animation_visual_frame(void*);
@@ -202,6 +207,9 @@ static void __attribute__((fastcall)) hooked_draw(void *self,void *unused,void *
  unsigned long long perf_start=perf_now();
  (void)unused;unsigned matches=0;uint32_t *o=self;
  diagnostic_memory_tick();
+ #ifdef TERMINAL_INPUT_FIXTURE
+ if(readable(o,24)&&o[2]>=100&&o[2]<=300&&o[3]>=35&&o[3]<=150)terminal_input_fixture(self);
+ #endif
  #ifdef REPAIR_POPUP_PROBE
  if(readable(o,24)&&o[2]>=100&&o[2]<=300&&o[3]>=35&&o[3]<=150)repair_popup_fixture(self);
  #endif
@@ -331,6 +339,13 @@ static int inventory_name(void *self,int x,int y,void *s,uintptr_t caller){
 #include "memory_diagnostics.h"
 #include "live_shell.h"
 #include "live_language.h"
+#ifdef TERMINAL_INPUT_IME
+#include "terminal_input_native.h"
+#include "terminal_input_fixture.h"
+#else
+static void terminal_input_tick(void){}
+static void terminal_input_note_print(void *owner,void *text,const char *target){(void)owner;(void)text;(void)target;}
+#endif
 #include "log_content.h"
 #include "live_shell_fixture.h"
 static void __attribute__((fastcall)) hooked_text(void *self,void *unused,int x,int y,void *s) {

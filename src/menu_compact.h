@@ -41,6 +41,7 @@ static unsigned menu_compact_commits,menu_compact_overrides;
 /* Call ONLY after successful translated native rendering, with the unpadded
    translation's physical columns. Do not call for fallback or planning only. */
 static int menu_compact_note_print(void *owner,int x,int y,void *string,const char *target){
+ if(x==5&&!y)terminal_input_note_print(owner,string,target);
  int target_columns=display_columns(target);
  MenuCompactContext *c=menu_compact_context;
  if(!c||c->owner!=owner||x!=5||y||!original_menu_compact_measure||!readable(owner,0x9c)||!readable(string,24)||*(uintptr_t*)owner!=va(0xc361bc))return 0;
