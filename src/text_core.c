@@ -7,6 +7,7 @@
 typedef struct {char *key,*value;const char *anchor;size_t keylen,prefix,next_pattern,anchor_length;unsigned specificity;int pattern;} Rule;
 typedef struct {char *key;size_t rule;int conflict;} NormalRule;
 struct ZhDictionary {char *data;Rule *rules;size_t count,*table,table_size,pattern_heads[257];NormalRule *normal;size_t *normal_table;Rule **literals;size_t literal_count;};
+int zh_rule_key_is(const ZhDictionary *d,size_t rule,const char *key){return d&&key&&rule<d->count&&!strcmp(d->rules[rule].key,key);}
 unsigned zh_rule_specificity(const ZhDictionary *d,size_t rule){return d&&rule<d->count?d->rules[rule].specificity:0;}
 int zh_rule_is_template(const ZhDictionary *d,size_t rule){return d&&rule<d->count?d->rules[rule].pattern:0;}
 typedef struct {const char *p;size_t n;int set,numeric;} Capture;

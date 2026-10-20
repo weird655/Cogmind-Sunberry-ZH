@@ -7,7 +7,7 @@ static ZhDictionary *load(const char *name,const char *data){FILE *f=fopen(name,
 int main(void){
  ZhDictionary *extra=load("canonical-extra-test.tsv","Imp. Carbon-fiber Leg\t审核腿\nLgt. Ion Engine\t审核引擎\nSunberry Melta Gun\t太阳莓牌热熔枪\n");
  ZhDictionary *items=load("canonical-items-test.tsv","Imp. Carbon-fiber Leg\t旧腿\nImproved Carbon-fiber Leg\t旧全称腿\nLgt. Ion Engine\t旧引擎\nHvy. Plasma Cannon\t物品表炮\n");
- ZhDictionary *shorts=load("canonical-shorts-test.tsv","Hvy. Plasma Cannon\t短表炮\nFallback Part\t短表物品\n");
+ ZhDictionary *shorts=load("canonical-shorts-test.tsv","Hvy. Plasma Cannon\t短表炮\nFallback Part\t短表物品\nWheel\t轮\nBroken {*}\t损坏{*}\n");
  ZhDictionary *paras=load("canonical-paras-test.tsv","Fallback Part\t段落表物品\nOnly Paragraph Part\t段落独有\n");
  char out[672];
  const char *sources[]={"Imp. Carbon-fiber Leg","Improved Carbon-fiber Leg","Light Ion Engine","Light Ion Engine+","Light Ion Engine (004)","Light Ion Engine [4p]","Sunberry Melta Gun","Hvy. Plasma Cannon","Fallback Part","Only Paragraph Part"};
@@ -26,6 +26,13 @@ int main(void){
  char tiny[2]={1,2};CHECK(canonical_item_name_translate(extra,items,shorts,paras,sources[0],strlen(sources[0]),tiny,2)==-1);CHECK(tiny[0]==1&&tiny[1]==2);
  CHECK(canonical_item_name_translate_health(extra,items,shorts,paras,health,strlen(health),tiny,2)==-1);CHECK(tiny[0]==1&&tiny[1]==2);
  strcpy(out,"Light Ion Engine (1/2)");CHECK(canonical_item_name_translate_health(extra,items,shorts,paras,out,strlen(out),out,sizeof out)==1);CHECK(!strcmp(out,"审核引擎 (1/2)"));
+ CHECK(canonical_item_name_translate(extra,items,shorts,paras,"Broken Wheel",12,out,sizeof out)==1);CHECK(!strcmp(out,"损坏轮"));
+ CHECK(canonical_item_name_translate_health(extra,items,shorts,paras,"Broken Wheel (9/40)",19,out,sizeof out)==1);CHECK(!strcmp(out,"损坏轮 (9/40)"));
+ strcpy(out,"unchanged");CHECK(canonical_item_name_translate(extra,items,shorts,paras,"Broken Unknown",14,out,sizeof out)==0);CHECK(!strcmp(out,"unchanged"));
+ CHECK(canonical_item_name_translate(extra,items,shorts,paras,"Broken Wheel",12,tiny,sizeof tiny)==-1);CHECK(tiny[0]==1&&tiny[1]==2);
+ const char *hover=" [1] Light Ion Engine!";
+ CHECK(canonical_item_name_translate(extra,items,shorts,paras,hover,strlen(hover),out,sizeof out)==1);CHECK(!strcmp(out," [1] 审核引擎!"));
+ strcpy(out,"unchanged");const char *unknown_hover=" [1] Unknown Part!";CHECK(canonical_item_name_translate(extra,items,shorts,paras,unknown_hover,strlen(unknown_hover),out,sizeof out)==0);CHECK(!strcmp(out,"unchanged"));
  zh_dictionary_free(extra);zh_dictionary_free(items);zh_dictionary_free(shorts);zh_dictionary_free(paras);
  printf("PASS %u canonical item-name checks\n",checks);return 0;
 }

@@ -18,6 +18,7 @@ int zh_translate_exact(const ZhDictionary*,const char*,size_t,char*,size_t,size_
 int zh_translate_normalized_exact(const ZhDictionary*,const char*,size_t,char*,size_t,size_t*);
 /* Unique literal completion for a native clipped title; atomic on failure. */
 int zh_translate_unique_prefix(const ZhDictionary*,const char*,size_t,char*,size_t);
+int zh_rule_key_is(const ZhDictionary*,size_t,const char*);
 unsigned zh_rule_specificity(const ZhDictionary*,size_t);
 int zh_rule_is_template(const ZhDictionary*,size_t);
 /* Strict UTF-8, ASCII=1 column, corpus non-ASCII=2. Failure does not alter out.

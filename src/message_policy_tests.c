@@ -8,6 +8,7 @@ int main(int argc,char **argv){
  CHECK(argc==6);size_t count;char error[256];
  dictionary=zh_dictionary_load(argv[1],&count,error,sizeof error);short_dictionary=zh_dictionary_load(argv[2],&count,error,sizeof error);
  display_extra_dictionary=zh_dictionary_load(argv[3],&count,error,sizeof error);item_dictionary=zh_dictionary_load(argv[4],&count,error,sizeof error);
+ repair_short_dictionary=short_dictionary;repair_extra_dictionary=display_extra_dictionary;repair_paragraph_dictionary=dictionary;
  terminal_item_dictionary=item_dictionary;terminal_runtime_dictionary=zh_dictionary_load(argv[5],&count,error,sizeof error);
  CHECK(dictionary&&short_dictionary&&display_extra_dictionary&&item_dictionary&&terminal_runtime_dictionary);
  const char *sources[]={"Lgt. Ion Engine","Beam Cannon","Sunberry Melta Gun","Retrieving latest reported positions...\nFound 6 active transport squads.\nDownloaded coordinate data.","Scanning Imp. Spread Laser...\nReady to Repair:\n  Imp. Spread Laser\n  Rating: 4p\n  Time: 23","Unknown untranslated message 93276"};
@@ -64,5 +65,10 @@ int main(int argc,char **argv){
   CHECK(message_plan_entry((TextEntry)e,sample,n,1,1,&typed)!=0);CHECK(!typed.runs);
  }
  ZhPlan untouched={0};CHECK(message_plan_entry((TextEntry)999,"A",1,10,1,&untouched)==-1);CHECK(!untouched.runs);
+ const char *broken="Broken Wheel";char name[512],shown[512],scan[2048];
+ CHECK(message_resolve_entry(TEXT_ENTRY_ITEM_LABEL,broken,strlen(broken),name,sizeof name,NULL)==1);CHECK(!strcmp(name,"损坏轮"));
+ CHECK(message_resolve_entry(TEXT_ENTRY_LOG,broken,strlen(broken),shown,sizeof shown,NULL)==1);CHECK(!strcmp(shown,name));
+ const char *scan_source="Scanning Broken Wheel...\nReady to Repair:\n  Broken Wheel\n  Rating: 1\n  Time: 36";
+ CHECK(message_resolve_entry(TEXT_ENTRY_REPAIR_SERIAL,scan_source,strlen(scan_source),scan,sizeof scan,NULL)==1);CHECK(strstr(scan,"损坏轮")&&!strstr(scan,"Broken"));CHECK(strstr(scan,"36"));
  printf("PASS %u typed-set, alias, atomic commit, rule preservation and cross-path/layout checks\n",checks);return 0;
 }
