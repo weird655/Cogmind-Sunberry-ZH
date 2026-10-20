@@ -44,6 +44,6 @@ v0.1.2 已包含原位逐字切换、长短文本收尾、终端长标题、物�
 <details>
 <summary>·</summary>
 
-[实现](src/) · [构建与适配](DEVELOPMENT.md) · [贡献说明](CONTRIBUTING.md) · [许可](LICENSE)
+[实现](src/) · [文本架构](ARCHITECTURE.md) · [构建与适配](DEVELOPMENT.md) · [贡献说明](CONTRIBUTING.md) · [许可](LICENSE)
 
 </details>
