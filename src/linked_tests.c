@@ -28,6 +28,13 @@ int main(void){
  rejection("[ISC]","[ISC]","\xc0\xaf[机构]",1,46,0);
  rejection("[ISC]","[ISC]","[机构]",1,4,0);
  rejection("[ISC]","[ISC]","[机构]",0,46,0);
+ CHECK(prepare("[Sigix] <mhack=SIGIX_ACCESS>","[!Sigix] <mhack=SIGIX_ACCESS>","[西吉克斯] <mhack=SIGIX_ACCESS>",1,46,out,sizeof out)==1);CHECK(strstr(out,"<mhack=SIGIX_ACCESS>"));
+ rejection("[Sigix] <mhack=SIGIX_ACCESS>","[Sigix] <mhack=OTHER>","[西吉克斯] <mhack=SIGIX_ACCESS>",1,46,0);
+ rejection("[Sigix] <mhack=SIGIX_ACCESS>","[Sigix] <mhack=SIGIX_ACCESS>","[西吉克斯] <mhack=OTHER>",1,46,0);
+ rejection("[Sigix] <mhack=SIGIX_ACCESS>","[Sigix] <mhack=SIGIX_ACCESS>","[西吉克斯]",1,46,0);
+ rejection("[Sigix] <unknown=ABC>","[Sigix] <unknown=ABC>","[西吉克斯] <unknown=ABC>",1,46,0);
+ rejection("[Sigix] <mhack=>","[Sigix] <mhack=>","[西吉克斯] <mhack=>",1,46,0);
+ rejection("[Sigix] <mhack=lowercase>","[Sigix] <mhack=lowercase>","[西吉克斯] <mhack=lowercase>",1,46,0);
  char tiny[2]={1,2};CHECK(prepare("[ISC]","[ISC]","[机构]",1,46,tiny,sizeof tiny)==-1);CHECK(tiny[0]==1&&tiny[1]==2);
  ZhPlan plan={0};CHECK(linked_plan_atomic("中文[!ISC]文",strlen("中文[!ISC]文"),8,3,&plan)==1);
  CHECK(plan.used_rows==2);CHECK(plan.runs[0].width==2&&plan.runs[1].x==2);

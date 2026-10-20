@@ -6,11 +6,29 @@
 #define LINKED_TEXT_LIMIT 16384u
 #define LINKED_COUNT_LIMIT 32u
 typedef struct {size_t begin,end;} LinkedSpan;
+/* An existing native command marker is literal text, never an executable hook.
+   Only this exact grammar is supported; every stage must retain the same IDs. */
+static size_t linked_literal_size(const char *s,size_t n){
+ if(n<9||memcmp(s,"<mhack=",7))return 0;size_t end=7;
+ while(end<n&&end<71&&((s[end]>='A'&&s[end]<='Z')||(s[end]>='0'&&s[end]<='9')||s[end]=='_'))end++;
+ return end>7&&end<n&&s[end]=='>'?end+1:0;
+}
+static int linked_literals_equal(const char *a,size_t an,const char *b,size_t bn){
+ if(!a||!b||an>LINKED_TEXT_LIMIT||bn>LINKED_TEXT_LIMIT)return 0;size_t x=0,y=0;
+ for(;;){
+  while(x<an&&a[x]!='<')x++;while(y<bn&&b[y]!='<')y++;
+  if(x==an||y==bn)return x==an&&y==bn;
+  size_t al=linked_literal_size(a+x,an-x),bl=linked_literal_size(b+y,bn-y);
+  if(!al||al!=bl||memcmp(a+x,b+y,al))return 0;x+=al;y+=bl;
+ }
+}
+
 /* Reject control/format syntax; LF is permitted only outside bracket spans.
    ASCII source labels may have a single leading native seen marker '!'. */
 static int linked_spans(const char *s,size_t n,int ascii_labels,LinkedSpan spans[LINKED_COUNT_LIMIT],size_t *count){
  if(!s||n>LINKED_TEXT_LIMIT)return 0;size_t at=0,open=0,k=0;int inside=0;
  while(at<n){size_t used;uint32_t cp;if(!zh_decode(s+at,n-at,&used,&cp))return 0;
+  if(cp=='<'){size_t literal=linked_literal_size(s+at,n-at);if(inside||!literal)return 0;at+=literal;continue;}
   if((cp<32&&cp!='\n')||cp==127||cp=='`'||cp=='<'||cp=='>'||cp=='{'||cp=='}')return 0;
   if(cp=='['){if(inside||k>=LINKED_COUNT_LIMIT)return 0;inside=1;open=at;}
   else if(cp==']'){
@@ -27,6 +45,7 @@ static int linked_spans(const char *s,size_t n,int ascii_labels,LinkedSpan spans
    Ambiguous prose, partial markup and unknown labels remain untouched. */
 static inline int linked_target_restore(const char *raw,size_t rn,const char *target,size_t tn,size_t expected,const ZhDictionary *const *dicts,size_t nd,char *out,size_t cap){
  LinkedSpan source[LINKED_COUNT_LIMIT],marked[LINKED_COUNT_LIMIT],found[LINKED_COUNT_LIMIT];size_t ns,nt;
+ if(!linked_literals_equal(raw,rn,target,tn))return 0;
  if(!out||!expected||!linked_spans(raw,rn,1,source,&ns)||ns!=expected||!linked_spans(target,tn,0,marked,&nt))return 0;
  if(nt==expected){if(tn>=cap)return -1;memmove(out,target,tn);out[tn]=0;return 1;}
  if(nt)return 0;size_t previous=0;
@@ -66,6 +85,7 @@ static inline int linked_target_restore(const char *raw,size_t rn,const char *ta
 static int linked_text_prepare(const char *raw,size_t raw_length,const char *processed,size_t processed_length,const char *target,size_t target_length,size_t expected,int columns,char *out,size_t capacity){
  LinkedSpan a[LINKED_COUNT_LIMIT],b[LINKED_COUNT_LIMIT],c[LINKED_COUNT_LIMIT];size_t na,nb,nc;
  if(!out||columns<1||columns>512||!expected||expected>LINKED_COUNT_LIMIT)return 0;
+ if(!linked_literals_equal(raw,raw_length,processed,processed_length)||!linked_literals_equal(raw,raw_length,target,target_length))return 0;
  if(!linked_spans(raw,raw_length,1,a,&na)||!linked_spans(processed,processed_length,1,b,&nb)||!linked_spans(target,target_length,0,c,&nc)||na!=expected||nb!=expected||nc!=expected)return 0;
  size_t total=target_length;
  for(size_t i=0;i<expected;i++){

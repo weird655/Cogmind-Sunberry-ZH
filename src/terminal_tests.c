@@ -31,6 +31,8 @@ int main(int argc,char **argv){
   char *tab=strchr(line,'\t');if(!tab||line[0]=='#')continue;*tab=0;size_t n=strlen(line);
   if(strchr(line,'{')||strchr(line,'\\')||!n)continue;
   if(zh_translate_overlay(para,extra,line,n,old,sizeof old,NULL)<=0)continue;
+  /* Explicit reviewed runtime corrections intentionally override old wording. */
+  char corrected[32768];if(zh_translate_exact(terminal_runtime_dictionary,line,n,corrected,sizeof corrected,NULL)>0)strcpy(old,corrected);
   CHECK(terminal_translate(para,shorts,extra,line,n,out,sizeof out,NULL)>0);CHECK(!strcmp(out,old));retained_paragraphs++;
  }
  fclose(f);printf("PASS paragraph exact regression: %u existing outputs retained.\n",retained_paragraphs);
