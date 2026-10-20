@@ -13,3 +13,12 @@ static void message_observe(int profile,int result,const char *source,size_t byt
  fprintf(logfile,"MESSAGE-UNRESOLVED profile=%d entry=%s reason=%s result=%d bytes=%u raw=",profile,entry?entry->name:"legacy",result==0?"missing":result==-2?"ambiguous":"invalid-or-capacity",result,(unsigned)bytes);
  for(size_t i=0;i<bytes;i++){unsigned char c=source[i];if(c=='\n')fputs("\\n",logfile);else if(c=='\r')fputs("\\r",logfile);else if(c=='\t')fputs("\\t",logfile);else if(c=='\\')fputs("\\\\",logfile);else if(c<32||c==127)fprintf(logfile,"\\x%02x",c);else fputc(c,logfile);}fputc('\n',logfile);
 }
+
+/* One layout diagnostic per entry, bounded independently of missing translations.
+   These are layout failures, not missing TSV records. */
+static void message_layout_observe(int entry,int result,int columns,int rows){
+ if(!result||!logfile)return;
+ static _Thread_local unsigned char seen[TEXT_ENTRY_COUNT];
+ const TextEntrySpec *spec=text_entry_spec((TextEntry)entry);if(!spec||seen[entry])return;
+ seen[entry]=1;fprintf(logfile,"TEXT-LAYOUT-FAIL entry=%s columns=%d rows=%d result=%d\n",spec->name,columns,rows,result);
+}

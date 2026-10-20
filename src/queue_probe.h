@@ -30,7 +30,7 @@ static void __attribute__((fastcall)) hooked_add_line(void *self,void *unused,vo
  if(kind!=1||queue_pending_row||!readable(self,0x88)||(*(uint32_t*)self!=va(0xc36224)&&self!=queue_fixture)){original_add_line(self,s,kind,insert,sound);return;}
  const char *source;size_t bytes,rule;char target[16384];ZhPlan full={0};
  int columns=self==queue_fixture?(int)((uint32_t*)self)[2]-4:*(int*)va(0xd316bc)-4;
- if(!plain_source(s,&source,&bytes)||columns<2||columns>512||message_resolve_entry(TEXT_ENTRY_TERMINAL_QUEUE,source,bytes,target,sizeof target,&rule)<=0||zh_plan(target,strlen(target),columns,128,&full)){
+ if(!plain_source(s,&source,&bytes)||columns<2||columns>512||message_resolve_entry(TEXT_ENTRY_TERMINAL_QUEUE,source,bytes,target,sizeof target,&rule)<=0||message_plan_entry(TEXT_ENTRY_TERMINAL_QUEUE,target,strlen(target),columns,128,&full)){
   queue_fallbacks++;original_add_line(self,s,kind,insert,sound);return;
  }
  int rows=full.used_rows;ZhPlan *plans=calloc(rows?rows:1,sizeof *plans);int ready=plans&&rows>0&&rows<=(int)(OWNER_LIMIT-owner_count());
@@ -55,7 +55,7 @@ static void __attribute__((fastcall)) hooked_meta(void *self,void *unused,Native
  int eligible=!meta_context&&readable(self,0x88)&&(*(uint32_t*)self==va(0xc36224)||self==queue_fixture)&&vector_count((char*)self+0x74)>0;
  if(eligible&&plain_source(&text,&source,&bytes)&&message_resolve_entry(TEXT_ENTRY_TERMINAL_QUEUE,source,bytes,translated,sizeof translated,&ctx.rule)>0){
   int n=snprintf(wrapped,sizeof wrapped,"[%s]",translated);int columns=*(int*)va(0xd316bc)-4;if(columns>46)columns=46;
-  if(n>0&&(size_t)n<sizeof wrapped&&columns>=2&&zh_plan(wrapped,(size_t)n,columns,128,&full)==0){
+  if(n>0&&(size_t)n<sizeof wrapped&&columns>=2&&message_plan_entry(TEXT_ENTRY_TERMINAL_QUEUE,wrapped,(size_t)n,columns,128,&full)==0){
    ctx.count=full.used_rows;ctx.rows=calloc(ctx.count?ctx.count:1,sizeof *ctx.rows);int ready=ctx.rows&&ctx.count>0&&ctx.count<=(int)(OWNER_LIMIT-owner_count());
    for(int i=0;ready&&i<ctx.count;i++)if(zh_plan_row(&full,i,&ctx.rows[i]))ready=0;
    if(ready&&!extend_demo_fonts())ready=0;

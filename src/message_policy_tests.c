@@ -55,5 +55,14 @@ int main(int argc,char **argv){
  TextObject invalid={(TextEntry)999,"A",1};strcpy(output,"unchanged");rule=123;
  CHECK(message_resolve_object(&invalid,output,sizeof output,&rule)==-1);CHECK(!strcmp(output,"unchanged")&&rule==123);
  CHECK(message_resolve_object(NULL,output,sizeof output,&rule)==-1);
+ for(unsigned e=0;e<TEXT_ENTRY_COUNT;e++){
+  ZhPlan typed={0},direct={0};const char *sample="中文 ABC";size_t n=strlen(sample);
+  CHECK(message_plan_entry((TextEntry)e,sample,n,20,2,&typed)==zh_plan(sample,n,20,2,&direct));
+  CHECK(typed.count==direct.count&&typed.used_rows==direct.used_rows);
+  for(size_t i=0;i<typed.count;i++)CHECK(typed.runs[i].scalar==direct.runs[i].scalar&&typed.runs[i].x==direct.runs[i].x&&typed.runs[i].y==direct.runs[i].y);
+  zh_plan_free(&typed);zh_plan_free(&direct);
+  CHECK(message_plan_entry((TextEntry)e,sample,n,1,1,&typed)!=0);CHECK(!typed.runs);
+ }
+ ZhPlan untouched={0};CHECK(message_plan_entry((TextEntry)999,"A",1,10,1,&untouched)==-1);CHECK(!untouched.runs);
  printf("PASS %u typed-set, alias, atomic commit, rule preservation and cross-path/layout checks\n",checks);return 0;
 }

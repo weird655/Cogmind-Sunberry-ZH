@@ -34,8 +34,10 @@ static ZhDictionary *dictionary;
 static ZhDictionary *item_dictionary;
 static ZhDictionary *short_dictionary;
 static void message_observe(int,int,const char*,size_t);
+static void message_layout_observe(int,int,int,int);
 #define MESSAGE_OBSERVE(profile,result,source,bytes) message_observe(profile,result,source,bytes)
 #define TEXT_OBJECT_OBSERVE(object,result) message_observe(100+(int)(object)->entry,result,(object)->source,(object)->bytes)
+#define TEXT_LAYOUT_OBSERVE(entry,result,columns,rows) message_layout_observe(entry,result,columns,rows)
 #include "message_resolver.h"
 #include "message_diagnostics.h"
 static HMODULE patch_module;
@@ -299,7 +301,7 @@ static int inventory_name(void *self,int x,int y,void *s,uintptr_t caller){
  }
  char translated[512];
  if(message_resolve_entry(TEXT_ENTRY_ITEM_LABEL,p,n,translated,sizeof translated,NULL)!=1)return 0;
- ZhPlan plan={0};if(zh_plan(translated,strlen(translated),(int)capacity,1,&plan)){
+ ZhPlan plan={0};if(message_plan_entry(TEXT_ENTRY_ITEM_LABEL,translated,strlen(translated),(int)capacity,1,&plan)){
   fprintf(logfile,"ITEM-NOFIT columns=%u source=%.*s\n",(unsigned)capacity,(int)n,p);fflush(logfile);return 0;
  }
  if(!extend_demo_fonts()){zh_plan_free(&plan);return 0;}

@@ -9,6 +9,7 @@ a=parser.parse_args();out=r/'build';out.mkdir(exist_ok=True)
 tool=os.environ.get('COGMIND_CRT_TOOLCHAIN');cc=str(Path(tool)/'i686-w64-mingw32-clang.exe') if tool else shutil.which('i686-w64-mingw32-clang.exe')
 if not cc or not Path(cc).is_file():parser.error('Set COGMIND_CRT_TOOLCHAIN to the LLVM MinGW bin directory.')
 os.environ['COGMIND_CRT_TOOLCHAIN']=str(Path(cc).parent)
+subprocess.run([sys.executable,str(r/'tools/audit_text_routes.py')],check=True)
 def run(args,**kwargs):subprocess.run([str(x) for x in args],check=True,**kwargs)
 if a.smoke:
  for name in ['owner_index_tests','canonical_item_names_tests','linked_tests','replacement_animation_tests','live_cells_tests']:

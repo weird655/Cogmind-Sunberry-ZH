@@ -24,7 +24,7 @@ static int __attribute__((fastcall)) hooked_paragraph(void *self,void *unused,in
  }else{
   int match=message_resolve_entry(ctx->kind==1?TEXT_ENTRY_REPAIR_SERIAL:TEXT_ENTRY_TERMINAL_SERIAL,source,bytes,translated,sizeof translated,&rule);
   if(match<=0){ctx->fallback=match==0?"no-rule":match==-2?"ambiguous-rule":"invalid-or-capacity";return original_paragraph(self,x,y,width,maxrows,s);}
-  if(zh_plan(translated,strlen(translated),cols,128,&full)){ctx->fallback="unicode-layout-limit";return original_paragraph(self,x,y,width,maxrows,s);}
+  if(message_plan_entry(ctx->kind==1?TEXT_ENTRY_REPAIR_SERIAL:TEXT_ENTRY_TERMINAL_SERIAL,translated,strlen(translated),cols,128,&full)){ctx->fallback="unicode-layout-limit";return original_paragraph(self,x,y,width,maxrows,s);}
  }
  int count=full.used_rows;ZhPlan *rows=calloc(count?count:1,sizeof *rows);int ready=rows&&count>0&&count<=(int)(OWNER_LIMIT-owner_count());
  for(int i=0;ready&&i<count;i++)if(zh_plan_row(&full,i,&rows[i]))ready=0;

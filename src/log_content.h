@@ -52,7 +52,7 @@ static int __attribute__((fastcall)) log_content_append(void *self,void *unused,
  }else if(strcmp(a,b))return result;
  int match=message_resolve_entry(TEXT_ENTRY_LOG,ctx.source,ctx.length,target,sizeof target,NULL);
  if(match<=0){fprintf(logfile,"GAMELOG-MISS rows=%u bytes=%u raw=%s\n",count,(unsigned)ctx.length,ctx.source);return result;}
- int width=*(int*)va(0xcebd64);ZhPlan plan={0};if(width<2||width>512||zh_plan(target,strlen(target),width,(int)count,&plan)){fprintf(logfile,"GAMELOG-NOFIT rows=%u width=%d raw=%s\n",count,width,ctx.source);zh_plan_free(&plan);return result;}
+ int width=*(int*)va(0xcebd64);ZhPlan plan={0};if(width<2||width>512||message_plan_entry(TEXT_ENTRY_LOG,target,strlen(target),width,(int)count,&plan)){fprintf(logfile,"GAMELOG-NOFIT rows=%u width=%d raw=%s\n",count,width,ctx.source);zh_plan_free(&plan);return result;}
  char *prepared[128]={0};int ready=1;
  for(unsigned i=0;i<count;i++){
   char row[8192]={0};if((int)i<plan.used_rows&&!unicode_row_text(&plan,(int)i,row,sizeof row)){ready=0;break;}
@@ -81,7 +81,7 @@ static int log_content_recover(void *wanted){
   for(unsigned i=0;i<count;i++){size_t length;records[i]=((void**)bank[0])[first+i];if(!log_native_source((char*)records[i]+4,&english[i],&length)||at+length+1>=sizeof joined)return 0;if(i)joined[at++]='\n';memcpy(joined+at,english[i],length);at+=length;}joined[at]=0;
   if(terminal_normalize(joined,at,canonical,sizeof canonical)!=1)return 0;
   int match=message_resolve_entry(TEXT_ENTRY_LOG_CANONICAL,canonical,strlen(canonical),target,sizeof target,NULL);if(match<=0)return 0;
-  ZhPlan plan={0};if(zh_plan(target,strlen(target),width,(int)count,&plan)){zh_plan_free(&plan);return 0;}
+  ZhPlan plan={0};if(message_plan_entry(TEXT_ENTRY_LOG_CANONICAL,target,strlen(target),width,(int)count,&plan)){zh_plan_free(&plan);return 0;}
   char *prepared[128]={0};int ready=1;
   for(unsigned i=0;i<count;i++){char row[8192]={0};if((int)i<plan.used_rows&&!unicode_row_text(&plan,(int)i,row,sizeof row)){ready=0;break;}prepared[i]=malloc(strlen(row)+1);if(!prepared[i]){ready=0;break;}strcpy(prepared[i],row);}
   if(ready){for(unsigned i=0;i<count;i++)log_content_put(records[i],english[i],prepared[i],i,count,manager);fprintf(logfile,"GAMELOG-HISTORY rows=%u cn-rows=%d width=%d raw=%s target=%s\n",count,plan.used_rows,width,canonical,target);fflush(logfile);}

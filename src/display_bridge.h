@@ -63,7 +63,7 @@ static int display_bridge_impl(void *self,int x,int y,int width,int maxrows,int 
  perf_add(0,lookup_start);if(match!=1){display_busy=0;return 0;}
  if(credits){const char *credit="  汉化组：太阳莓";size_t current=strlen(translated),extra=strlen(credit);if(current+extra<sizeof translated)memcpy(translated+current,credit,extra+1);}
  if(display_override_target&&!translated[0])strcpy(translated," ");
- ZhPlan plan={0};if(zh_plan(translated,strlen(translated),columns,rows,&plan)||!(intro?intro_font_extend():zoom?zoom_font_extend():extend_demo_fonts())){zh_plan_free(&plan);display_busy=0;return 0;}
+ ZhPlan plan={0};if(message_plan_entry(TEXT_ENTRY_DISPLAY,translated,strlen(translated),columns,rows,&plan)||!(intro?intro_font_extend():zoom?zoom_font_extend():extend_demo_fonts())){zh_plan_free(&plan);display_busy=0;return 0;}
  if(!plan.used_rows){zh_plan_free(&plan);display_busy=0;return 0;}
  DisplayContext ctx={0};ctx.owner=self;ctx.x=x;ctx.y=y;ctx.align=align;ctx.columns=columns;ctx.rows=plan.used_rows;
  ctx.tokens=malloc((size_t)ctx.rows*columns*sizeof(int));ctx.widths=calloc(ctx.rows,sizeof(int));char *carrier=malloc(65536);

@@ -17,7 +17,7 @@ static int scratch_paragraph(void *self,int x,int y,int width,int maxrows,void *
  const char *source;size_t bytes;if(!plain_source(s,&source,&bytes)){scratch_reject("source",self,s,caller,width,maxrows);return 0;}char target[32768];
  if(message_resolve_entry(TEXT_ENTRY_SCRATCH,source,bytes,target,sizeof target,NULL)!=1){scratch_reject("lookup",self,s,caller,width,maxrows);return 0;}
  ZhPlan p={0},en={0};int limit=maxrows>200?200:maxrows;
- if(zh_plan(target,strlen(target),width,limit,&p)||zh_plan(source,bytes,width,limit,&en)){
+ if(message_plan_entry(TEXT_ENTRY_SCRATCH,target,strlen(target),width,limit,&p)||zh_plan(source,bytes,width,limit,&en)){
   scratch_reject("layout",self,s,caller,width,maxrows);zh_plan_free(&p);zh_plan_free(&en);return 0;
  }
  unsigned count=(unsigned)(p.used_rows>en.used_rows?p.used_rows:en.used_rows);
@@ -103,7 +103,7 @@ static void scratch_fixture(void *parent){
    unsigned id=scratch_context.first+(unsigned)row,en_bad=0,en_runs=0,marker_bad=0;
    unsigned char *english_view=live_cells_view(o),*grid=english_view?english_view:(void*)v[4];ZhPlan expected_en={0},expected_cn={0};
    int en_planned=!zh_plan(scratch_rows[id].english,strlen(scratch_rows[id].english),width,1,&expected_en);
-   int cn_planned=!zh_plan(scratch_rows[id].text,strlen(scratch_rows[id].text),width,1,&expected_cn);
+   int cn_planned=!message_plan_entry(TEXT_ENTRY_SCRATCH,scratch_rows[id].text,strlen(scratch_rows[id].text),width,1,&expected_cn);
    if(!en_planned||!cn_planned)en_bad++;
    for(size_t i=0;i<expected_en.count;i++){
     ZhRun *r=&expected_en.runs[i];en_runs++;
