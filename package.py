@@ -1,7 +1,13 @@
 from pathlib import Path
 import argparse,hashlib,json,shutil,zipfile,subprocess,sys,uuid
-r=Path(__file__).resolve().parent;p=argparse.ArgumentParser();p.add_argument('--translations',type=Path,required=True);a=p.parse_args();d=a.translations.resolve()
-subprocess.run([sys.executable,str(r/'build.py'),'--translations',str(d)],check=True)
+r=Path(__file__).resolve().parent;p=argparse.ArgumentParser();p.add_argument('--translations',type=Path,required=True);
+for name in ['identity-extracted','terminal-native-export','game-data']:p.add_argument('--'+name,type=Path)
+a=p.parse_args();d=a.translations.resolve()
+build_args=[sys.executable,str(r/'build.py'),'--translations',str(d)]
+for name in ['identity_extracted','terminal_native_export','game_data']:
+ value=getattr(a,name)
+ if value is not None:build_args+=['--'+name.replace('_','-'),str(value.resolve())]
+subprocess.run(build_args,check=True)
 version=(r/'VERSION').read_text().strip();stage=r/'build'/('package-simple-'+uuid.uuid4().hex);folder=stage/'cogmind汉化261019';resources=folder/'资源';resources.mkdir(parents=True)
 assert stage.resolve().is_relative_to((r/'build').resolve())
 files={}

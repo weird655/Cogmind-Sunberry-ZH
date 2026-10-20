@@ -12,7 +12,7 @@
 
 ## 安装
 
-**[下载 v0.1.2 安装包](https://github.com/weird655/Cogmind-Sunberry-ZH/releases/download/v0.1.2/Cogmind-Sunberry-ZH-v0.1.2.zip)** · [版本说明](https://github.com/weird655/Cogmind-Sunberry-ZH/releases/tag/v0.1.2)
+**[下载 v0.2.0 安装包](https://github.com/weird655/Cogmind-Sunberry-ZH/releases/download/v0.2.0/Cogmind-Sunberry-ZH-v0.2.0.zip)** · [版本说明](https://github.com/weird655/Cogmind-Sunberry-ZH/releases/tag/v0.2.0)
 
 适用于 **Windows · Cogmind Beta 17.1**，安装时自动核对版本。一个 ZIP 即可安装，**无需 Mod 前置或旧版补丁**。
 
@@ -33,7 +33,9 @@
 
 ## 当前状态
 
-v0.1.2 已包含原位逐字切换、长短文本收尾、终端长标题、物品名称一致性等修复。通过十六套离线检查及原生隔离测试，切换效果已获实际游玩反馈确认。
+v0.2.0 加入终端中文输入与候选补全：打开“手动指令”，用拼音选词确认中文，↑↓ 选择候选、Tab 补全，另按 Enter 提交。候选仅来自当前终端已登记的可用命令；图纸、分析等参数类型尚未全部接通，仍可使用英文。
+
+包含 48 条终端正文新增／修正、部件效果与启动提示补全，以及切换后的残留与英文还原修复。已通过离线回归及独立原生进程测试；真实拼音输入与中文指令执行已获用户验证。
 
 部分界面和文本仍有漏译。遇到问题可在 [Issues](https://github.com/weird655/Cogmind-Sunberry-ZH/issues) 附上截图、游戏版本和触发步骤，方便定位。
 
