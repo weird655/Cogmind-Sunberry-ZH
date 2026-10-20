@@ -449,6 +449,16 @@ static void *hook(uintptr_t address,void *replacement) {
 }
 __declspec(dllexport) DWORD WINAPI ProbeStart(void *unused) {
  (void)unused;base=(uintptr_t)GetModuleHandleW(NULL);
+#ifdef TERMINAL_INPUT_IME
+ /* Verified Beta 17.1 startup: push -1; call [ImmDisableIME].
+    Preserve stack balance by replacing the entire eight-byte instruction pair. */
+ {unsigned char expected[8]={0x6a,0xff,0xff,0x15,0x00,0x10,0xb6,0x00};
+ unsigned char *site=(unsigned char*)va(0x422835);DWORD protection;
+ if(memcmp(site,expected,8)==0&&VirtualProtect(site,8,PAGE_EXECUTE_READWRITE,&protection)){
+  memset(site,0x90,8);FlushInstructionCache(GetCurrentProcess(),site,8);VirtualProtect(site,8,protection,&protection);
+ }}
+#endif
+
  logfile=fopen("native-probe.log","wb"); if(!logfile)return 1;
  fprintf(logfile,"TRANSLATION-UNIFIED-CONTRACT 20261019 success=1 exact-and-template=1\n");
  diagnostic_memory_start();live_cells_clear();live_cells_set_readable(readable);

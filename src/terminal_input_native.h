@@ -1,6 +1,7 @@
 /* Unicode EDIT owns IME composition. Only committed text is resolved on a
    separate Enter. No RNG, hack chance, result or target object is changed. */
 #include "terminal_input.h"
+#include "terminal_command_aliases.h"
 typedef struct {uint32_t shell,manual,input,target,machine,grid;uint64_t scope;int x,y,width,height,columns,rows,limit;} InputContext;
 static InputRegistry input_registry;
 static InputContext input_context;
@@ -10,6 +11,29 @@ static HFONT input_font;
 static int input_pending,input_composing;
 static DWORD input_committed_at;
 static uint32_t input_retiring;
+/* SDL 1.2 may detach the default IME context. Own one only for our EDIT. */
+static HANDLE input_ime_context;
+typedef HANDLE (WINAPI *InputImeCreate)(void);
+typedef HANDLE (WINAPI *InputImeAssociate)(HWND,HANDLE);
+typedef BOOL (WINAPI *InputImeOpen)(HANDLE,BOOL);
+static InputImeAssociate input_ime_associate;
+static InputImeOpen input_ime_open;
+static void input_enable_ime(void){
+ if(!input_ime_context){
+  HMODULE imm=LoadLibraryW(L"imm32.dll");if(!imm)return;
+  InputImeCreate create=(InputImeCreate)GetProcAddress(imm,"ImmCreateContext");
+  input_ime_associate=(InputImeAssociate)GetProcAddress(imm,"ImmAssociateContext");
+  input_ime_open=(InputImeOpen)GetProcAddress(imm,"ImmSetOpenStatus");
+  if(create&&input_ime_associate&&input_ime_open){
+   HKL layouts[32];int count=GetKeyboardLayoutList(32,layouts);
+   for(int i=0;i<count;i++)if(PRIMARYLANGID(LOWORD((uintptr_t)layouts[i]))==LANG_CHINESE){ActivateKeyboardLayout(layouts[i],0);break;}
+   input_ime_context=create();
+   fprintf(logfile,"TERMINAL-INPUT-IME layout=%p context=%p error=%lu\n",(void*)GetKeyboardLayout(0),(void*)input_ime_context,(unsigned long)GetLastError());fflush(logfile);
+  }
+ }
+ if(input_ime_context){input_ime_associate(input_edit,input_ime_context);input_ime_open(input_ime_context,TRUE);}
+}
+
 
 static int input_ns(uintptr_t address,char *out,size_t cap){
  uint32_t *s=(void*)address;if(!readable(s,28)||s[4]>=cap||s[4]>s[5]||s[5]>65536)return 0;
@@ -87,6 +111,9 @@ static int input_allowed(const InputContext *c,unsigned code){
  for(uint32_t p=v[0];p<v[1];p+=4){unsigned key;if(input_command_code(*(uint32_t*)(uintptr_t)p,&key)&&key==code)return 1;}return 0;
 }
 static void input_add_translation(const char *source,const char *native,uint64_t token){
+ if(!strcmp(source,native))for(unsigned i=0;i<sizeof input_command_aliases/sizeof input_command_aliases[0];i++){
+  const InputCommandAlias *a=&input_command_aliases[i];if(!strcmp(a->native,native)&&!strchr(native,'*')&&!strchr(native,'@'))input_register(&input_registry,a->chinese,native,token);
+ }
  char translated[INPUT_TEXT];int result=message_resolve_entry(TEXT_ENTRY_TERMINAL_SHELL,source,strlen(source),translated,sizeof translated,NULL);
  if(result==1){input_register(&input_registry,translated,native,token);return;}
  /* The reviewed log heading is another exact spelling of this registered
@@ -131,15 +158,44 @@ static int input_push_key(int symbol,int mod){
  unsigned char down[24]={2,0,1},up[24]={3,0,0};memcpy(down+8,&symbol,4);memcpy(up+8,&symbol,4);memcpy(down+12,&mod,4);memcpy(up+12,&mod,4);uint16_t unicode=symbol<128?(uint16_t)symbol:0;memcpy(down+16,&unicode,2);
  if(push(down)<0)return 0;(void)push(up);return 1;
 }
+static unsigned input_candidates[6],input_candidate_count,input_candidate_selected;
+static wchar_t input_candidate_query[256];
+static void input_candidate_draw(void){
+ wchar_t display[2048]=L"";
+ for(unsigned i=0;i<input_candidate_count;i++){
+  wchar_t alias[INPUT_TEXT],line[INPUT_TEXT+32];
+  MultiByteToWideChar(CP_UTF8,MB_ERR_INVALID_CHARS,input_registry.rows[input_candidates[i]].alias,-1,alias,INPUT_TEXT);
+  swprintf(line,INPUT_TEXT+32,L"%ls %ls\r\n",i==input_candidate_selected?L">":L" ",alias);
+  if(wcslen(display)+wcslen(line)<2000)wcscat(display,line);
+ }
+ if(input_candidate_count)wcscat(display,L"↑↓ 选择 · Tab 补全 · Enter 提交");
+ else wcscpy(display,L"未找到当前终端的候选命令。");
+ SetWindowTextW(input_status,display);
+}
+static void input_candidate_update(void){
+ if(input_composing)return;wchar_t wide[256];GetWindowTextW(input_edit,wide,256);
+ if(!wcscmp(wide,input_candidate_query))return;wcscpy(input_candidate_query,wide);
+ char query[INPUT_TEXT];int bytes=WideCharToMultiByte(CP_UTF8,WC_ERR_INVALID_CHARS,wide,-1,query,sizeof query,NULL,NULL);
+ input_candidate_count=bytes?input_suggest(&input_registry,input_context.scope,query,input_candidates,6):0;input_candidate_selected=0;
+ if(wide[0])input_candidate_draw();else SetWindowTextW(input_status,L"输入中文查找命令；↑↓ 选择，Tab 补全，Enter 提交。");
+}
 static LRESULT CALLBACK input_child_proc(HWND window,UINT message,WPARAM wp,LPARAM lp){
+ if(message==WM_SETFOCUS)input_enable_ime();
  if(message==WM_IME_STARTCOMPOSITION)input_composing=1;
  if(message==WM_IME_ENDCOMPOSITION){input_composing=0;input_committed_at=GetTickCount();}
  if(message==WM_KEYDOWN&&!(lp&(1L<<30))){
+  if(!input_composing&&input_candidate_count&&(wp==VK_UP||wp==VK_DOWN)){
+   input_candidate_selected=(input_candidate_selected+input_candidate_count+(wp==VK_UP?-1:1))%input_candidate_count;input_candidate_draw();return 0;
+  }
+  if(!input_composing&&wp==VK_TAB&&input_candidate_count){
+   wchar_t alias[INPUT_TEXT];MultiByteToWideChar(CP_UTF8,MB_ERR_INVALID_CHARS,input_registry.rows[input_candidates[input_candidate_selected]].alias,-1,alias,INPUT_TEXT);
+   SetWindowTextW(input_edit,alias);SendMessageW(input_edit,EM_SETSEL,(WPARAM)-1,(LPARAM)-1);input_candidate_update();return 0;
+  }
   if(wp==VK_RETURN){if(!input_composing&&GetTickCount()-input_committed_at>120)input_pending=1;return 0;}
   if(wp==VK_ESCAPE&&!input_composing){input_pending=2;return 0;}
   if(wp==VK_F9&&(GetKeyState(VK_RMENU)&0x8000)){SetFocus(input_game);input_push_key(290,0x0200);return 0;}
  }
- if(message==WM_CHAR&&(wp==13||wp==27))return 0;
+ if(message==WM_CHAR&&(wp==13||wp==27||wp==9))return 0;
  return CallWindowProcW(input_edit_proc,window,message,wp,lp);
 }
 static LRESULT CALLBACK input_parent_proc(HWND window,UINT message,WPARAM wp,LPARAM lp){
@@ -170,12 +226,17 @@ static void terminal_input_tick(void){
  if(input_retiring==c.manual)return;
  if(!input_create())return;
  if(c.scope!=input_context.scope){
-  input_build_registry(&c);input_context=c;SetWindowTextW(input_edit,L"");SetWindowTextW(input_status,L"中文：输入当前完整命令；Enter 提交，Esc 返回。English 也可直接输入。");input_pending=0;
+  input_build_registry(&c);input_context=c;input_candidate_query[0]=0;input_candidate_count=0;SetWindowTextW(input_edit,L"");SetWindowTextW(input_status,L"中文：输入当前完整命令；Enter 提交，Esc 返回。English 也可直接输入。");input_pending=0;
   RECT client;GetClientRect(input_game,&client);int height=(client.bottom-client.top)/c.rows;if(height<8)height=8;
   if(input_font)DeleteObject(input_font);input_font=CreateFontW(-height+2,0,0,0,FW_NORMAL,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,DEFAULT_QUALITY,FIXED_PITCH,L"Microsoft YaHei UI");SendMessageW(input_edit,WM_SETFONT,(WPARAM)input_font,TRUE);SendMessageW(input_status,WM_SETFONT,(WPARAM)input_font,TRUE);
   int x=c.x*client.right/c.columns,y=c.y*client.bottom/c.rows,width=c.width*client.right/c.columns;
-  MoveWindow(input_edit,x,y,width,height,TRUE);MoveWindow(input_status,x,y+height,width,height,TRUE);ShowWindow(input_edit,SW_SHOW);ShowWindow(input_status,SW_SHOW);SetFocus(input_edit);
+  MoveWindow(input_edit,x,y,width,height,TRUE);MoveWindow(input_status,x,y+height,width,height*8,TRUE);ShowWindow(input_edit,SW_SHOW);ShowWindow(input_status,SW_SHOW);SetFocus(input_edit);input_enable_ime();
+  fprintf(logfile,"TERMINAL-INPUT-FOCUS edit=%p focus=%p ime-context=%p\n",(void*)input_edit,(void*)GetFocus(),(void*)input_ime_context);fflush(logfile);
  }
+ /* SDL can reclaim focus after the opening key event. Recover only while
+    this game is foreground and its original terminal input is still active. */
+ if(GetForegroundWindow()==input_game&&GetFocus()==input_game){SetFocus(input_edit);}
+ input_candidate_update();
  if(!input_pending)return;int pending=input_pending;input_pending=0;
  if(input_composing)return;
  if(pending==2){input_retiring=c.manual;input_hide();SetFocus(input_game);input_push_key(27,0);return;}

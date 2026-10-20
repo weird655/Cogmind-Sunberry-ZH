@@ -37,4 +37,18 @@ static int input_resolve(const InputRegistry *r,uint64_t scope,const char *text,
  }
  if(!chosen)return 0;size_t bytes=strlen(chosen->native);if(bytes>=cap)return -1;memcpy(out,chosen->native,bytes+1);return 1;
 }
+/* Candidates are discoverability only; submission still requires exact resolution.
+   Prefix first, then substring. Ambiguous aliases and stale scopes stay hidden. */
+static inline unsigned input_suggest(const InputRegistry *r,uint64_t scope,const char *query,unsigned *indices,unsigned capacity){
+ if(!r||!indices||!capacity||!scope||r->scope!=scope||!query)return 0;
+ char key[INPUT_TEXT],native[INPUT_NATIVE];if(!input_normalize(query,strlen(query),key,sizeof key))return 0;
+ unsigned count=0;size_t length=strlen(key);
+ for(unsigned pass=0;pass<2;pass++)for(unsigned i=0;i<r->count&&count<capacity;i++){
+  const char *match=strstr(r->rows[i].alias,key);if(!match||(pass==0?match!=r->rows[i].alias:match==r->rows[i].alias))continue;
+  if(length>strlen(r->rows[i].alias)||input_resolve(r,scope,r->rows[i].alias,native,sizeof native)!=1)continue;
+  int duplicate=0;for(unsigned j=0;j<count;j++)if(!strcmp(r->rows[indices[j]].alias,r->rows[i].alias))duplicate=1;
+  if(!duplicate)indices[count++]=i;
+ }
+ return count;
+}
 #endif

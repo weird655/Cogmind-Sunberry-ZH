@@ -18,6 +18,25 @@ static void terminal_input_fixture(void *parent){
   ((Ctor)va(0x48d130))(widget,manual,0,0,44,0,0,0,va(0x900920),va(0x8fec50),va(0x4b1c30),0,0,va(0x909990));
   typedef void (__attribute__((thiscall)) *Limit)(void*,int);((Limit)va(0x4544c0))(widget,44);((uint32_t*)manual)[0x6c/4]=(uint32_t)(uintptr_t)widget;
   uint32_t *ids=(*(NativeNew*)va(0xb6132c))(4);*ids=31;uint32_t *list=(void*)((char*)manual+0x70);list[0]=(uint32_t)(uintptr_t)ids;list[1]=list[2]=list[0]+4;
+  /* Detached native render owners: repaint translated rows repeatedly, then
+     compare every reconstructed English glyph with a pristine native owner. */
+  {void *actual=(*(NativeNew*)va(0xb6132c))(0xc4),*reference=(*(NativeNew*)va(0xb6132c))(0xc4);
+   ((ConsoleCtor)va(0x48c060))(actual,shell,50,4,0,0,0,0,20);((ConsoleCtor)va(0x48c060))(reference,shell,50,4,0,0,0,0,20);
+   const char *samples[]={"Scanning nodes...","Network defenses at 100%...","Terminal M005 - Restricted Access","/ R E S U L T S /","Assault Status"};unsigned repaint_errors=0,handled=0;
+   for(unsigned sample=0;sample<5;sample++){
+    live_cells_remove(actual);for(unsigned x=0;x<50;x++)for(unsigned y=0;y<4;y++){original_display_cell(actual,x,y,32);original_display_cell(reference,x,y,32);}
+    NativeStringValue text={{0}};((StringCtor)va(0x9af0f0))(&text,samples[sample]);int mode=sample==3?1:0,x=mode?25:0;
+    display_original(reference,x,0,0,0,mode,mode,&text);
+    for(unsigned pass=0;pass<12;pass++){
+     int result;int ok=display_bridge_impl(actual,x,0,0,0,mode,mode,&text,&result);handled+=ok;
+     unsigned char *english=live_cells_view(actual);if(!english){repaint_errors++;continue;}
+     for(unsigned cell=0;cell<200;cell++)repaint_errors+=*(uint32_t*)(english+cell*20+4)!=*(uint32_t*)(((uint32_t*)reference)[4]+cell*20+4);
+     free(english);
+    }
+    ((NativeVoid)va(0x9af350))(&text);
+   }
+   fprintf(logfile,"IME-FIXTURE-REPAINT passes=60 handled=%u glyph-errors=%u\n",handled,repaint_errors);errors+=repaint_errors;fflush(logfile);
+  }
   input_fixture_shell=(uint32_t)(uintptr_t)shell;input_fixture_target=(uint32_t)(uintptr_t)target;
   terminal_input_tick();errors+=!input_edit||!IsWindowUnicode(input_edit)||input_registry.count==0;
   SetWindowTextW(input_edit,L"\u4e0d\u5728\u5f53\u524d\u547d\u4ee4\u96c6\u5408");input_pending=1;terminal_input_tick();char original[INPUT_NATIVE];errors+=!input_ns((uintptr_t)widget+0x6c,original,sizeof original)||original[0]||input_fixture_events;

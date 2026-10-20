@@ -24,6 +24,19 @@ int main(void){
  s=live_cells_capture_full(a);assert(!s);live_cells_remove(b);s=live_cells_capture_full(a);assert(s);a[0]=2;assert(!live_cells_commit(s));assert(!live_cells_find(a));
  s=live_cells_capture_full(a);assert(s);a[4]=(uintptr_t)other;assert(!live_cells_commit(s));assert(!live_cells_find(a));
  live_cells_clear();assert(live_cells_count==0);
+ /* Repeated English snapshots must use the reconstructed English baseline,
+    never the shorter Chinese carrier's spaces. Preserve both tail and header. */
+ a[0]=1;a[4]=(uintptr_t)cells;memset(cells,0,sizeof cells);
+ for(unsigned i=0;i<8;i++)glyph(cells,i*4,'A'+i);
+ for(unsigned pass=0;pass<20;pass++){
+  v=live_cells_view(a);if(v){memcpy(cells,v,sizeof cells);free(v);}
+  s=live_cells_begin(a,0,0,8,1,0);assert(s);
+  for(unsigned i=0;i<8;i++)glyph(cells,i*4,i<4?320+i:32);
+  assert(live_cells_commit(s));v=live_cells_view(a);assert(v);
+  for(unsigned i=0;i<8;i++)assert(getglyph(v,i*4)=='A'+i);
+  free(v);
+ }
+ live_cells_clear();
  live_cells_set_readable(reject_read);assert(!live_cells_capture_full(a));assert(!live_cells_view(a));
  live_cells_set_readable(NULL);s=live_cells_capture_full(a);assert(s);live_cells_cancel(s);live_cells_clear();
  puts("live_cells: reversible views, colors, stale glyphs, alignment, clipping, owner reuse and capacity passed");return 0;

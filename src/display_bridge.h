@@ -92,8 +92,13 @@ static int display_bridge_impl(void *self,int x,int y,int width,int maxrows,int 
  }
  carrier[at]=0;
  if(ready){
-  size_t live_grid_size=(size_t)o[2]*o[3]*20;void *live_old_grid=mode>=2?malloc(live_grid_size):NULL;
-  if(live_old_grid)memcpy(live_old_grid,(void*)o[4],live_grid_size);
+  size_t live_grid_size=(size_t)o[2]*o[3]*20;void *live_old_grid=malloc(live_grid_size);
+  if(!live_old_grid){free(ctx.tokens);free(ctx.widths);free(carrier);zh_plan_free(&plan);display_busy=0;return 0;}
+  memcpy(live_old_grid,(void*)o[4],live_grid_size);
+  /* Repaint the English snapshot onto its own reversible baseline. Capturing
+     from an already translated grid records carrier spaces as English holes. */
+  unsigned char *live_baseline=live_cells_view(self);
+  if(live_baseline){memcpy((void*)o[4],live_baseline,live_grid_size);free(live_baseline);}
   unsigned char live_english_string[28]={0};void *live_english_source=s;
   if(display_override_english){((StringCtor)va(0x9af0f0))(live_english_string,display_override_english);live_english_source=live_english_string;}
   int live_english_rows=display_original(self,x,y,width,maxrows,align,mode,live_english_source);

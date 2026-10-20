@@ -64,6 +64,11 @@ static void __attribute__((fastcall)) hooked_menu_compact_redraw(void *owner,voi
  (void)unused;MenuCompactContext c={0};MenuCompactContext *saved=menu_compact_context;
  int prior_english=live_native_english;live_native_english=1;menu_compact_context=NULL;original_menu_compact_redraw(owner,arg1,arg2);live_native_english=prior_english;
  LiveCellsSnapshot *live_menu_snapshot=live_cells_capture_full(owner);
+ /* Native redraw paints punctuation at measured offsets but does not erase
+    the former English closing bracket. Clear only this owned row's glyphs. */
+ if(live_menu_snapshot){uint32_t *grid_owner=owner;
+  for(unsigned mx=0;mx<grid_owner[2];mx++)for(unsigned my=0;my<grid_owner[3];my++)original_display_cell(owner,(int)mx,(int)my,32);
+ }
  c.owner=owner;menu_compact_context=&c;original_menu_compact_redraw(owner,arg1,arg2);menu_compact_context=saved;
  if(live_menu_snapshot)live_cells_commit(live_menu_snapshot);
  if(c.ready){fprintf(logfile,"MENU-COMPACT-END owner=%p overrides=%u source-columns=%d target-columns=%d\n",owner,c.overrides,c.original_columns,c.target_columns);fflush(logfile);}

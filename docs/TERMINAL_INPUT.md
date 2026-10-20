@@ -29,3 +29,8 @@ Schematic、Analysis 等其他通配参数尚未接入身份适配，不能据�
 Windows 输入层可能不会进入游戏自身 F12 截图，需要显示问题时使用系统截图。
 
 回滚：正常保存退出后，恢复更新备份中的 physfs.dll、native_zh.dll、install-state.json；勿覆盖后续新存档。
+
+候选补全：中文确认上屏后，按前缀优先、包含其次筛选当前登记命令，最多六条。上下键选择，Tab 补全，另按 Enter 提交；候选不自动执行，歧义名称不进入候选。IME 组合期间不截取候选导航键。
+启动适配：仅对已验证 Beta 17.1 的八字节启动指令作内存校验后跳过进程级 ImmDisableIME(-1)，游戏 EXE 磁盘文件不改动；Unicode EDIT 使用独立 IME 上下文。
+
+手动命令表见 `data/terminal_commands.tsv`：111 个原生条目（110 个不同拼写），102 个固定命令、9 个参数模板。固定中文别名仅在当前原生允许集合内登记；参数模板不是可直接提交的通配命令，仍需对应身份适配器。名称与当前 Windows Beta 17.1 原生表核对，并参考 [Cog-Minder Hacks](https://noemica.github.io/cog-minder/hacks) / [源数据](https://github.com/noemica/cog-minder/blob/8d401ec5871434596195a9ef4abf6f845b21e1be/src/json/machine_hacks.json)。90 个条目的名称能与网站直接核对；其余以当前原生表为准。本表中文为本项目补充，未导入网站成功率计算或英文说明段落。
