@@ -14,10 +14,11 @@ static void scratch_reject(const char *reason,void *self,void *s,uintptr_t calle
 static int scratch_paragraph(void *self,int x,int y,int width,int maxrows,void *s,uintptr_t caller,int *result){
  memset(&scratch_context,0,sizeof scratch_context);
  if((caller!=va(0x790a33)&&caller!=va(0x8089d1))||x||y||width<9||width>512||maxrows<1||!readable(self,24))return 0;
+ TextEntry entry=caller==va(0x790a33)?TEXT_ENTRY_MANUAL:TEXT_ENTRY_NOTIFICATION;
  const char *source;size_t bytes;if(!plain_source(s,&source,&bytes)){scratch_reject("source",self,s,caller,width,maxrows);return 0;}char target[32768];
- if(message_resolve_entry(TEXT_ENTRY_SCRATCH,source,bytes,target,sizeof target,NULL)!=1){scratch_reject("lookup",self,s,caller,width,maxrows);return 0;}
+ if(message_resolve_entry(entry,source,bytes,target,sizeof target,NULL)!=1){scratch_reject("lookup",self,s,caller,width,maxrows);return 0;}
  ZhPlan p={0},en={0};int limit=maxrows>200?200:maxrows;
- if(message_plan_entry(TEXT_ENTRY_SCRATCH,target,strlen(target),width,limit,&p)||zh_plan(source,bytes,width,limit,&en)){
+ if(message_plan_entry(entry,target,strlen(target),width,limit,&p)||zh_plan(source,bytes,width,limit,&en)){
   scratch_reject("layout",self,s,caller,width,maxrows);zh_plan_free(&p);zh_plan_free(&en);return 0;
  }
  unsigned count=(unsigned)(p.used_rows>en.used_rows?p.used_rows:en.used_rows);

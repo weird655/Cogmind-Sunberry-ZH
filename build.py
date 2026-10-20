@@ -3,6 +3,8 @@ import argparse,os,subprocess,sys,shutil,hashlib,re
 r=Path(__file__).resolve().parent
 parser=argparse.ArgumentParser(description='Build the exact-version Cogmind translation adapter; no game/data redistribution.')
 parser.add_argument('--translations',type=Path)
+parser.add_argument('--identity-extracted',type=Path,help='Optional schema-extracted TSV for verified item record binding')
+parser.add_argument('--game-data',type=Path,help='Read-only matching original data directory')
 parser.add_argument('--smoke',action='store_true',help='Run synthetic tests without translation tables or a game installation')
 parser.add_argument('--tests',action='store_true',help='Run all current-corpus regression tests before building')
 a=parser.parse_args();out=r/'build';out.mkdir(exist_ok=True)
@@ -20,8 +22,13 @@ names=['zh_para.tsv','item_names.tsv','zh_trans.tsv','zh_extra.tsv','runtime_pat
 if d is None or any(not (d/n).is_file() for n in names):parser.error('--translations must name a directory containing the five required TSV files.')
 if a.tests:
  os.environ['COGMIND_TRANSLATION_DIR']=str(d);run([sys.executable,r/'verify.py'])
+identity_flags=[]
+if a.identity_extracted:
+ if not a.game_data:parser.error('--identity-extracted requires --game-data')
+ run([sys.executable,r/'tools/generate_identity_manifest.py','--extracted',a.identity_extracted.resolve(),'--data-dir',a.game_data.resolve(),'--output',out/'record_identity_generated.h'])
+ identity_flags=['-DRECORD_IDENTITY_MANIFEST','-I'+str(out)]
 core=out/'native_zh.dll'
-run([cc,'-O2','-Wall','-Wextra','-Werror','-DCHINESE_DEMO','-DSHELL_PROBE','-shared',r/'src/probe.c',r/'src/text_core.c',r/'src/glyph_registry.c','-lgdi32','-Wl,--kill-at','-o',core])
+run([cc,'-O2','-Wall','-Wextra','-Werror','-DCHINESE_DEMO','-DSHELL_PROBE',*identity_flags,'-shared',r/'src/probe.c',r/'src/text_core.c',r/'src/glyph_registry.c','-lgdi32','-lbcrypt','-Wl,--kill-at','-o',core])
 loader=out/'loader';shutil.copytree(r/'loader',loader,dirs_exist_ok=True)
 hashes=[hashlib.sha256(p.read_bytes()).hexdigest() for p in [core]+[d/n for n in names]]
 header=loader/'payload_hashes.h';text=header.read_text();matches=list(re.finditer(r'\{L"[^\"]+","([0-9a-f]{64})"\}',text))

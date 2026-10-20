@@ -56,7 +56,7 @@ static inline int message_resolve_object(const TextObject *object,char *target,s
  TEXT_OBJECT_OBSERVE(object,result);return result;
 }
 static inline int message_resolve_entry(TextEntry entry,const char *source,size_t bytes,char *target,size_t capacity,size_t *rule){
- TextObject object={entry,source,bytes};return message_resolve_object(&object,target,capacity,rule);
+ TextObject object={entry,source,bytes,NULL};return message_resolve_object(&object,target,capacity,rule);
 }
 /* Layout is a separate morphism: translation never guesses screen width.
    Native adapters retain link IDs, colors and ownership of the resulting plan. */

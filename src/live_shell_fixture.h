@@ -7,6 +7,33 @@
 static void *live_fixture_parent;
 static uintptr_t live_fixture_vtable[32];
 static unsigned live_fixture_stage,live_fixture_errors,live_fixture_owner_baseline,live_fixture_child_baseline,live_fixture_cn_owners,live_fixture_links;
+
+#ifdef RECORD_IDENTITY_PROBE
+static void record_identity_fixture(void *parent){
+ uint32_t *bank=(void*)va(0xd2d1c4);if(!readable(bank,12)||bank[1]-bank[0]<15*4){live_fixture_errors++;return;}
+ uint32_t *prototypes=(void*)(uintptr_t)bank[0];if(!readable(prototypes,15*4)){live_fixture_errors++;return;}
+ uint32_t handle=0;typedef void* (__attribute__((thiscall)) *Create)(void*,uint32_t*,void*);
+ ((Create)va(0x7932b0))(*(void**)va(0xcefc4c),&handle,(void*)(uintptr_t)prototypes[14]);
+ RecordBinding binding={0};int bound=native_record_binding(handle,&binding);char output[512];
+ TextObject object={TEXT_ENTRY_ITEM_LABEL,"Lgt. Ion Engine",15,bound?&binding:NULL};
+ int translated=message_resolve_object(&object,output,sizeof output,NULL);
+ RecordBinding unchanged=binding;int stale=native_record_binding(handle^0x10000,&binding);
+ unsigned errors=!bound||binding.ordinal!=14||translated!=1||stale||memcmp(&unchanged,&binding,sizeof binding);
+ void *widget=(*(NativeNew*)va(0xb6132c))(0xa0);
+ if(!widget)errors++;
+ else{
+  memset(widget,0,0xa0);((ConsoleCtor)va(0x48c060))(widget,parent,60,1,0,0,0,1,-1);uint32_t *w=widget;w[0x6c/4]=handle;
+  NativeStringValue label={{0}};((StringCtor)va(0x9af0f0))(&label,"Lgt. Ion Engine               ");
+  w[0]=va(0xc3599c);int inventory=inventory_name(widget,7,0,&label,va(0x4aa4e8));
+  w[0]=va(0xc35794);int equipped=inventory_name(widget,5,0,&label,va(0x4a90eb));
+  errors+=inventory!=1||equipped!=1;((NativeVoid)va(0x9af350))(&label);live_cells_remove(widget);
+  uint32_t *children=(void*)((char*)parent+0x44);for(unsigned i=0;i<vector_count(children);i++)if(((void**)children[0])[i]==widget){w[0]=va(0xc2ef14);typedef void (__cdecl *Remove)(void*,unsigned);((Remove)va(0x9cea50))(children,i);break;}
+  fprintf(logfile,"RECORD-IDENTITY-ADAPTERS inventory=%d equipped=%d same-native-handle=1 errors=%u\n",inventory,equipped,errors);
+ }
+ live_fixture_errors+=errors;
+ fprintf(logfile,"RECORD-IDENTITY-FIXTURE created-native-item=1 ordinal=%lu bound=%d stale-rejected=%d errors=%u isolated-process-only=1\n",(unsigned long)binding.ordinal,bound,!stale,errors);fflush(logfile);
+}
+#endif
 static DWORD live_fixture_born;
 static uint32_t live_fixture_machine[64],live_fixture_ref[2],live_fixture_state[8];
 static void* __attribute__((fastcall)) live_fixture_resolve(void *self,void *unused){
@@ -92,7 +119,7 @@ static void live_fixture_close(void){
  #ifdef LIVE_RAPID_PROBE
  live_fixture_errors+=live_rapid_capture_errors;
  #endif
- fprintf(logfile,"CONTENT-NATIVE-FINAL terminal-errors=%u log-errors=%u\n",live_fixture_errors,log_fixture_errors);fflush(logfile);ExitProcess(live_fixture_errors||log_fixture_errors?87:0);
+ fprintf(logfile,"CONTENT-NATIVE-FINAL terminal-errors=%u log-errors=%u\n",live_fixture_errors,log_fixture_errors);fflush(logfile);message_route_dump();ExitProcess(live_fixture_errors||log_fixture_errors?87:0);
  #endif
 }
 static void live_blit_fixture(void *parent){
@@ -124,7 +151,10 @@ static void live_fixture(void *parent){
   memcpy(live_fixture_vtable,(void*)va(0xc36224),sizeof live_fixture_vtable);live_fixture_vtable[6]=(uintptr_t)live_fixture_update;*(void**)shell=live_fixture_vtable;
   ((NativeVoid)va(0x9b8e80))((char*)shell+0x74);((NativeVoid)va(0x9b8e80))((char*)shell+0x8c);((uint32_t*)shell)[0x70/4]=0;((uint32_t*)shell)[24]=3;((uint32_t*)shell)[0x9c/4]=live_fixture_clock();
   void *scratch=(*(NativeNew*)va(0xb6132c))(0x128);if(!scratch){live_fixture_errors++;live_fixture_close();return;}memset(scratch,0,0x128);((ConsoleCtor)va(0x48c060))(scratch,shell,46,200,0,0,0,1,-1);*(void**)((char*)shell+0x88)=scratch;
-  live_chinese=1;live_native_english=0;live_fixture_stage=1;live_fixture_send("Current Alert Level: Low",-1);live_fixture_send(live_fixture_lore,(int)live_fixture_lore_index);
+  #ifdef RECORD_IDENTITY_PROBE
+ record_identity_fixture(parent);
+ #endif
+ live_chinese=1;live_native_english=0;live_fixture_stage=1;live_fixture_send("Current Alert Level: Low",-1);live_fixture_send(live_fixture_lore,(int)live_fixture_lore_index);
   #ifdef CONTENT_NATIVE_PROBE
   for(unsigned i=0;i<sizeof content_fixture_sources/sizeof content_fixture_sources[0];i++)live_fixture_send(content_fixture_sources[i],-1);
   #endif

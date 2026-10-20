@@ -50,10 +50,10 @@ int main(int argc,char **argv){
   const MessageProfile profiles[]={MESSAGE_DISPLAY,MESSAGE_TERMINAL,MESSAGE_REPAIR,MESSAGE_NAME};
   char a[32768]="sentinel",b[32768]="sentinel";size_t ra=999,rb=999;
   int direct=message_resolve_profile(profiles[spec->semantic],sources[i],strlen(sources[i]),a,sizeof a,&ra);
-  TextObject object={(TextEntry)e,sources[i],strlen(sources[i])};
+  TextObject object={(TextEntry)e,sources[i],strlen(sources[i]),NULL};
   CHECK(message_resolve_object(&object,b,sizeof b,&rb)==direct);CHECK(!strcmp(a,b)&&ra==rb);
  }
- TextObject invalid={(TextEntry)999,"A",1};strcpy(output,"unchanged");rule=123;
+ TextObject invalid={(TextEntry)999,"A",1,NULL};strcpy(output,"unchanged");rule=123;
  CHECK(message_resolve_object(&invalid,output,sizeof output,&rule)==-1);CHECK(!strcmp(output,"unchanged")&&rule==123);
  CHECK(message_resolve_object(NULL,output,sizeof output,&rule)==-1);
  for(unsigned e=0;e<TEXT_ENTRY_COUNT;e++){

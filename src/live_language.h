@@ -21,7 +21,7 @@ static void live_request(int chinese){
  fprintf(logfile,"LIVE-LANGUAGE-REQUEST target=%s\n",chinese?"zh":"en");fflush(logfile);
 }
 static int __cdecl live_poll(void *event){
- perf_flush();
+ perf_flush();message_route_flush();
  live_tick();int r;
  while((r=live_original_poll(event))!=0){
   if(!event)return r;

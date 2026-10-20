@@ -35,8 +35,10 @@ static ZhDictionary *item_dictionary;
 static ZhDictionary *short_dictionary;
 static void message_observe(int,int,const char*,size_t);
 static void message_layout_observe(int,int,int,int);
+#include "text_context.h"
+static void message_binding_observe(const TextObject*,int);
 #define MESSAGE_OBSERVE(profile,result,source,bytes) message_observe(profile,result,source,bytes)
-#define TEXT_OBJECT_OBSERVE(object,result) message_observe(100+(int)(object)->entry,result,(object)->source,(object)->bytes)
+#define TEXT_OBJECT_OBSERVE(object,result) message_binding_observe(object,result)
 #define TEXT_LAYOUT_OBSERVE(entry,result,columns,rows) message_layout_observe(entry,result,columns,rows)
 #include "message_resolver.h"
 #include "message_diagnostics.h"
@@ -80,6 +82,7 @@ static int readable(const void *p,size_t n) {
  if(!p || !VirtualQuery(p,&m,sizeof m) || m.State!=MEM_COMMIT || (m.Protect&(PAGE_NOACCESS|PAGE_GUARD))) return 0;
  return (uintptr_t)p+n>=(uintptr_t)p && (uintptr_t)p+n<=(uintptr_t)m.BaseAddress+m.RegionSize;
 }
+#include "native_record_binding.h"
 #include "live_cells.h"
 #ifdef CHINESE_DEMO
 #include "native_demo.h"
@@ -300,8 +303,12 @@ static int inventory_name(void *self,int x,int y,void *s,uintptr_t caller){
   }
  }
  char translated[512];
- if(message_resolve_entry(TEXT_ENTRY_ITEM_LABEL,p,n,translated,sizeof translated,NULL)!=1)return 0;
- ZhPlan plan={0};if(message_plan_entry(TEXT_ENTRY_ITEM_LABEL,translated,strlen(translated),(int)capacity,1,&plan)){
+ RecordBinding binding={0};int bound=0;
+ if((list||equipped)&&readable(self,0x70))bound=native_record_binding(*(uint32_t*)((char*)self+0x6c),&binding);
+ TextEntry item_entry=list?TEXT_ENTRY_INVENTORY:equipped?TEXT_ENTRY_EQUIPPED:TEXT_ENTRY_ITEM_LABEL;
+ TextObject object={item_entry,p,n,bound?&binding:NULL};
+ if(message_resolve_object(&object,translated,sizeof translated,NULL)!=1)return 0;
+ ZhPlan plan={0};if(message_plan_entry(item_entry,translated,strlen(translated),(int)capacity,1,&plan)){
   fprintf(logfile,"ITEM-NOFIT columns=%u source=%.*s\n",(unsigned)capacity,(int)n,p);fflush(logfile);return 0;
  }
  if(!extend_demo_fonts()){zh_plan_free(&plan);return 0;}

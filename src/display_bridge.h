@@ -57,13 +57,14 @@ static int display_bridge_impl(void *self,int x,int y,int width,int maxrows,int 
     until their readback boundary has an explicit Unicode owner. */
  int event_popup=mode==3&&display_origin_site==va(0x875329)&&o[0]==va(0xc2ef14)&&!o[5]&&align==1&&y==0&&x==(int)o[2]/2&&o[3]<=16&&width>0&&width<=(int)o[2];
  if(mode>=2&&o[0]==va(0xc2ef14)&&!display_override_target&&!event_popup)return 0;
+ TextEntry entry=event_popup?TEXT_ENTRY_STORY_POPUP:credits?TEXT_ENTRY_CREDITS:intro?TEXT_ENTRY_INTRO:(mode==0&&display_origin_site==va(0x8118a6)&&o[0]==va(0xc2ef14))?TEXT_ENTRY_HOVER:TEXT_ENTRY_DISPLAY;
  display_busy=1;char translated[32768];int match;unsigned long long lookup_start=perf_now();
  if(display_override_target){size_t length=strlen(display_override_target);match=length<sizeof translated?1:-1;if(match==1)memcpy(translated,display_override_target,length+1);}
- else match=message_resolve_entry(TEXT_ENTRY_DISPLAY,raw,n,translated,sizeof translated,NULL);
+ else match=message_resolve_entry(entry,raw,n,translated,sizeof translated,NULL);
  perf_add(0,lookup_start);if(match!=1){display_busy=0;return 0;}
  if(credits){const char *credit="  汉化组：太阳莓";size_t current=strlen(translated),extra=strlen(credit);if(current+extra<sizeof translated)memcpy(translated+current,credit,extra+1);}
  if(display_override_target&&!translated[0])strcpy(translated," ");
- ZhPlan plan={0};if(message_plan_entry(TEXT_ENTRY_DISPLAY,translated,strlen(translated),columns,rows,&plan)||!(intro?intro_font_extend():zoom?zoom_font_extend():extend_demo_fonts())){zh_plan_free(&plan);display_busy=0;return 0;}
+ ZhPlan plan={0};if(message_plan_entry(entry,translated,strlen(translated),columns,rows,&plan)||!(intro?intro_font_extend():zoom?zoom_font_extend():extend_demo_fonts())){zh_plan_free(&plan);display_busy=0;return 0;}
  if(!plan.used_rows){zh_plan_free(&plan);display_busy=0;return 0;}
  DisplayContext ctx={0};ctx.owner=self;ctx.x=x;ctx.y=y;ctx.align=align;ctx.columns=columns;ctx.rows=plan.used_rows;
  ctx.tokens=malloc((size_t)ctx.rows*columns*sizeof(int));ctx.widths=calloc(ctx.rows,sizeof(int));char *carrier=malloc(65536);
