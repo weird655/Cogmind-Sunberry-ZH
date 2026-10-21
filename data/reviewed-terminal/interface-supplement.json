@@ -1,0 +1,21 @@
+{
+  "Retrieving prototype inventory records... No registered prototype stockpiles.": "正在读取原型库存记录…… 没有已登记的原型储备。",
+  "Retrieving prototype inventory records...": "正在读取原型库存记录……",
+  "No registered prototype stockpiles.": "没有已登记的原型储备。",
+  "Enumerate(Exterminations)": "枚举（歼灭队）",
+  "Query(Mines)": "查询（矿区）",
+  "Query(Repair Station)": "查询（维修站）",
+  "Metadata": "元数据",
+  "DERELICT LOG": "流亡者日志",
+  "=  EVOLUTION PARAMETERS  =": "=  进化参数  =",
+  "PROTOTYPE BALLISTIC GUN": "原型弹道枪",
+  "World map confirmed: -8/Storage.": "世界地图已确认：-8/仓储区。",
+  "World map confirmed: {n}/{*}.": "世界地图已确认：{1}/{2}。",
+  "APPLY {n}": "应用 {1}",
+  "({n} damage, {n} kills)": "（伤害 {1}，击杀 {2}）",
+  "Analysis! \"Scrapper\"": "分析！“废料客”",
+  "Enter - [       ]": "回车 - [       ]",
+  "[REVERSE]": "[反向]",
+  " INVENTORY ##/## ": " 库存 ##/## ",
+  "K-01 Serf collects debris. <x*>": "K-01 劳工收集残骸。<x*>"
+}

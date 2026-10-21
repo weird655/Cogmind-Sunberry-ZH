@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-22",
+  "scope": "only verified terminal visible body fields 60/88; excludes internal action payload fields such as PRELEARN_MAP",
+  "terminal_visible_unique": 912,
+  "matched": 860,
+  "preserved_noise": 52,
+  "terminal_match_percent": 94.3,
+  "whole_game_complete": false,
+  "physical_body_fields": 1834,
+  "matched_physical_body_fields": 1730,
+  "reviewed_bindings": 984,
+  "interface_supplement_rules": 19,
+  "regression": "1200 message-policy checks; 400 display checks; DSF links; 60 expanded-code samples; 10 gap samples; independent startup fixture passed",
+  "visual_limit": "Not every paragraph or UI entrance has been exercised in the real game."
+}

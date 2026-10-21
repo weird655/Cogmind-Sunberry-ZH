@@ -190,9 +190,28 @@ static int display_bracket_columns(const ZhDictionary *items,const ZhDictionary 
 /* Preserve formatting tokens, explicit newlines and HUD column separators.
    Whole sentences/templates are preferred; fragments are used only when the
    native string itself contains explicit formatting/column boundaries. */
+/* Robot hacking labels are display objects. Keep shortcut, bracket and charge
+   columns; never write a translated string into a native command descriptor. */
+static int display_robot_hack_row(const char *s,size_t n,char *out,size_t cap){
+ const char *keys[]={"parse_system","no_distress","find_station","generate_echo","release_backups","deconstruct_bot","overload_power","link_fov","streamctrl_low","generate_anomaly","amplify_resonance","formatsys_low","start_evac"};
+ size_t start=0;while(start<n&&s[start]==' ')start++;
+ if(start+5<n&&s[start]>='a'&&s[start]<='z'&&s[start+1]==' '&&s[start+2]=='-'&&s[start+3]==' '&&s[start+4]=='[')start+=5;
+ else if(start<n&&s[start]=='[')start++;
+ for(unsigned i=0;i<sizeof keys/sizeof keys[0];i++){
+  size_t k=strlen(keys[i]);if(start+k>n||memcmp(s+start,keys[i],k))continue;
+  size_t tail=start+k;for(size_t p=tail;p<n;p++)if(!strchr("] -0123456789",s[p]))return 0;
+  char label[128];int r=zh_translate_exact(display_extra_dictionary,keys[i],k,label,sizeof label,NULL);if(r!=1)return r;
+  int width=display_columns(label);if(width<0||(size_t)width>k)return 0;size_t bytes=strlen(label),padding=k-(size_t)width;
+  if(start+bytes+padding+n-tail>=cap)return -1;
+  memcpy(out,s,start);memcpy(out+start,label,bytes);memset(out+start+bytes,' ',padding);
+  memcpy(out+start+bytes+padding,s+tail,n-tail);out[start+bytes+padding+n-tail]=0;return 1;
+ }
+ return 0;
+}
 static int display_translate_inner(const ZhDictionary *items,const ZhDictionary *shorts,const ZhDictionary *paragraphs,const char *s,size_t n,char *out,size_t cap){
  if(!s||!out||!n||n>16384||cap>32768)return 0;
  for(size_t i=0;i<n;i++)if((unsigned char)s[i]>=127||((unsigned char)s[i]<32&&s[i]!='\n'))return 0;
+ int robot_hack=display_robot_hack_row(s,n,out,cap);if(robot_hack)return robot_hack;
  int bracket=display_bracket_columns(items,shorts,paragraphs,s,n,out,cap);if(bracket)return bracket;
  int segmented=memchr(s,'`',n)!=NULL;for(size_t i=1;i<n;i++)if(s[i]==' '&&s[i-1]==' ')segmented=1;
  char temporary[32768],piece[32768];int r=segmented?0:display_piece(items,shorts,paragraphs,s,n,temporary,sizeof temporary);
