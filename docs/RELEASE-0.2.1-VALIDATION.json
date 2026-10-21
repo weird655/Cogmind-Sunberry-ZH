@@ -8,5 +8,10 @@
   "wrong_location_rejected": true,
   "no_game_database_or_mod_payload": true,
   "source_regression": "18 C suites and 17 Python tests passed before version-only packaging",
-  "limits": "Not all real-game entrances and paragraph layouts have been visually verified."
+  "limits": "Not all real-game entrances and paragraph layouts have been visually verified.",
+  "identity_manifest_required": true,
+  "verified_item_records": 1359,
+  "verified_terminal_records": 917,
+  "rebuilt_zip_sha256": "3b7d3b6a79f10d967abb694254e88f1ffb8fe6325623f5c158bad1f1835cc758",
+  "packaging_correction": "First v0.2.1 attachment omitted identity metadata. Rebuilt with verified item/terminal manifests; installer and upgrade checks rerun."
 }

@@ -6,7 +6,7 @@ Windows、Python 3、LLVM MinGW x86 工具链。标准库即可，无需安装 P
 $env:COGMIND_CRT_TOOLCHAIN = 'C:\Tools\llvm-mingw\bin'
 python build.py --smoke
 python build.py --translations 'C:\Translations\CogmindZH' --tests
-python package.py --translations 'C:\Translations\CogmindZH'
+python package.py --translations 'C:\Translations\CogmindZH' --identity-extracted 'C:\Audit\structured.tsv' --terminal-native-export 'C:\Audit\terminal-native-records.tsv' --game-data 'C:\Games\Cogmind\data'
 ```
 
 译表目录需提供 zh_para.tsv、item_names.tsv、zh_trans.tsv、zh_extra.tsv、runtime_patches.tsv。它们不在这个公开源码准备包内。完整语料回归有当前数据的基线数量约束，换用其他语料时应更新预期值，不能直接删去失败断言。

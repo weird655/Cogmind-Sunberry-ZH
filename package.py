@@ -3,6 +3,8 @@ import argparse,hashlib,json,shutil,zipfile,subprocess,sys,uuid
 r=Path(__file__).resolve().parent;p=argparse.ArgumentParser();p.add_argument('--translations',type=Path,required=True);
 for name in ['identity-extracted','terminal-native-export','game-data']:p.add_argument('--'+name,type=Path)
 a=p.parse_args();d=a.translations.resolve()
+if any(getattr(a,name) is None for name in ['identity_extracted','terminal_native_export','game_data']):
+ p.error('Release packages require --identity-extracted, --terminal-native-export and --game-data; identity binding must not be silently omitted.')
 build_args=[sys.executable,str(r/'build.py'),'--translations',str(d)]
 for name in ['identity_extracted','terminal_native_export','game_data']:
  value=getattr(a,name)
