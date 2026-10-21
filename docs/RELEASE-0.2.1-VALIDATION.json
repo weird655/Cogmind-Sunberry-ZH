@@ -1,0 +1,12 @@
+{
+  "version": "0.2.1",
+  "zip_crc": true,
+  "cmd_entry": true,
+  "install_check_uninstall": true,
+  "upgrade_from": "0.2.0",
+  "latest_save_preserved": true,
+  "wrong_location_rejected": true,
+  "no_game_database_or_mod_payload": true,
+  "source_regression": "18 C suites and 17 Python tests passed before version-only packaging",
+  "limits": "Not all real-game entrances and paragraph layouts have been visually verified."
+}

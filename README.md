@@ -12,7 +12,7 @@
 
 ## 安装
 
-**[下载 v0.2.0 安装包](https://github.com/weird655/Cogmind-Sunberry-ZH/releases/download/v0.2.0/Cogmind-Sunberry-ZH-v0.2.0.zip)** · [版本说明](https://github.com/weird655/Cogmind-Sunberry-ZH/releases/tag/v0.2.0)
+**[下载 v0.2.1 安装包](https://github.com/weird655/Cogmind-Sunberry-ZH/releases/download/v0.2.1/Cogmind-Sunberry-ZH-v0.2.1.zip)** · [版本说明](https://github.com/weird655/Cogmind-Sunberry-ZH/releases/tag/v0.2.1)
 
 适用于 **Windows · Cogmind Beta 17.1**，安装时自动核对版本。一个 ZIP 即可安装，**无需 Mod 前置或旧版补丁**。
 
@@ -37,7 +37,7 @@ v0.2.0 加入终端中文输入与候选补全：打开“手动指令”，用�
 
 包含 48 条终端正文新增／修正、部件效果与启动提示补全，以及切换后的残留与英文还原修复。已通过离线回归及独立原生进程测试；真实拼音输入与中文指令执行已获用户验证。
 
-源码进展（2026-10-22）：已核对终端正文 912 条，860 条匹配，52 条为保留的加密／损坏噪声；另补界面短句 19 条。统计仅限该终端语料，不代表全游戏完成。详见 [检查记录](docs/LOCALIZATION-AUDIT-20261022.json)。**当前下载附件仍为 v0.2.0，尚不包含本轮源码补译。**
+源码进展（2026-10-22）：已核对终端正文 912 条，860 条匹配，52 条为保留的加密／损坏噪声；另补界面短句 19 条。统计仅限该终端语料，不代表全游戏完成。详见 [检查记录](docs/LOCALIZATION-AUDIT-20261022.json)。**v0.2.1 安装包包含本轮补译与查漏修复。**
 
 部分界面和文本仍有漏译。遇到问题可在 [Issues](https://github.com/weird655/Cogmind-Sunberry-ZH/issues) 附上截图、游戏版本和触发步骤，方便定位。
 
