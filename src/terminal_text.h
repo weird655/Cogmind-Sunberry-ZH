@@ -62,6 +62,27 @@ static inline int terminal_compose_lines(const ZhDictionary *items,const ZhDicti
 static inline int terminal_translate(const ZhDictionary *paragraphs,const ZhDictionary *shorts,const ZhDictionary *extra,const char *source,size_t bytes,char *out,size_t capacity,size_t *rule){
  int r=terminal_translate_core(paragraphs,shorts,extra,source,bytes,out,capacity,rule);
  if(r==1)return r;
+ /* Wrapped dynamic paragraphs must be resolved as a whole before any line
+    fallback can partially translate them and hide the complete rule. */
+ if(r>=0&&(memchr(source,'\n',bytes)||memchr(source,'\r',bytes))){
+  char canonical[16385];
+  if(terminal_normalize(source,bytes,canonical,sizeof canonical)==1){
+   size_t n=strlen(canonical);
+   const ZhDictionary *dicts[]={terminal_runtime_dictionary,extra,paragraphs,shorts};
+   char chosen[32768],candidate[32768];int have=0;
+   for(unsigned i=0;i<4;i++)if(dicts[i]){
+    size_t selected=0;int whole=zh_translate(dicts[i],canonical,n,candidate,capacity,&selected);
+    if(whole<0)return whole;
+    /* Free-text captures can absorb independent list rows. Only numeric
+       paragraph templates may precede the structured line adapter. */
+    if(whole==2&&zh_rule_is_numeric_template(dicts[i],selected)){
+     if(have&&strcmp(chosen,candidate))return -2;
+     strcpy(chosen,candidate);have=1;
+    }
+   }
+   if(have){strcpy(out,chosen);if(rule)*rule=(size_t)-5;return 2;}
+  }
+ }
  if(r>=0&&(memchr(source,'\n',bytes)||memchr(source,'\r',bytes))){
   char composed[32768];unsigned matched=0,kept=0;
   int cr=terminal_compose_lines(terminal_item_dictionary,paragraphs,shorts,extra,source,bytes,composed,sizeof composed,&matched,&kept);

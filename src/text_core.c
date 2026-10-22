@@ -10,6 +10,14 @@ struct ZhDictionary {char *data;Rule *rules;size_t count,*table,table_size,patte
 int zh_rule_key_is(const ZhDictionary *d,size_t rule,const char *key){return d&&key&&rule<d->count&&!strcmp(d->rules[rule].key,key);}
 unsigned zh_rule_specificity(const ZhDictionary *d,size_t rule){return d&&rule<d->count?d->rules[rule].specificity:0;}
 int zh_rule_is_template(const ZhDictionary *d,size_t rule){return d&&rule<d->count?d->rules[rule].pattern:0;}
+int zh_rule_is_numeric_template(const ZhDictionary *d,size_t rule){
+ if(!d||rule>=d->count||!d->rules[rule].pattern)return 0;
+ const char *s=d->rules[rule].key;
+ for(size_t i=0;s[i];i++)if(s[i]=='{'&&s[i+1]&&s[i+2]=='}'){
+  if(s[i+1]!='n')return 0;i+=2;
+ }
+ return 1;
+}
 typedef struct {const char *p;size_t n;int set,numeric;} Capture;
 int zh_decode(const char *text,size_t n,size_t *used,uint32_t *out){
  const unsigned char *s=(const unsigned char*)text;if(!s||!n)return 0;

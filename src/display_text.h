@@ -193,13 +193,14 @@ static int display_bracket_columns(const ZhDictionary *items,const ZhDictionary 
 /* Robot hacking labels are display objects. Keep shortcut, bracket and charge
    columns; never write a translated string into a native command descriptor. */
 static int display_robot_hack_row(const char *s,size_t n,char *out,size_t cap){
- const char *keys[]={"parse_system","no_distress","find_station","generate_echo","release_backups","deconstruct_bot","overload_power","link_fov","streamctrl_low","generate_anomaly","amplify_resonance","formatsys_low","start_evac"};
+ const char *keys[]={"amplify_resonance","block_reporting","broadcast_data","check_alert","clear_recycling","clear_repairs","deconstruct_bot","deconstruct_machine","disable_scanner","disable_shields","disable_weapons","disarm_traps","disrupt_area","drop_inventory","emergency_deploy","find_chute","find_dsf","find_fabricator","find_garrison","find_recycling","find_scanalyzer","find_shortcuts","find_station","find_terminal","find_terminals","focus_fire","formatsys_deep","formatsys_high","formatsys_low","generate_anomaly","generate_echo","go_dormant","hold_bot","ignore_parts","ignore_repairs","ignore_targets","link_complan","link_fov","locate_prototypes","locate_stockpiles","locate_traps","map_earth","map_route","map_walls","mark_security","mark_system","no_distress","overload_power","overwrite_iff","parse_system","purge_threat","randomize_corridors","reboot_propulsion","reboot_system","recall_investigation","recall_reinforcements","redirect_shields","relay_feed","release_backups","report_analyses","report_prototypes","report_schematics","reprogram_traps","retrieve_part","scatter_targeting","show_paths","spike_heat","start_disposal","start_evac","streamctrl_high","streamctrl_low","summon_haulers","tweak_propulsion","wipe_record"};
  size_t start=0;while(start<n&&s[start]==' ')start++;
  if(start+5<n&&s[start]>='a'&&s[start]<='z'&&s[start+1]==' '&&s[start+2]=='-'&&s[start+3]==' '&&s[start+4]=='[')start+=5;
  else if(start<n&&s[start]=='[')start++;
  for(unsigned i=0;i<sizeof keys/sizeof keys[0];i++){
   size_t k=strlen(keys[i]);if(start+k>n||memcmp(s+start,keys[i],k))continue;
-  size_t tail=start+k;for(size_t p=tail;p<n;p++)if(!strchr("] -0123456789",s[p]))return 0;
+  size_t tail=start+k;int valid_tail=1;for(size_t p=tail;p<n;p++)if(!strchr("] -0123456789",s[p])){valid_tail=0;break;}
+  if(!valid_tail)continue;
   char label[128];int r=zh_translate_exact(display_extra_dictionary,keys[i],k,label,sizeof label,NULL);if(r!=1)return r;
   int width=display_columns(label);if(width<0||(size_t)width>k)return 0;size_t bytes=strlen(label),padding=k-(size_t)width;
   if(start+bytes+padding+n-tail>=cap)return -1;

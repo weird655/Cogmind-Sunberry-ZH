@@ -4,6 +4,31 @@
 /* Translate only complete, typed display atoms. Identifiers and numeric
    prefixes remain byte-for-byte; this never substitutes inside unknown words. */
 static inline int content_name_lookup(const ZhDictionary *extra,const ZhDictionary *items,const ZhDictionary *shorts,const ZhDictionary *paragraphs,const char *s,size_t n,char *out,size_t cap){
+ /* Combat captures may include the shooter ID and numeric aim calculation.
+    Resolve only the complete weapon name; preserve both surrounding fields. */
+ if(n>8&&s[0]>='A'&&s[0]<='Z'&&s[1]=='-'){
+  size_t id=2;while(id<n&&s[id]>='0'&&s[id]<='9')id++;
+  if(id>=4&&id<=6&&id<n&&s[id]==':'){
+   size_t start=id+1;while(start<n&&s[start]==' ')start++;
+   const char *open=memchr(s+start,'(',n-start);size_t end=open?(size_t)(open-s):n;
+   int numeric=!open;
+   if(open&&n>0&&s[n-1]==')'){
+    numeric=1;unsigned digits=0,percent=0;
+    for(size_t i=end+1;i<n-1;i++){
+     if(s[i]>='0'&&s[i]<='9')digits++;else if(s[i]=='%')percent++;
+     else if(!strchr("+-=./",s[i]))numeric=0;
+    }
+    if(!digits||percent!=1||s[n-2]!='%')numeric=0;
+   }
+   size_t name_end=end;while(name_end>start&&s[name_end-1]==' ')name_end--;
+   if(numeric&&name_end>start){
+    char label[1024];int known=canonical_item_name_translate(extra,items,shorts,paragraphs,s+start,name_end-start,label,sizeof label);
+    if(known<0)return known;
+    if(known==1){size_t size=strlen(label),tail=n-name_end;if(start+size+tail>=cap)return -1;
+     memcpy(out,s,start);memcpy(out+start,label,size);memcpy(out+start+size,s+name_end,tail);out[start+size+tail]=0;return 1;}
+   }
+  }
+ }
  int r=canonical_item_name_translate(extra,items,shorts,paragraphs,s,n,out,cap);if(r)return r;
  r=canonical_item_name_translate_health(extra,items,shorts,paragraphs,s,n,out,cap);if(r)return r;
  /* Native component stockpile IDs: IDENTIFIER: Item Name. */

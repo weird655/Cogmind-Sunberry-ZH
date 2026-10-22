@@ -21,6 +21,7 @@ int zh_translate_unique_prefix(const ZhDictionary*,const char*,size_t,char*,size
 int zh_rule_key_is(const ZhDictionary*,size_t,const char*);
 unsigned zh_rule_specificity(const ZhDictionary*,size_t);
 int zh_rule_is_template(const ZhDictionary*,size_t);
+int zh_rule_is_numeric_template(const ZhDictionary*,size_t);
 /* Strict UTF-8, ASCII=1 column, corpus non-ASCII=2. Failure does not alter out.
    A width-2 scalar never straddles rows. No partial/clipped success. */
 int zh_plan(const char*,size_t,int,int,ZhPlan*);
