@@ -16,11 +16,11 @@ if($Mode -eq 'Menu'){
  if($choice -eq '0'){exit 0}
  $Mode=if($choice -eq '2'){'Check'}elseif($choice -eq '3'){'Uninstall'}else{'Install'}
 }
-Write-Host '=== COGMIND // SUNBERRY ZH v0.2.0 ===' -ForegroundColor Green
+Write-Host '=== Cogmind 汉化 0.2.2 · Steam Beta 17.1（260906a） ===' -ForegroundColor Green
 Import-Module (Join-Path $PSHOME 'Modules/Microsoft.PowerShell.Utility/Microsoft.PowerShell.Utility.psd1') -ErrorAction Stop
 Import-Module (Join-Path $PSHOME 'Modules/Microsoft.PowerShell.Management/Microsoft.PowerShell.Management.psd1') -ErrorAction Stop
 $owner='CogmindSunberryZH-010-v1'
-$expectedExe='6c96192b9b7a81956416abdb11766933bca21fce8c2c0d57b97b172e13cd8184'
+$expectedExe='6d24c525c12de38f3fc21017b023f22ea6d3ec94e3b160d83ef0570327701666'
 $expectedP='fd1f00effa3ed69c8e8286cad9566183a6a54d803cc5040c51b97ce3defb5427'
 $expectedM='b420f2daf871e19b5e4819dce8d0061098f61693d7457ff7117a492d44a47900'
 $expectedPhysfs='6cae6aa7d84a562dd6735304c7b5a195dd930ba233f174cb71b6d929a5c39ebc'
@@ -92,7 +92,7 @@ try {
   Restore $state
   $message='已卸载本次汉化，并恢复安装前的 DLL 与旧插件。备份和卸载器保留在 CogmindZH 文件夹，可自行保留或删除。'
  } else {
-  if((Hash $exe) -ne $expectedExe -or (Hash (Join-Path $game 'data/particles.bin')) -ne $expectedP -or (Hash (Join-Path $game 'data/messages.bin')) -ne $expectedM){throw '此游戏版本或数据库不受支持，未安装汉化。当前只支持已验证的 Beta 17.1 原版数据库。'}
+  if((Hash $exe) -ne $expectedExe -or (Hash (Join-Path $game 'data/particles.bin')) -ne $expectedP -or (Hash (Join-Path $game 'data/messages.bin')) -ne $expectedM){throw '此包仅支持已验证的 Steam Beta 17.1（260906a）程序及原版数据库。文件指纹不符，未安装。请勿替换游戏 EXE 绕过校验。'}
   $stage=[IO.Path]::GetFullPath($ResourceDirectory)
   $manifest=Get-Content -LiteralPath (Join-Path $stage 'manifest.json') -Raw -Encoding UTF8|ConvertFrom-Json
   $allowed=@('autoload/physfs.dll','CogmindZH/bin/native_zh.dll','CogmindZH/zh_para.tsv','CogmindZH/item_names.tsv','CogmindZH/zh_trans.tsv','CogmindZH/zh_extra.tsv','CogmindZH/runtime_patches.tsv','CogmindZH/VERSION')
@@ -131,7 +131,7 @@ try {
     }
     $languageBefore=Test-Path -LiteralPath (Join-Path $game 'native-language.txt')
     if($languageBefore){AtomicCopy (Join-Path $game 'native-language.txt') (Join-Path $zhDirectory 'backups/language.before-install')}
-    $state=@{owner=$owner;version='0.1.2';proxyHash=$proxyHash;aliasBefore=[bool]$aliasBefore;files=$files;legacyHash=$legacyHash;languageBefore=[bool]$languageBefore;languageHash='';complete=$false}
+    $state=@{owner=$owner;version=$manifest.version;proxyHash=$proxyHash;aliasBefore=[bool]$aliasBefore;files=$files;legacyHash=$legacyHash;languageBefore=[bool]$languageBefore;languageHash='';complete=$false}
     SaveState $state
     try {
      foreach($file in $files){

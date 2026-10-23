@@ -10,7 +10,7 @@ static int marker_column(const char *s,const char *marker){
  return columns;
 }
 int main(int argc,char **argv){
- CHECK(argc==5);size_t count;char error[128];ZhDictionary *items=zh_dictionary_load(argv[1],&count,error,sizeof error);CHECK(items&&count==1045);
+ CHECK(argc==5);size_t count;char error[128];ZhDictionary *items=zh_dictionary_load(argv[1],&count,error,sizeof error);CHECK(items&&count>=1045); /* Reviewed names may extend the base table. */
  ZhDictionary *shorts=zh_dictionary_load(argv[2],&count,error,sizeof error);CHECK(shorts&&count==56249);
  ZhDictionary *paragraphs=zh_dictionary_load(argv[3],&count,error,sizeof error);CHECK(paragraphs&&count==16378);
  display_extra_dictionary=zh_dictionary_load(argv[4],&count,error,sizeof error);CHECK(display_extra_dictionary!=NULL);
@@ -23,6 +23,10 @@ int main(int argc,char **argv){
   {"Huge Storage Unit!","超大型存储单元","!"},
   {"Assault Rifle(66-1=66%)","突击步枪","(66-1=66%)"},
   {"Lgt. Assault Rifle(67-2=65%)","轻型突击步枪","(67-2=65%)"},
+  {" Imp. Assault Rifle (62+10-2=70%) Hit","改进型突击步枪","(62+10-2=70%)"},
+  {" Imp. Assault Rifle (84+10-2=95%) Hit","命中","(84+10-2=95%)"},
+  {" Imp. Assault Rifle (62+10-2=70%) Miss","未命中","(62+10-2=70%)"},
+  {" G-47: Particle Gun (66%) Hit","粒子枪","G-47:"},
   {" E X P L O R E R ","探 险 家",NULL},{" A D V E N T U R E R ","冒 险 家",NULL},{" R O G U E ","浪 人",NULL},
   {" VIRUS DETECTED ","检出病毒",NULL},{" FRAGMENTED ","发生碎片",NULL},{" FAILED ","失败",NULL},{" SECURED ","已加固",NULL},{" STABLE ","稳定",NULL},{"SEQUENCE INITIATED","序列启动",NULL},{"PREPARING CONTROL OVERLAY","控制界面",NULL},{"Systems online...","系统",NULL},{"Loading variables...","变量",NULL},{"CORE=UNSTABLE","不稳定",NULL},{"Type","类型",NULL},{"Overview","概述",NULL},{"Integrity","耐久度",NULL},
   {"Standard","标准",NULL},{"Effect","效果",NULL},{"34 MATTER","物质","34"},
@@ -35,6 +39,13 @@ int main(int argc,char **argv){
   {"Chain reaction triggered in Lgt. Nuclear Core.","轻型核核心",NULL},
   {"Acquired Imp. Spread Laser.","改进型散射激光",NULL},
   {"Acquired 5 matter.","获得","5"},
+  {"00002_ Acquired Lgt. Assault Rifle.","轻型突击步枪","00002_ "},
+  {"00003_ Acquired Ion Engine.","离子引擎","00003_ "},
+  {"00006_ Acquired Sml. Storage Unit.","小型存储单元","00006_ "},
+  {"00008_ Acquired 59 matter.","获得","59"},
+  {"00023_ Acquired Wheel. <x2>","轮","<x2>"},
+  {"00035_ Acquired Lgt. Treads. <x2>","轻型履带","00035_ "},
+  {"00095_  Assault Rifle (59-1=58%) Hit","命中","00095_  "},
   {"Acquired 42 matter. <x2>","获得","<x2>"},
   {"U-05 Engineer lays Concrete. <x3>","混凝土","<x3>"},
   {"EM Disruption Field","电磁干扰场",NULL},{"System Shield","系统护盾",NULL},
@@ -67,8 +78,14 @@ int main(int argc,char **argv){
  const char *ambiguous="Lightweight ";memset(out,0x53,sizeof out);
  CHECK(zh_translate_unique_prefix(paragraphs,ambiguous,strlen(ambiguous),out,sizeof out)==-2);CHECK(out[0]==0x53);
  CHECK(zh_translate_unique_prefix(paragraphs,"Lightweight Power Sour",22,out,2)==-1);CHECK(out[0]==0x53);
- const char *bad_combat[]={"Assault Rifle(foo%)","Assault Rifle(66%%)","Assault Rifle(66)","Unknown Rifle(66%)"};
- for(unsigned i=0;i<4;i++){memset(out,0x53,sizeof out);CHECK(display_combat_name(items,shorts,paragraphs,bad_combat[i],strlen(bad_combat[i]),out,sizeof out)==0);CHECK(out[0]==0x53);}
+ const char *bad_combat[]={"Assault Rifle(foo%)","Assault Rifle(66%%)","Assault Rifle(66)","Unknown Rifle(66%)","Unknown Rifle (66%) Hit","Imp. Assault Rifle (66%) Hit extra","Imp. Assault Rifle (66%)(99%) Hit"};
+ for(unsigned i=0;i<sizeof bad_combat/sizeof bad_combat[0];i++){memset(out,0x53,sizeof out);CHECK(display_combat_name(items,shorts,paragraphs,bad_combat[i],strlen(bad_combat[i]),out,sizeof out)==0);CHECK(out[0]==0x53);}
+ const char *shot=" Imp. Assault Rifle (62+10-2=70%) Hit";
+ CHECK(display_combat_name(items,shorts,paragraphs,shot,strlen(shot),out,sizeof out)==1);
+ CHECK(!strcmp(out," 改进型突击步枪 (62+10-2=70%) 命中"));
+ CHECK(display_columns(out)<=(int)strlen(shot));
+ for(int width=32;width<=46;width+=7){ZhPlan p={0};CHECK(!zh_plan(out,strlen(out),width,2,&p));CHECK(p.used_rows<=2);if(width>=display_columns(out))CHECK(p.used_rows==1);zh_plan_free(&p);}
+ memset(out,0x53,sizeof out);CHECK(display_combat_name(items,shorts,paragraphs,shot,strlen(shot),out,4)==-1);CHECK(out[0]==0x53);
  const char *bad_condition[]={"Carbon-fiber Leg (101%)","Carbon-fiber Leg (-1%)","Carbon-fiber Leg (15%) x0","Carbon-fiber Leg (15%) x2tail"};
  for(unsigned i=0;i<4;i++){memset(out,0x53,sizeof out);CHECK(display_part_condition(items,shorts,paragraphs,bad_condition[i],strlen(bad_condition[i]),out,sizeof out)==0);CHECK(out[0]==0x53);}
  zh_dictionary_free(items);zh_dictionary_free(shorts);zh_dictionary_free(paragraphs);printf("PASS %u checks: real UI gaps, hover, terminal states, detail text, capture names, fixed color columns, numbers and atomic fallback.\n",checks);return 0;

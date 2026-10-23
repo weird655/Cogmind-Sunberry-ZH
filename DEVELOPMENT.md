@@ -34,3 +34,8 @@ GitHub 发布准备：保留 LICENSE/NOTICE，上传 assets/language-switch.gif�
 入口集合、文本对象和本轮迁移范围见 [文本架构](TEXT_ARCHITECTURE.md)。
 
 构建会自动检查文字路由。可单独运行 `python tools/audit_text_routes.py --json route-report.json` 导出入口清单；完整验证还会检查路由守卫本身。
+
+
+v0.2.2 默认构建已验证的 Steam 260906a 原生地址适配，表在 src/native_layout_steam.h。构建检查每个已登记地址；指定 --game-data 时还校验其上级的 COGMIND.exe 指纹。清单完整不等于通用版本兼容，也不等于所有入口均经过实机验证。
+
+动态事件规则在 data/reviewed-events/；python tools/generate_event_dynamic.py --check 检查占位符、参数类型和固定数值。生成头文件不能代替运行时参数及原生布局测试。原生数值、实体代码和未知参数不做模糊替换。

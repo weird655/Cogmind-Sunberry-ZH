@@ -1,0 +1,1026 @@
+[
+  {
+    "group": "dynamic",
+    "source": "%1",
+    "status": "forward_payload_to_existing_resolver",
+    "records": [
+      9,
+      351,
+      469,
+      500,
+      502,
+      503,
+      504,
+      505,
+      513,
+      514,
+      516,
+      517,
+      518,
+      542,
+      543,
+      544,
+      545,
+      646,
+      693,
+      694,
+      695,
+      696,
+      697,
+      701,
+      702,
+      703,
+      704,
+      705,
+      706,
+      707,
+      708,
+      709,
+      710,
+      711,
+      712,
+      713,
+      714,
+      715,
+      716,
+      717,
+      718,
+      719,
+      720,
+      721,
+      722,
+      737,
+      800,
+      801,
+      802,
+      803,
+      804
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 pulverized.",
+    "status": "typed_recipe",
+    "records": [
+      18
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 disintegrated.",
+    "status": "typed_recipe",
+    "records": [
+      69
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 secures %2.",
+    "status": "typed_recipe",
+    "records": [
+      85
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 purges 1% system corruption (%2%).",
+    "status": "typed_recipe",
+    "records": [
+      96
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 expended.",
+    "status": "typed_recipe",
+    "records": [
+      97,
+      401
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 intercepted %2% system corruption.",
+    "status": "typed_recipe",
+    "records": [
+      98
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 reconfigured, %2% effectiveness.",
+    "status": "typed_recipe",
+    "records": [
+      121
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "Rammed %1.",
+    "status": "typed_recipe",
+    "records": [
+      161
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 reprograms and arms {name}.",
+    "status": "typed_recipe",
+    "records": [
+      197
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 injects {name} to begin assimilation process, ETC: %2.",
+    "status": "typed_recipe",
+    "records": [
+      198
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 injection rejected by {name}.",
+    "status": "typed_recipe",
+    "records": [
+      199
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 dismantled.",
+    "status": "typed_recipe",
+    "records": [
+      211
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 activation sequence initiated, repeat to continue process (1/%2).",
+    "status": "typed_recipe",
+    "records": [
+      221
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "Replicated %1.",
+    "status": "typed_recipe",
+    "records": [
+      264
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "Scrap Engine modifies %1:\n%2.",
+    "status": "typed_recipe",
+    "records": [
+      290
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "Scrap Engine modifies %1:\n%2\nRenamed %3.",
+    "status": "typed_recipe",
+    "records": [
+      291
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 burned out.",
+    "status": "typed_recipe",
+    "records": [
+      399
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 implodes.",
+    "status": "typed_recipe",
+    "records": [
+      402,
+      925
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 disintegrates.",
+    "status": "typed_recipe",
+    "records": [
+      409,
+      918,
+      920,
+      929,
+      930
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 %2.",
+    "status": "typed_recipe",
+    "records": [
+      441
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 unresponsive.",
+    "status": "typed_recipe",
+    "records": [
+      443
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": ">> %1 network decryption results:",
+    "status": "typed_recipe",
+    "records": [
+      468
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": ">> %1: %2.",
+    "status": "typed_recipe",
+    "records": [
+      470
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": ">> %1: %2",
+    "status": "typed_recipe",
+    "records": [
+      471
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "  %1",
+    "status": "forward_payload_to_existing_resolver",
+    "records": [
+      501,
+      508,
+      509,
+      515
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 short circuited.",
+    "status": "typed_recipe",
+    "records": [
+      538
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 jams signal.",
+    "status": "typed_recipe",
+    "records": [
+      549
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 fabricates %2.",
+    "status": "typed_recipe",
+    "records": [
+      647,
+      660
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 hotswapped in.",
+    "status": "typed_recipe",
+    "records": [
+      676
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "X0-1V1 %1",
+    "status": "typed_recipe",
+    "records": [
+      692,
+      698
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 tossed aside.",
+    "status": "typed_recipe",
+    "records": [
+      699
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "  %1 penetrates %2",
+    "status": "typed_recipe",
+    "records": [
+      723
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "  Penetrated by %1",
+    "status": "typed_recipe",
+    "records": [
+      724
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 blinks away.",
+    "status": "typed_recipe",
+    "records": [
+      757
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 morphs into %2.",
+    "status": "typed_recipe",
+    "records": [
+      759
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 decays.",
+    "status": "typed_recipe",
+    "records": [
+      763
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "Fit %1 on {name}.",
+    "status": "typed_recipe",
+    "records": [
+      784
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "Loosened %1 from {name}.",
+    "status": "typed_recipe",
+    "records": [
+      787
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "[%1]",
+    "status": "typed_recipe",
+    "records": [
+      805
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "Renamed %1 to %2",
+    "status": "typed_recipe",
+    "records": [
+      812
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "Only a single weapon with absolute delay greater than or equal to 100 may be active at a time, %1 automatically deactivated.",
+    "status": "typed_recipe",
+    "records": [
+      858
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "@ %1 has been hastily shoved under some rubble with a note attached: \"To battle!\"",
+    "status": "typed_recipe",
+    "records": [
+      1172,
+      1175
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "@ %1 has been hastily shoved under some rubble with a note attached: \"It's not as slow as it sounds.\"",
+    "status": "typed_recipe",
+    "records": [
+      1173
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "@ %1 has been hastily shoved under some rubble with a note attached: \"Boring, it is not. Although I admit enemies do get bored, for sure.\"",
+    "status": "typed_recipe",
+    "records": [
+      1174
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "@ %1 has been hastily shoved under some rubble with a note attached: \"In case of Swarmers.\"",
+    "status": "typed_recipe",
+    "records": [
+      1176
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "@ %1 has been hastily shoved under some rubble with a note attached: \"One is never enough.\"",
+    "status": "typed_recipe",
+    "records": [
+      1177,
+      1178
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "@ %1 has been hastily shoved under some rubble with a note attached: \"Who needs nails when you have Unaware?\"",
+    "status": "typed_recipe",
+    "records": [
+      1179
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "@ %1 has been hastily shoved under some rubble with a note attached: \"Rip and tear!\"",
+    "status": "typed_recipe",
+    "records": [
+      1180
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "@ %1 has been hastily shoved under some rubble with a note attached: \"Chop chop!\"",
+    "status": "typed_recipe",
+    "records": [
+      1181
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "@ %1 has been hastily shoved under some rubble with a note attached: \"Here lies the sword of MA-1KR the Great. I think.\"",
+    "status": "typed_recipe",
+    "records": [
+      1182
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "@ %1 has been hastily shoved under some rubble with a note attached: \"Stab them where it hurts!\"",
+    "status": "typed_recipe",
+    "records": [
+      1183
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "%1 whisked away.",
+    "status": "typed_recipe",
+    "records": [
+      1597
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "A0-MCA drops %1.",
+    "status": "typed_recipe",
+    "records": [
+      1606
+    ]
+  },
+  {
+    "group": "dynamic",
+    "source": "@ %1 tumbles out of the Wall Chamber.",
+    "status": "typed_recipe",
+    "records": [
+      2169
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "Repaired {name}.",
+    "status": "native_preprocessed_recipe",
+    "records": [
+      785
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "Reset {name}, system corruption cleaned.",
+    "status": "native_preprocessed_recipe",
+    "records": [
+      793
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "Failed to hack {name}.",
+    "status": "native_preprocessed_recipe",
+    "records": [
+      797
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "A derelict rushes over: \"{ufd_name}! Are you sure you want to leave so soon? Optimus wants to speak with you in the Council room.\"",
+    "status": "native_preprocessed_recipe",
+    "records": [
+      1338
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "A prototype is lying exposed on the ground here. There's a note attached: \"Hey {ufd_name}, I saw you headed this way but had to run. Thanks again and remember to keep it repaired!\"",
+    "status": "native_preprocessed_recipe",
+    "records": [
+      1372
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "A derelict emerges from the shadows: \"Hey, you must be the one I'm looking for! Some tough-looking bot said that if you passed by h##FORCE::BREVITY##I'm here to take you to meet someone special. You won't regret it.\"",
+    "status": "literal_control_preserved",
+    "records": [
+      1903
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "One of them suddenly speaks: \"Hello LRC-V3. What is yo##DESTROY::LRC-V3##COMMAND OVERRIDE.\"",
+    "status": "literal_control_preserved",
+    "records": [
+      2274
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "A derelict rushes over: \"Hey there, we need to retreat! Warlord says this encounter has served its purpose, and now with control of several caves leading up to Command, we need someone to open the seals from the inside for the final push. The code is <mhack=COM_CAVE_SEALS>. Think you could help us with this? WARLORD FOREVER!\"",
+    "status": "native_preprocessed_recipe",
+    "records": [
+      2443
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "^12_[tgsk]: \"Jaxotm znk Hkzg 10.1 ieirk ck xkiktzre ngj g tkc xkmoyzxgzout he g yzxgtmkre tgskj jkxkroiz, yosvre \\'3.14\\', cnu irgoskj zu ngbk yglkre gyiktjkj zu znk yaxlgik bog Giikyy cozn znk nkrv ul g yuskznotm-YqkrkzutIngxmkx. O igt'z waozk xkigrr zngz iusvutktz'y larr tgsk, haz O's makyyotm oz'y ot znk utrotk bkxyout-coyk jgzghgyk ul xaty...\"",
+    "status": "native_preprocessed_recipe",
+    "records": [
+      2552
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "^18_[wjvn]: \"JJJJJJQ LJW'C BCXY SJVVRW' ... FQX'B FARCRWP MRANLCUH CX VH VJBCNA KXXC ANLXAM?! ... CQRB LUXLT BYNNM! FQ4C R8 CQ6B?! MGGGGGGGG\"",
+    "status": "native_preprocessed_recipe",
+    "records": [
+      2553
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "^4_[pcog]: \"Ycmg wr, Pgq...\"",
+    "status": "native_preprocessed_recipe",
+    "records": [
+      2554
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "^30_[cpbt]: \"g/Rdvbxcs xh vdxcv id wtpg pqdji iwxh!\"",
+    "status": "native_preprocessed_recipe",
+    "records": [
+      2555
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "^24_[zmyq]: \"FSSI ue miqeayq. U iuet U wzqi ita ympq ftue smyq ea xazs msa...\"",
+    "status": "native_preprocessed_recipe",
+    "records": [
+      2556
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "^20_[xkwo]: \"Iye'n xofob qeocc sd gkc dro pyebdr yxo gry coxd wo, ror.\"",
+    "status": "native_preprocessed_recipe",
+    "records": [
+      2557
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "^32_[dqcu]: \"Gkyuj, Y'c huiuqhsxydw xuhu! Y zkij tyiseluhut mxud jxuo iqo 'xqsa jxu fbqduj,' jxuo ted'j huqbypu yj huvuhi je q luho ifusyvys dkcruh ev xqsai jxqj rkhij edje jxu isudu Iufjucruh 4, 2018, rqsa ed Uqhjx. Qdsyudj xyijeho!\"",
+    "status": "native_preprocessed_recipe",
+    "records": [
+      2558
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "Wiping memory...",
+    "status": "fixed_translation",
+    "records": [
+      261
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "Obliterated.",
+    "status": "fixed_translation",
+    "records": [
+      417
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "Excavated terrain.",
+    "status": "fixed_translation",
+    "records": [
+      782
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "Many features can be toggled or tweaked. Press ESC then '4' to open the options menu.",
+    "status": "fixed_translation",
+    "records": [
+      821
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "Once familiar with the basic mechanics, press ESC then '3' to read the in-game manual for more details.",
+    "status": "fixed_translation",
+    "records": [
+      826
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "The analysis for a given robot confers +5% to hit and +10% damage against it, as well as -5% to its accuracy when under fire from one. View all analyses in possession via the status screen.",
+    "status": "fixed_translation",
+    "records": [
+      884
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "In the Modal 45-row layout, with combat log mode active, details are scrolled down the top-right of the map view. You can also scroll via -/= keys to review older logs, or activate it a second time by clicking on the button and using the mouse wheel.",
+    "status": "fixed_translation",
+    "records": [
+      897
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "A message is left with an item here: \"H4-X0R! I managed to smuggle one out! Take this to the hideout, the fools near Old Recycling think they can use this tech to beat 0b10 one day, and now we just have to find a way to safely deliver this to MAIN.C to get on their good side and convince them to let us into the system.\"",
+    "status": "fixed_translation",
+    "records": [
+      1191
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "Access granted.",
+    "status": "fixed_translation",
+    "records": [
+      1293,
+      1899,
+      2290
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "01-MTF emerges from hiding: \"Hold your fire! I can explain everything! Oh, you weren't sent by them, and clearly don't belong here any more than I do, great.\"",
+    "status": "fixed_translation",
+    "records": [
+      1299
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "KABOOM.EXE: KABOOM!",
+    "status": "fixed_translation",
+    "records": [
+      1551,
+      1552,
+      1553
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "LOCAL NARROWCAST: Chapter 10. If you can't beat 'em, join 'em to beat 'em.",
+    "status": "fixed_translation",
+    "records": [
+      1562
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "LOCAL NARROWCAST: Specimen 142.",
+    "status": "fixed_translation",
+    "records": [
+      1589
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "LOCAL NARROWCAST: DB 12.",
+    "status": "fixed_translation",
+    "records": [
+      1593
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "???: \"Want to be a hero? Pick up the sword.\"",
+    "status": "fixed_translation",
+    "records": [
+      1609
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "???: \"You know you want me.\"",
+    "status": "fixed_translation",
+    "records": [
+      1610
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "???: \"I've been waiting for you.\"",
+    "status": "fixed_translation",
+    "records": [
+      1611
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "???: \"You and I were meant for greatness.\"",
+    "status": "fixed_translation",
+    "records": [
+      1612
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "???: \"Why hello there. Are you here to rescue me?\"",
+    "status": "fixed_translation",
+    "records": [
+      1613
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "???: \"Just do it. Trust me.\"",
+    "status": "fixed_translation",
+    "records": [
+      1614
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "???: \"It's been 84 years...\"",
+    "status": "fixed_translation",
+    "records": [
+      1615
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "???: \"Sure seems spicy out there.\"",
+    "status": "fixed_translation",
+    "records": [
+      1616
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "???: \"I'd appreciate a lift out of this madhouse.\"",
+    "status": "fixed_translation",
+    "records": [
+      1617
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "NEW_ZION: Z-Facility proximity alert.",
+    "status": "fixed_translation",
+    "records": [
+      2163
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "AO_COM: WELCOME A7.",
+    "status": "fixed_translation",
+    "records": [
+      2293
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "ALERT: Live fire test to commence in T-25.",
+    "status": "fixed_translation",
+    "records": [
+      2297
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "Detonation sequence initiated: T-20.",
+    "status": "fixed_translation",
+    "records": [
+      2306
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "Sigix Containment Pod: \"XUGBY CPATQ FY PR H HQGW WZPWBDADOH EV GSW YGYP KY BUB XMOP\"",
+    "status": "fixed_translation",
+    "records": [
+      2322
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "Sigix Containment Pod: \"ZVPTKWGIWG MFDVFEKHCSXU TQI ON GBWQ JOYSTLHAMEL\"",
+    "status": "fixed_translation",
+    "records": [
+      2325
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "Exo-853F: \"Integrity reduced to 80%, stability within tolerance levels.\"",
+    "status": "fixed_translation",
+    "records": [
+      2332
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "Exo-853F: \"Integrity reduced to 60%, stability outside optimal range.\"",
+    "status": "fixed_translation",
+    "records": [
+      2333
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "Exo-853F: \"Integrity reduced to 40%, advise evasive maneuvers to regroup with unit.\"",
+    "status": "fixed_translation",
+    "records": [
+      2334
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "Exo-853F: \"Integrity reduced to 20%, immediate ERK application recommended to prevent critical system failure.\"",
+    "status": "fixed_translation",
+    "records": [
+      2335
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "A0_COM: INTRUDER ALERT. CALLING ALL ARCHITECTS.",
+    "status": "fixed_translation",
+    "records": [
+      2515
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "A0_COM: Initiating irreversible singularity event. Goodbye.",
+    "status": "fixed_translation",
+    "records": [
+      2516
+    ]
+  },
+  {
+    "group": "literal",
+    "source": " ???",
+    "status": "intentional_preserve",
+    "reason": "enigmatic question-mark sentinel, no linguistic content",
+    "records": [
+      738
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "SYS_ERR_328975498362890465",
+    "status": "intentional_preserve",
+    "reason": "native SYS_ERR identifier; do not translate or change numeric code",
+    "records": [
+      934
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "System interfe62&@kBc9*oq#zd5",
+    "status": "intentional_preserve",
+    "reason": "deliberately interrupted/corrupted interface string; no guessing of missing text",
+    "records": [
+      2450
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "A0_COM: 10.",
+    "status": "intentional_preserve",
+    "reason": "native speaker code and numeric countdown only; preserve exact text and order",
+    "records": [
+      2517
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "A0_COM: 9.",
+    "status": "intentional_preserve",
+    "reason": "native speaker code and numeric countdown only; preserve exact text and order",
+    "records": [
+      2518
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "A0_COM: 8.",
+    "status": "intentional_preserve",
+    "reason": "native speaker code and numeric countdown only; preserve exact text and order",
+    "records": [
+      2519
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "A0_COM: 7.",
+    "status": "intentional_preserve",
+    "reason": "native speaker code and numeric countdown only; preserve exact text and order",
+    "records": [
+      2520
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "A0_COM: 6.",
+    "status": "intentional_preserve",
+    "reason": "native speaker code and numeric countdown only; preserve exact text and order",
+    "records": [
+      2521
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "A0_COM: 5.",
+    "status": "intentional_preserve",
+    "reason": "native speaker code and numeric countdown only; preserve exact text and order",
+    "records": [
+      2522
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "A0_COM: 4.",
+    "status": "intentional_preserve",
+    "reason": "native speaker code and numeric countdown only; preserve exact text and order",
+    "records": [
+      2523
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "A0_COM: 3.",
+    "status": "intentional_preserve",
+    "reason": "native speaker code and numeric countdown only; preserve exact text and order",
+    "records": [
+      2524
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "A0_COM: 2.",
+    "status": "intentional_preserve",
+    "reason": "native speaker code and numeric countdown only; preserve exact text and order",
+    "records": [
+      2525
+    ]
+  },
+  {
+    "group": "literal",
+    "source": "A0_COM: 1.",
+    "status": "intentional_preserve",
+    "reason": "native speaker code and numeric countdown only; preserve exact text and order",
+    "records": [
+      2526
+    ]
+  }
+]

@@ -1,0 +1,31 @@
+{
+  "version": "0.2.2",
+  "profile": "Steam Beta 17.1 260906a",
+  "game_exe_sha256": "6d24c525c12de38f3fc21017b023f22ea6d3ec94e3b160d83ef0570327701666",
+  "reviewed_event_candidates": 118,
+  "plain_or_typed_entries": 103,
+  "forwarded_or_preserved": 15,
+  "event_cases": 470,
+  "layout_checks": 1880,
+  "c_suites": 20,
+  "python_checks": 18,
+  "native_repaints": 300,
+  "native_glyph_errors": 0,
+  "real_log_cases": 683,
+  "real_log_lost_matches": 0,
+  "known_remaining_plain_messages": 24,
+  "exhaustive_game_coverage": false,
+  "package_sha256": "e092a445e1d14b4eacff390fb8b14230cb58882b34f3c6e09e4ee17b60b0636a",
+  "package_size": 2281120,
+  "package_checks": {
+    "folder_layout_checked": true,
+    "install_check_uninstall": true,
+    "cmd_entry": true,
+    "wrong_location_rejected": true,
+    "unsupported_exe_rejected": true,
+    "upgrade_from_same_profile_021": true,
+    "latest_save_preserved": true,
+    "original_exe_and_databases_preserved": true,
+    "no_game_or_mod_payload": true
+  }
+}

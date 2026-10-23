@@ -20,7 +20,7 @@ static int message_part_effect(const char *source,size_t bytes,char *out,size_t 
  }
  return 0;
 }
-static int message_resolve_inner(MessageProfile profile,const char *source,size_t bytes,char *target,size_t capacity,size_t *rule){
+static int message_resolve_body(MessageProfile profile,const char *source,size_t bytes,char *target,size_t capacity,size_t *rule){
  if(rule)*rule=(size_t)-5;
  if(profile==MESSAGE_NAME)return canonical_item_name_translate(display_extra_dictionary,item_dictionary,short_dictionary,dictionary,source,bytes,target,capacity);
  if(profile==MESSAGE_REPAIR){
@@ -38,6 +38,19 @@ static int message_resolve_inner(MessageProfile profile,const char *source,size_
  if(result!=0)return result;
  if(profile!=MESSAGE_DISPLAY)return 0;
  return terminal_translate(dictionary,short_dictionary,display_extra_dictionary,source,bytes,target,capacity,rule);
+}
+/* Native expanded logs carry a turn field outside the message schema. */
+static int message_resolve_inner(MessageProfile profile,const char *source,size_t bytes,char *target,size_t capacity,size_t *rule){
+ if(profile==MESSAGE_DISPLAY||profile==MESSAGE_TERMINAL){
+  size_t turn=0;while(turn<bytes&&source[turn]>='0'&&source[turn]<='9')turn++;
+  if(turn>=5&&turn<=10&&turn+2<bytes&&source[turn]=='_'&&source[turn+1]==' '){
+   size_t body=turn+2;
+   char translated[32768];int r=message_resolve_body(profile,source+body,bytes-body,translated,sizeof translated,rule);
+   if(r<=0)return r;size_t n=strlen(translated);if(body+n>=capacity)return -1;
+   memcpy(target,source,body);memcpy(target+body,translated,n+1);return r;
+  }
+ }
+ return message_resolve_body(profile,source,bytes,target,capacity,rule);
 }
 /* Commit is the sole boundary into caller-owned output. Every path has the
    same law: failure/miss leaves output and rule untouched, including aliases.

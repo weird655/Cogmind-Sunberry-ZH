@@ -9,3 +9,6 @@ __pycache__/
 *.log
 *.zip
 *.tsv
+
+layout-preflight.json
+test-results.json

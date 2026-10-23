@@ -6,7 +6,7 @@
 /* Pure selection policy, also exercised by menu_compact_tests.c. */
 static int menu_compact_width_policy(uintptr_t caller,uintptr_t base,int same_string,int original_columns,int target_columns){
  if(!same_string||original_columns<1||original_columns>35||target_columns<1||target_columns>original_columns)return 0;
- return caller==base+0x4fc943u||caller==base+0x4fca24u||caller==base+0x4fcad2u;
+ return caller==base+0x4fdee3u||caller==base+0x4fdfc4u||caller==base+0x4fe072u;
 }
 /* Map semantic boundaries rather than old English cell indices. */
 static int menu_utf8_columns(const char *s,size_t n){int w=0;for(size_t i=0;i<n;i++)if(((unsigned char)s[i]&0xc0)!=0x80)w+=(unsigned char)s[i]<128?1:2;return w;}

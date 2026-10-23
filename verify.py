@@ -11,6 +11,8 @@ cc=Path(os.environ['COGMIND_CRT_TOOLCHAIN'])/'i686-w64-mingw32-clang.exe'
 d=Path(os.environ.get('COGMIND_TRANSLATION_DIR',r/'test-data'));para=d/'zh_para.tsv';shorts=d/'zh_trans.tsv';extra=d/'zh_extra.tsv';items=d/'item_names.tsv';runtime=d/'runtime_patches.tsv'
 suites={'terminal_input_tests':[],'record_binding_tests':[],'message_policy_tests':[para,shorts,extra,items,runtime],'replacement_animation_tests':[],'live_cells_tests':[],'owner_index_tests':[],'content_tests':[para,shorts,extra,items,runtime],'core_tests':[para],'display_tests':[items,shorts,para,extra],'item_name_tests':[items],'canonical_item_names_tests':[],'repair_tests':[para],'repair_popup_tests':[items,shorts,para,extra],'menu_compact_tests':[],'linked_tests':[],'link_target_tests':[para,shorts],'terminal_tests':[para,shorts,extra,runtime],'terminal_normalize_tests':[para,shorts,extra,runtime]}
 results=[]
+suites['dialogue_dynamic_tests']=[items,shorts,extra,para]
+suites['event_dynamic_tests']=[items,shorts,extra,para]
 for name,args in suites.items():
  out=r/'bin'/(name+'.exe')
  subprocess.run([str(cc),'-O2','-Wall','-Wextra','-Werror',str(r/'src'/(name+'.c')),str(r/'src/text_core.c'),str(r/'src/glyph_registry.c'),'-o',str(out)],check=True)

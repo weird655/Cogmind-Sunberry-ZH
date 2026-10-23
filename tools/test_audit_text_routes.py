@@ -13,6 +13,9 @@ class RouteGuardTests(unittest.TestCase):
  def test_unknown_entry(self):
   (self.root/'src/new_popup.h').write_text('message_resolve_entry(TEXT_ENTRY_UNKNOWN,s,n,out,cap,0);')
   self.assertFalse(audit(self.root)['passed'])
+ def test_new_dialogue_helper_cannot_bypass_entry(self):
+  (self.root/'src/new_popup.h').write_text('dialogue_dynamic_translate(a,b,c,d,s,n,out,cap);')
+  self.assertFalse(audit(self.root)['passed'])
  def test_commented_example_is_not_code(self):
   (self.root/'src/new_popup.h').write_text('/* zh_translate(dict,s,n,out,cap,0); */')
   self.assertTrue(audit(self.root)['passed'])

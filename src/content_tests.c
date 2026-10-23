@@ -40,6 +40,12 @@ int main(int argc,char **argv){
  CHECK(repair_translate_stage(item_dictionary,repair,strlen(repair),expected,sizeof expected)==1);
  CHECK(message_resolve_profile(MESSAGE_REPAIR,repair,strlen(repair),out,sizeof out,&repair_rule)==1);CHECK(!strcmp(out,expected));CHECK(repair_rule==(size_t)-1);
  strcpy(out,"sentinel");CHECK(message_resolve_profile(MESSAGE_REPAIR,repair,strlen(repair),out,4,&repair_rule)<0);CHECK(!strcmp(out,"sentinel"));
+ /* Reviewed numeric effects have identical priority with native line breaks.
+    Conflicting older paragraph wording must not veto an explicit override. */
+ const char *numeric_effect="Enables slashing damage resistance: 3%.\n <no_stack>";
+ CHECK(message_resolve(numeric_effect,strlen(numeric_effect),out,sizeof out)==1);
+ CHECK(!strcmp(out,"获得 3% 切割伤害抗性。<不叠加>"));
+ strcpy(out,"sentinel");CHECK(message_resolve(numeric_effect,strlen(numeric_effect),out,4)<0);CHECK(!strcmp(out,"sentinel"));
  printf("PASS %u dynamic paragraphs, names, coordinates, preserved unknowns and atomic-capacity checks\n",checks);return 0;
 }
 

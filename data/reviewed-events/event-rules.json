@@ -1,0 +1,759 @@
+[
+  {
+    "source": "[name]: \"During the Beta 10.1 cycle we recently had a new registration by a strangely named derelict, simply \\'3.14\\', who claimed to have safely ascended to the surface via Access with the help of a something-SkeletonCharger. I can't quite recall that component's full name, but I'm guessing it's in the online version-wise database of runs...\"",
+    "target": "[name]：“在 Beta 10.1 周期，最近有个名字古怪的流亡者刚登记进来，就叫 \\'3.14\\'。它自称借助一件某种骨架充能器，从接入区安全升到了地表。我记不清那个部件的全名，不过网上按版本分类的游玩记录数据库里应该有……”",
+    "parameters": {
+      "[name]": "identity"
+    },
+    "records": [
+      2552
+    ],
+    "evidence": "evidence/event-literals40-20261023/native-preprocessing-assembly.json: native ROT/name substitution before display"
+  },
+  {
+    "source": "A derelict rushes over: \"Hey there, we need to retreat! Warlord says this encounter has served its purpose, and now with control of several caves leading up to Command, we need someone to open the seals from the inside for the final push. The code is %1. Think you could help us with this? WARLORD FOREVER!\"",
+    "target": "一名流亡者赶过来：“嘿，咱们得撤了！军阀说，这次交锋已经达到目的。现在咱们控制了通往指挥部的几条洞穴，最后进攻前，需要有人从内部打开封锁。代码是 %1。能帮咱们这个忙吗？军阀万岁！”",
+    "parameters": {
+      "%1": "code"
+    },
+    "records": [
+      2443
+    ],
+    "evidence": "native 0x510110 consumes mhack before display; only retain the resulting native code"
+  },
+  {
+    "source": "[name]: \"Quiet, I'm researching here! I just discovered when they say 'hack the planet,' they don't realize it refers to a very specific number of hacks that burst onto the scene September 4, 2018, back on Earth. Ancient history!\"",
+    "target": "[name]：“安静，我在研究！我刚发现，那些说要‘黑入整个星球’的家伙并不知道，这指的是一批数量相当明确的黑入事件，早在地球上的 2018年9月4日 就出现了。古老的历史啊！”",
+    "parameters": {
+      "[name]": "identity"
+    },
+    "records": [
+      2558
+    ],
+    "evidence": "evidence/event-literals40-20261023/native-preprocessing-assembly.json: native ROT/name substitution before display"
+  },
+  {
+    "source": "A prototype is lying exposed on the ground here. There's a note attached: \"Hey {ufd_name}, I saw you headed this way but had to run. Thanks again and remember to keep it repaired!\"",
+    "target": "这里有件原型装备，就这么露在地上。上面附着一张便条：“嘿，{ufd_name}，我看见你往这边来了，但得先走一步。再谢一次，记得及时修好它！”",
+    "parameters": {
+      "{ufd_name}": "identity"
+    },
+    "records": [
+      1372
+    ],
+    "evidence": "evidence/event-literals40-20261023/native-preprocessing-assembly.json: native ROT/name substitution before display"
+  },
+  {
+    "source": "@ %1 has been hastily shoved under some rubble with a note attached: \"Boring, it is not. Although I admit enemies do get bored, for sure.\"",
+    "target": "@ %1被匆匆塞到碎石下，附着纸条：「它可不无聊。敌人确实会被钻穿，这我承认。」",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      1174
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "[name]: \"AAAAAAH CAN'T STOP JAMMIN' ... WHO'S WRITING DIRECTLY TO MY MASTER BOOT RECORD?! ... THIS CLOCK SPEED! WH4T I8 TH6S?! DXXXXXXXX\"",
+    "target": "[name]：“啊啊啊啊停不下来……谁在直接写我的主引导记录？！……这时钟频率！WH4T I8 TH6S？！DXXXXXXXX”",
+    "parameters": {
+      "[name]": "identity"
+    },
+    "records": [
+      2553
+    ],
+    "evidence": "evidence/event-literals40-20261023/native-preprocessing-assembly.json: native ROT/name substitution before display"
+  },
+  {
+    "source": "Only a single weapon with absolute delay greater than or equal to 100 may be active at a time, %1 automatically deactivated.",
+    "target": "绝对延迟大于或等于100的武器，一次只能启用一件；%1已自动关闭。",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      858
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "A derelict rushes over: \"{ufd_name}! Are you sure you want to leave so soon? Optimus wants to speak with you in the Council room.\"",
+    "target": "一名流亡者赶过来：“{ufd_name}！你确定这么快就要走吗？Optimus 想在议事厅和你谈谈。”",
+    "parameters": {
+      "{ufd_name}": "identity"
+    },
+    "records": [
+      1338
+    ],
+    "evidence": "evidence/event-literals40-20261023/native-preprocessing-assembly.json: native ROT/name substitution before display"
+  },
+  {
+    "source": "@ %1 has been hastily shoved under some rubble with a note attached: \"Here lies the sword of MA-1KR the Great. I think.\"",
+    "target": "@ %1被匆匆塞到碎石下，附着纸条：「此乃伟大的MA-1KR之剑。大概吧。」",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      1182
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "@ %1 has been hastily shoved under some rubble with a note attached: \"Who needs nails when you have Unaware?\"",
+    "target": "@ %1被匆匆塞到碎石下，附着纸条：「有蒙昧者，谁还要钉子？」",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      1179
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "@ %1 has been hastily shoved under some rubble with a note attached: \"It's not as slow as it sounds.\"",
+    "target": "@ %1被匆匆塞到碎石下，附着纸条：「没听起来那么慢。」",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      1173
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "@ %1 has been hastily shoved under some rubble with a note attached: \"Stab them where it hurts!\"",
+    "target": "@ %1被匆匆塞到碎石下，附着纸条：「往痛处捅！」",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      1183
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "@ %1 has been hastily shoved under some rubble with a note attached: \"In case of Swarmers.\"",
+    "target": "@ %1被匆匆塞到碎石下，附着纸条：「以防遇上蜂群机。」",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      1176
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "@ %1 has been hastily shoved under some rubble with a note attached: \"One is never enough.\"",
+    "target": "@ %1被匆匆塞到碎石下，附着纸条：「一个永远不够。」",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      1177,
+      1178
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "@ %1 has been hastily shoved under some rubble with a note attached: \"Rip and tear!\"",
+    "target": "@ %1被匆匆塞到碎石下，附着纸条：「撕碎它们！」",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      1180
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "@ %1 has been hastily shoved under some rubble with a note attached: \"To battle!\"",
+    "target": "@ %1被匆匆塞到碎石下，附着纸条：「上战场！」",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      1172,
+      1175
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "@ %1 has been hastily shoved under some rubble with a note attached: \"Chop chop!\"",
+    "target": "@ %1被匆匆塞到碎石下，附着纸条：「砍砍砍！」",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      1181
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "[name]: \"TGGW is awesome. I wish I knew who made this game so long ago...\"",
+    "target": "[name]：“TGGW 真棒。真希望知道很久以前是谁做了这款游戏……”",
+    "parameters": {
+      "[name]": "identity"
+    },
+    "records": [
+      2556
+    ],
+    "evidence": "evidence/event-literals40-20261023/native-preprocessing-assembly.json: native ROT/name substitution before display"
+  },
+  {
+    "source": "%1 activation sequence initiated, repeat to continue process (1/%2).",
+    "target": "%1启动序列已开始，重复操作以继续（1/%2）。",
+    "parameters": {
+      "%2": "number",
+      "%1": "atom"
+    },
+    "records": [
+      221
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "[name]: \"You'd never guess it was the fourth one who sent me, heh.\"",
+    "target": "[name]：“你绝对猜不到，派我来的是第四个，嘿。”",
+    "parameters": {
+      "[name]": "identity"
+    },
+    "records": [
+      2557
+    ],
+    "evidence": "evidence/event-literals40-20261023/native-preprocessing-assembly.json: native ROT/name substitution before display"
+  },
+  {
+    "source": "%1 injects {name} to begin assimilation process, ETC: %2.",
+    "target": "%1向{name}注射，开始同化；预计完成时间：%2。",
+    "parameters": {
+      "{name}": "identity",
+      "%2": "number",
+      "%1": "atom"
+    },
+    "records": [
+      198
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "[name]: \"r/Cogmind is going to hear about this!\"",
+    "target": "[name]：“r/Cogmind 会知道这事的！”",
+    "parameters": {
+      "[name]": "identity"
+    },
+    "records": [
+      2555
+    ],
+    "evidence": "evidence/event-literals40-20261023/native-preprocessing-assembly.json: native ROT/name substitution before display"
+  },
+  {
+    "source": "@ %1 tumbles out of the Wall Chamber.",
+    "target": "@ %1从墙内密室里滚了出来。",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      2169
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "Scrap Engine modifies %1:\n%2\nRenamed %3.",
+    "target": "废料引擎改造%1：\n%2\n更名为%3。",
+    "parameters": {
+      "%3": "identity",
+      "%2": "stats",
+      "%1": "atom"
+    },
+    "records": [
+      291
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "Reset {name}, system corruption cleaned.",
+    "target": "已重置{name}，清除了系统损坏。",
+    "parameters": {
+      "{name}": "identity"
+    },
+    "records": [
+      793
+    ],
+    "evidence": "evidence/event-literals40-20261023/native-preprocessing-assembly.json: native ROT/name substitution before display"
+  },
+  {
+    "source": "%1 purges 1% system corruption (%2%).",
+    "target": "%1清除1%系统损坏（%2%）。",
+    "parameters": {
+      "%2": "number",
+      "%1": "atom"
+    },
+    "records": [
+      96
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "%1 intercepted %2% system corruption.",
+    "target": "%1拦截了%2%系统损坏。",
+    "parameters": {
+      "%2": "number",
+      "%1": "atom"
+    },
+    "records": [
+      98
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "%1 reconfigured, %2% effectiveness.",
+    "target": "%1已重新配置，效能%2%。",
+    "parameters": {
+      "%2": "number",
+      "%1": "atom"
+    },
+    "records": [
+      121
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": ">> %1 network decryption results:",
+    "target": ">> %1网络解密结果：",
+    "parameters": {
+      "%1": "identity"
+    },
+    "records": [
+      468
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "Scrap Engine modifies %1:\n%2.",
+    "target": "废料引擎改造%1：\n%2。",
+    "parameters": {
+      "%2": "stats",
+      "%1": "atom"
+    },
+    "records": [
+      290
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "%1 injection rejected by {name}.",
+    "target": "{name}排斥了%1的注射。",
+    "parameters": {
+      "{name}": "identity",
+      "%1": "atom"
+    },
+    "records": [
+      199
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "%1 reprograms and arms {name}.",
+    "target": "%1为{name}重编程并配备武器。",
+    "parameters": {
+      "{name}": "identity",
+      "%1": "atom"
+    },
+    "records": [
+      197
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "[name]: \"Wake up, Neo...\"",
+    "target": "[name]：“醒醒，Neo……”",
+    "parameters": {
+      "[name]": "identity"
+    },
+    "records": [
+      2554
+    ],
+    "evidence": "evidence/event-literals40-20261023/native-preprocessing-assembly.json: native ROT/name substitution before display"
+  },
+  {
+    "source": "%1 short circuited.",
+    "target": "%1短路了。",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      538
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "  Penetrated by %1",
+    "target": "  被%1穿透",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      724
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "Loosened %1 from {name}.",
+    "target": "从{name}上松开了%1。",
+    "parameters": {
+      "{name}": "identity",
+      "%1": "atom"
+    },
+    "records": [
+      787
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "Failed to hack {name}.",
+    "target": "未能黑入{name}。",
+    "parameters": {
+      "{name}": "identity"
+    },
+    "records": [
+      797
+    ],
+    "evidence": "evidence/event-literals40-20261023/native-preprocessing-assembly.json: native ROT/name substitution before display"
+  },
+  {
+    "source": "%1 disintegrated.",
+    "target": "%1已解体。",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      69
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "%1 disintegrates.",
+    "target": "%1解体。",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      409,
+      918,
+      920,
+      929,
+      930
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "%1 hotswapped in.",
+    "target": "%1已热切换装入。",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      676
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "%1 unresponsive.",
+    "target": "%1无响应。",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      443
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "%1 tossed aside.",
+    "target": "%1被扔到一旁。",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      699
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "  %1 penetrates %2",
+    "target": "  %1穿透%2",
+    "parameters": {
+      "%2": "atom",
+      "%1": "atom"
+    },
+    "records": [
+      723
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "%1 morphs into %2.",
+    "target": "%1变为%2。",
+    "parameters": {
+      "%2": "atom",
+      "%1": "atom"
+    },
+    "records": [
+      759
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "%1 whisked away.",
+    "target": "%1被迅速带走。",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      1597
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "A0-MCA drops %1.",
+    "target": "A0-MCA丢下了%1。",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      1606
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "%1 jams signal.",
+    "target": "%1干扰了信号。",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      549
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "%1 fabricates %2.",
+    "target": "%1制造了%2。",
+    "parameters": {
+      "%2": "atom",
+      "%1": "atom"
+    },
+    "records": [
+      647,
+      660
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "%1 blinks away.",
+    "target": "%1瞬移离去。",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      757
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "%1 pulverized.",
+    "target": "%1被粉碎。",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      18
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "%1 dismantled.",
+    "target": "%1已被拆解。",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      211
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "Replicated %1.",
+    "target": "复制了%1。",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      264
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "%1 burned out.",
+    "target": "%1已烧毁。",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      399
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "Renamed %1 to %2",
+    "target": "把%1更名为%2",
+    "parameters": {
+      "%1": "identity",
+      "%2": "identity"
+    },
+    "records": [
+      812
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "%1 secures %2.",
+    "target": "%1固定住%2。",
+    "parameters": {
+      "%2": "atom",
+      "%1": "atom"
+    },
+    "records": [
+      85
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "%1 expended.",
+    "target": "%1已耗尽。",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      97,
+      401
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "%1 implodes.",
+    "target": "%1向内塌缩。",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      402,
+      925
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "Repaired {name}.",
+    "target": "已修复{name}。",
+    "parameters": {
+      "{name}": "identity"
+    },
+    "records": [
+      785
+    ],
+    "evidence": "evidence/event-literals40-20261023/native-preprocessing-assembly.json: native ROT/name substitution before display"
+  },
+  {
+    "source": "Fit %1 on {name}.",
+    "target": "把%1装到{name}上。",
+    "parameters": {
+      "{name}": "identity",
+      "%1": "atom"
+    },
+    "records": [
+      784
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "Rammed %1.",
+    "target": "撞击了%1。",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      161
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "%1 decays.",
+    "target": "%1衰败。",
+    "parameters": {
+      "%1": "atom"
+    },
+    "records": [
+      763
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "X0-1V1 %1",
+    "target": "X0-1V1 %1",
+    "parameters": {
+      "%1": "message"
+    },
+    "records": [
+      692,
+      698
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": ">> %1: %2.",
+    "target": ">> %1: %2.",
+    "parameters": {
+      "%1": "identity",
+      "%2": "message"
+    },
+    "records": [
+      470
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": ">> %1: %2",
+    "target": ">> %1: %2",
+    "parameters": {
+      "%1": "identity",
+      "%2": "message"
+    },
+    "records": [
+      471
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "%1 %2.",
+    "target": "%1 %2.",
+    "parameters": {
+      "%1": "actor",
+      "%2": "message"
+    },
+    "records": [
+      441
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  },
+  {
+    "source": "[%1]",
+    "target": "[%1]",
+    "parameters": {
+      "%1": "message"
+    },
+    "records": [
+      805
+    ],
+    "evidence": "evidence/event-producers40-20261023/direct-producers.json; native display after parameter and identity expansion"
+  }
+]

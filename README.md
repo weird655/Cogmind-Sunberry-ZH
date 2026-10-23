@@ -12,9 +12,9 @@
 
 ## 安装
 
-**[下载 v0.2.1 安装包](https://github.com/weird655/Cogmind-Sunberry-ZH/releases/download/v0.2.1/Cogmind-Sunberry-ZH-v0.2.1.zip)** · [版本说明](https://github.com/weird655/Cogmind-Sunberry-ZH/releases/tag/v0.2.1)
+**[下载 v0.2.2 安装包](https://github.com/weird655/Cogmind-Sunberry-ZH/releases/download/v0.2.2/Cogmind-Sunberry-ZH-v0.2.2.zip)** · [版本说明](https://github.com/weird655/Cogmind-Sunberry-ZH/releases/tag/v0.2.2)
 
-适用于 **Windows · Cogmind Beta 17.1**，安装时自动核对版本。一个 ZIP 即可安装，**无需 Mod 前置或旧版补丁**。
+适用于 **Windows · Steam Cogmind Beta 17.1（260906a，已核验指纹）**，安装时自动核对版本。其他 EXE 版本仍需单独适配。一个 ZIP 即可安装，**无需 Mod 前置或旧版补丁**。
 
 1. 下载并解压，把里面的 **“cogmind汉化261019”文件夹放到游戏目录**，和 `COGMIND.exe` 放在一起。
 2. 保存并退出游戏。
@@ -33,11 +33,13 @@
 
 ## 当前状态
 
-v0.2.0 加入终端中文输入与候选补全：打开“手动指令”，用拼音选词确认中文，↑↓ 选择候选、Tab 补全，另按 Enter 提交。候选仅来自当前终端已登记的可用命令；图纸、分析等参数类型尚未全部接通，仍可使用英文。
+**v0.2.2** 补充 NPC 对话、动态事件、无人机和投射物等部件效果；修复带回合号的拾取日志漏译，保留数量、重复标记和原生命中计算。
 
-包含 48 条终端正文新增／修正、部件效果与启动提示补全，以及切换后的残留与英文还原修复。已通过离线回归及独立原生进程测试；真实拼音输入与中文指令执行已获用户验证。
+本轮 118 个事件候选已逐项处理：103 项翻译或动态规则，15 项按原生转发、代码或损坏文本保留。终端中文输入与候选补全继续可用：拼音选词上屏，↑↓ 选择、Tab 补全，另按 Enter 提交；部分图纸／分析参数仍需英文。
 
-源码进展（2026-10-22）：已核对终端正文 912 条，860 条匹配，52 条为保留的加密／损坏噪声；另补界面短句 19 条。统计仅限该终端语料，不代表全游戏完成。详见 [检查记录](docs/LOCALIZATION-AUDIT-20261022.json)。**v0.2.1 安装包包含本轮补译与查漏修复。**
+当前安装包使用已验证的 Steam 260906a 适配。**不会替换游戏 EXE，也不会自动适配所有 Beta 17.1 文件。** 旧版先从原安装入口卸载，再装新版，保留当前存档进度。
+
+20 组 C 回归、18 项 Python 检查、470 个事件样例及 1,880 次宽度检查通过；独立原生进程 300 次重绘无字形错误。详见 [v0.2.2 更新记录](CHANGELOG.md) 和 [核查范围与已知遗漏](docs/LOCALIZATION-AUDIT-20261023.md)。统计不代表全游戏汉化完成。
 
 部分界面和文本仍有漏译。遇到问题可在 [Issues](https://github.com/weird655/Cogmind-Sunberry-ZH/issues) 附上截图、游戏版本和触发步骤，方便定位。
 

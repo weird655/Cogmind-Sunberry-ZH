@@ -5,6 +5,8 @@
 #include "content_names.h"
 static const ZhDictionary *terminal_item_dictionary;
 static const ZhDictionary *terminal_runtime_dictionary;
+#include "dialogue_dynamic.h"
+#include "event_dynamic.h"
 /* Preserve reviewed paragraph rules. Exact strings in the UI corpus must
    also reach terminal output before broad paragraph templates are tried.
    Additional rule IDs are diagnostic sentinels, never native link IDs. */
@@ -26,6 +28,10 @@ static inline int terminal_translate_core(const ZhDictionary *paragraphs,const Z
    if(!have){strcpy(chosen,candidate);chosen_rule=i==0?(size_t)-4:i==1?(size_t)-2:i==3?(size_t)-3:found;have=1;}}
  }
  if(have){strcpy(out,chosen);if(rule)*rule=chosen_rule;return 1;}
+ r=dialogue_dynamic_translate(extra,terminal_item_dictionary,shorts,paragraphs,source,bytes,out,capacity);
+ if(r){if(r>0&&rule)*rule=(size_t)-6;return r;}
+ r=event_dynamic_translate(extra,terminal_item_dictionary,shorts,paragraphs,source,bytes,out,capacity);
+ if(r){if(r>0&&rule)*rule=(size_t)-7;return r;}
  if(terminal_runtime_dictionary){r=zh_translate(terminal_runtime_dictionary,source,bytes,out,capacity,&found);if(r){if(r>0&&rule)*rule=(size_t)-4;return r;}}
  r=zh_translate_overlay(paragraphs,extra,source,bytes,out,capacity,rule);if(r||!shorts)return r;
  r=zh_translate(shorts,source,bytes,out,capacity,&found);if(r>0&&rule)*rule=(size_t)-3;return r;
@@ -76,6 +82,11 @@ static inline int terminal_translate(const ZhDictionary *paragraphs,const ZhDict
     /* Free-text captures can absorb independent list rows. Only numeric
        paragraph templates may precede the structured line adapter. */
     if(whole==2&&zh_rule_is_numeric_template(dicts[i],selected)){
+     /* The reviewed runtime override has the same priority here as in the
+        single-line resolver. A conflicting legacy paragraph must not undo it
+        merely because the native owner inserted a line break. Ambiguity
+        inside that dictionary still fails in zh_translate above. */
+     if(i==0&&terminal_runtime_dictionary){strcpy(out,candidate);if(rule)*rule=(size_t)-4;return 2;}
      if(have&&strcmp(chosen,candidate))return -2;
      strcpy(chosen,candidate);have=1;
     }

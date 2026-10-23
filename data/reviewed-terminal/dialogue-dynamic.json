@@ -1,0 +1,2963 @@
+[
+  {
+    "source": "Just another fine utility or two and my %1 build will be complete. Well, maybe not.",
+    "target": "再添一两件好功能件，我的%1配置就齐了。也许吧。",
+    "kind": "build",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[12].lines[2]",
+        "prefix_offset": "0xfd6",
+        "payload_offset": "0xfda"
+      }
+    ]
+  },
+  {
+    "source": "How's that %1 build working out for ya?",
+    "target": "你的%1配置用着如何？",
+    "kind": "build",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[13].lines[1]",
+        "prefix_offset": "0x10e1",
+        "payload_offset": "0x10e5"
+      }
+    ]
+  },
+  {
+    "source": "Your %1 build needs more guns.",
+    "target": "你的%1配置还缺火力。",
+    "kind": "build",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[13].lines[2]",
+        "prefix_offset": "0x1110",
+        "payload_offset": "0x1114"
+      }
+    ]
+  },
+  {
+    "source": "Are you sure that %1 build is the best way to go here?",
+    "target": "你确定这里适合用%1配置？",
+    "kind": "build",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[13].lines[3]",
+        "prefix_offset": "0x1136",
+        "payload_offset": "0x113a"
+      }
+    ]
+  },
+  {
+    "source": "Look at you rockin' that %1 build. Wonder what it'll look like next floor, heh.",
+    "target": "瞧你这套%1配置。不知到下层会变成什么样，嘿。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[13].lines[4]",
+        "prefix_offset": "0x1174",
+        "payload_offset": "0x1178"
+      }
+    ]
+  },
+  {
+    "source": "And build of the day goes to... Cogmind! With that %1 loadout!",
+    "target": "今日最佳配置属于……Cogmind！这套%1真棒！",
+    "kind": "build",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[13].lines[5]",
+        "prefix_offset": "0x11cb",
+        "payload_offset": "0x11cf"
+      }
+    ]
+  },
+  {
+    "source": "In case you were wondering, some of my prized inventory items include %1.",
+    "target": "想知道我的珍藏？有%1。",
+    "kind": "list",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[18].lines[0]",
+        "prefix_offset": "0x1b87",
+        "payload_offset": "0x1b8b"
+      }
+    ]
+  },
+  {
+    "source": "%1 FTW!",
+    "target": "%1最棒！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[19].lines[5]",
+        "prefix_offset": "0x1e6e",
+        "payload_offset": "0x1e72"
+      },
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[3].lines[8]",
+        "prefix_offset": "0x615",
+        "payload_offset": "0x619"
+      },
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[1].lines[18][0]",
+        "prefix_offset": "0xbb8",
+        "payload_offset": "0xbbc"
+      }
+    ]
+  },
+  {
+    "source": "And the cool part of the day is... %1!",
+    "target": "今日最酷部件……%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[19].lines[8]",
+        "prefix_offset": "0x1ed1",
+        "payload_offset": "0x1ed5"
+      }
+    ]
+  },
+  {
+    "source": "%1 for sale! Okay no I didn't really expect there'd be any takers...",
+    "target": "出售%1！好吧，本来也没指望有人要……",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[19].lines[12]",
+        "prefix_offset": "0x1f8a",
+        "payload_offset": "0x1f8e"
+      }
+    ]
+  },
+  {
+    "source": "Poor, poor %1...",
+    "target": "可怜的%1……",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[28].lines[2]",
+        "prefix_offset": "0x3866",
+        "payload_offset": "0x386a"
+      }
+    ]
+  },
+  {
+    "source": "%1, good armor until it's not.",
+    "target": "%1，坏掉前都是好装甲。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[30].lines[11]",
+        "prefix_offset": "0x3f0e",
+        "payload_offset": "0x3f12"
+      }
+    ]
+  },
+  {
+    "source": "Yes, %1 for me!",
+    "target": "好，%1归我了！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[31].lines[4]",
+        "prefix_offset": "0x41c0",
+        "payload_offset": "0x41c4"
+      }
+    ]
+  },
+  {
+    "source": "I suddenly have a craving for... %1!",
+    "target": "我突然想要……%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[31].lines[7]",
+        "prefix_offset": "0x421d",
+        "payload_offset": "0x4221"
+      }
+    ]
+  },
+  {
+    "source": "Race you to the %1!",
+    "target": "比比谁先拿到%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[31].lines[10]",
+        "prefix_offset": "0x4293",
+        "payload_offset": "0x4297"
+      }
+    ]
+  },
+  {
+    "source": "Yay, %1!",
+    "target": "好耶，%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[31].lines[11]",
+        "prefix_offset": "0x42ae",
+        "payload_offset": "0x42b2"
+      }
+    ]
+  },
+  {
+    "source": "%1 alert!",
+    "target": "发现%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[31].lines[16]",
+        "prefix_offset": "0x4334",
+        "payload_offset": "0x4338"
+      }
+    ]
+  },
+  {
+    "source": "Take this, you evil %1!",
+    "target": "接招，邪恶的%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[42].lines[0]",
+        "prefix_offset": "0x551b",
+        "payload_offset": "0x551f"
+      }
+    ]
+  },
+  {
+    "source": "Target acquired: %1!",
+    "target": "锁定目标：%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[42].lines[12]",
+        "prefix_offset": "0x5728",
+        "payload_offset": "0x572c"
+      }
+    ]
+  },
+  {
+    "source": "%1 for you!",
+    "target": "给你%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[57].lines[6]",
+        "prefix_offset": "0x7972",
+        "payload_offset": "0x7976"
+      }
+    ]
+  },
+  {
+    "source": "My Expert System has %1 written all over it.",
+    "target": "我的专家系统就是为%1而生的。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[70].lines[0]",
+        "prefix_offset": "0x87b0",
+        "payload_offset": "0x87b4"
+      }
+    ]
+  },
+  {
+    "source": "From now on I shall be known as %1-bane!",
+    "target": "从今往后，我就是%1克星！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[70].lines[2]",
+        "prefix_offset": "0x881f",
+        "payload_offset": "0x8823"
+      }
+    ]
+  },
+  {
+    "source": "They dubbed me %1. Do I look like %1 to you?",
+    "target": "他们叫我%1。我像%1吗？",
+    "kind": "identity",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[108].lines[1]",
+        "prefix_offset": "0xbf7b",
+        "payload_offset": "0xbf7f"
+      }
+    ]
+  },
+  {
+    "source": "I'm %1. I want a refund. Does the UFD do refunds?",
+    "target": "我叫%1。我想退款。UFD 给退吗？",
+    "kind": "identity",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[108].lines[2]",
+        "prefix_offset": "0xbfaf",
+        "payload_offset": "0xbfb3"
+      }
+    ]
+  },
+  {
+    "source": "%1? More like 6S-H0T fodder.",
+    "target": "%1？不过是 6S-H0T 的炮灰。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue3.bin",
+        "source_sha256": "1aec11c4f3426b50eb6bd8039c856c15ac209b020a1caff3623e00dc0d794f7d",
+        "record_path": "records[2].lines[4][2]",
+        "prefix_offset": "0x6ff",
+        "payload_offset": "0x703"
+      }
+    ]
+  },
+  {
+    "source": "Researching %1, are we?",
+    "target": "在研究%1，是吧？",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue4.bin",
+        "source_sha256": "d58669301d95c464e94dc73a2afb4037237147b6acecf04ab210b1ccaad1a02a",
+        "record_path": "groups[0][0]",
+        "prefix_offset": "0x8",
+        "payload_offset": "0xc"
+      }
+    ]
+  },
+  {
+    "source": "%1 is entry level stuff!",
+    "target": "%1只是入门级的东西！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue4.bin",
+        "source_sha256": "d58669301d95c464e94dc73a2afb4037237147b6acecf04ab210b1ccaad1a02a",
+        "record_path": "groups[0][1]",
+        "prefix_offset": "0x27",
+        "payload_offset": "0x2b"
+      }
+    ]
+  },
+  {
+    "source": "What do you care about %1?",
+    "target": "你关心%1干什么？",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue4.bin",
+        "source_sha256": "d58669301d95c464e94dc73a2afb4037237147b6acecf04ab210b1ccaad1a02a",
+        "record_path": "groups[0][5]",
+        "prefix_offset": "0xe5",
+        "payload_offset": "0xe9"
+      }
+    ]
+  },
+  {
+    "source": "Hacker's first %1?",
+    "target": "黑客的第一个%1？",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue4.bin",
+        "source_sha256": "d58669301d95c464e94dc73a2afb4037237147b6acecf04ab210b1ccaad1a02a",
+        "record_path": "groups[1][2]",
+        "prefix_offset": "0x24b",
+        "payload_offset": "0x24f"
+      }
+    ]
+  },
+  {
+    "source": "%1? In this economy?",
+    "target": "%1？这年头还要这个？",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue4.bin",
+        "source_sha256": "d58669301d95c464e94dc73a2afb4037237147b6acecf04ab210b1ccaad1a02a",
+        "record_path": "groups[1][10]",
+        "prefix_offset": "0x377",
+        "payload_offset": "0x37b"
+      }
+    ]
+  },
+  {
+    "source": "So how many %1 do you think you'll need?",
+    "target": "你觉得自己要多少个%1？",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue4.bin",
+        "source_sha256": "d58669301d95c464e94dc73a2afb4037237147b6acecf04ab210b1ccaad1a02a",
+        "record_path": "groups[2][6]",
+        "prefix_offset": "0x488",
+        "payload_offset": "0x48c"
+      }
+    ]
+  },
+  {
+    "source": "Enemy #1: %1. Got it.",
+    "target": "1 号敌人：%1。明白。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue4.bin",
+        "source_sha256": "d58669301d95c464e94dc73a2afb4037237147b6acecf04ab210b1ccaad1a02a",
+        "record_path": "groups[3][0]",
+        "prefix_offset": "0x4e3",
+        "payload_offset": "0x4e7"
+      }
+    ]
+  },
+  {
+    "source": "Be reasonable, how many %1 do you really face each cycle?",
+    "target": "讲点道理，每个周期你能遇上多少个%1？",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue4.bin",
+        "source_sha256": "d58669301d95c464e94dc73a2afb4037237147b6acecf04ab210b1ccaad1a02a",
+        "record_path": "groups[3][2]",
+        "prefix_offset": "0x517",
+        "payload_offset": "0x51b"
+      }
+    ]
+  },
+  {
+    "source": "What do you want with the %1 analysis.",
+    "target": "你要%1的分析做什么？",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue4.bin",
+        "source_sha256": "d58669301d95c464e94dc73a2afb4037237147b6acecf04ab210b1ccaad1a02a",
+        "record_path": "groups[3][5]",
+        "prefix_offset": "0x5df",
+        "payload_offset": "0x5e3"
+      }
+    ]
+  },
+  {
+    "source": "%1... Makes you wonder how many of those are Chapter 10 bots.",
+    "target": "%1……不知其中有多少是第 10 章机器人。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue4.bin",
+        "source_sha256": "d58669301d95c464e94dc73a2afb4037237147b6acecf04ab210b1ccaad1a02a",
+        "record_path": "groups[23][2]",
+        "prefix_offset": "0x1392",
+        "payload_offset": "0x1396"
+      }
+    ]
+  },
+  {
+    "source": "If %1 isn't enough, let me know and I can arrange for more.",
+    "target": "%1不够就说，我可以再安排。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue4.bin",
+        "source_sha256": "d58669301d95c464e94dc73a2afb4037237147b6acecf04ab210b1ccaad1a02a",
+        "record_path": "groups[24][0]",
+        "prefix_offset": "0x14f8",
+        "payload_offset": "0x14fc"
+      }
+    ]
+  },
+  {
+    "source": "That %1 squad wasn't doing their job right anyway. You did MC a favor!",
+    "target": "反正那支%1小队也不称职。你帮了 MC 的忙！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue4.bin",
+        "source_sha256": "d58669301d95c464e94dc73a2afb4037237147b6acecf04ab210b1ccaad1a02a",
+        "record_path": "groups[35][0]",
+        "prefix_offset": "0x1769",
+        "payload_offset": "0x176d"
+      }
+    ]
+  },
+  {
+    "source": "%1? I'm unimpressed.",
+    "target": "%1？没什么了不起。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue4.bin",
+        "source_sha256": "d58669301d95c464e94dc73a2afb4037237147b6acecf04ab210b1ccaad1a02a",
+        "record_path": "groups[66][6]",
+        "prefix_offset": "0x2706",
+        "payload_offset": "0x270a"
+      }
+    ]
+  },
+  {
+    "source": "I see your %1, and I raise you an \"additional scanning required\"!",
+    "target": "你拿到%1，我就再送你一次“需要额外扫描”！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue4.bin",
+        "source_sha256": "d58669301d95c464e94dc73a2afb4037237147b6acecf04ab210b1ccaad1a02a",
+        "record_path": "groups[94][1]",
+        "prefix_offset": "0x2e0d",
+        "payload_offset": "0x2e11"
+      }
+    ]
+  },
+  {
+    "source": "%1? Not worth it.",
+    "target": "%1？不值得。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue4.bin",
+        "source_sha256": "d58669301d95c464e94dc73a2afb4037237147b6acecf04ab210b1ccaad1a02a",
+        "record_path": "groups[94][2]",
+        "prefix_offset": "0x2e56",
+        "payload_offset": "0x2e5a"
+      }
+    ]
+  },
+  {
+    "source": "Try again for %1++.",
+    "target": "再试试，争取拿个%1++。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue4.bin",
+        "source_sha256": "d58669301d95c464e94dc73a2afb4037237147b6acecf04ab210b1ccaad1a02a",
+        "record_path": "groups[96][3]",
+        "prefix_offset": "0x2fae",
+        "payload_offset": "0x2fb2"
+      }
+    ]
+  },
+  {
+    "source": "Look at that %1. Bravo.",
+    "target": "瞧这%1，真棒。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[3].lines[2]",
+        "prefix_offset": "0x505",
+        "payload_offset": "0x509"
+      }
+    ]
+  },
+  {
+    "source": "%1, my beloved.",
+    "target": "%1，我的挚爱。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[3].lines[4]",
+        "prefix_offset": "0x54e",
+        "payload_offset": "0x552"
+      }
+    ]
+  },
+  {
+    "source": "Let's chop some more %1!",
+    "target": "再砍几个%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[4].lines[0]",
+        "prefix_offset": "0x657",
+        "payload_offset": "0x65b"
+      }
+    ]
+  },
+  {
+    "source": "I can beat that %1!",
+    "target": "我打得过那个%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[5].lines[5]",
+        "prefix_offset": "0x8ab",
+        "payload_offset": "0x8af"
+      }
+    ]
+  },
+  {
+    "source": "Out of my way, %1!",
+    "target": "让开，%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[5].lines[7]",
+        "prefix_offset": "0x8f4",
+        "payload_offset": "0x8f8"
+      }
+    ]
+  },
+  {
+    "source": "Why must I share space with this %1!",
+    "target": "为什么要和这个%1挤在一起！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[6].lines[1]",
+        "prefix_offset": "0x987",
+        "payload_offset": "0x98b"
+      }
+    ]
+  },
+  {
+    "source": "This %1 is depressing me.",
+    "target": "这个%1真让我郁闷。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[6].lines[3]",
+        "prefix_offset": "0x9e8",
+        "payload_offset": "0x9ec"
+      }
+    ]
+  },
+  {
+    "source": "Do we really need this %1 around? It should just be you and me.",
+    "target": "真要留着这个%1吗？有你和我就够了。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[6].lines[4]",
+        "prefix_offset": "0xa07",
+        "payload_offset": "0xa0b"
+      }
+    ]
+  },
+  {
+    "source": "I suggest removing this %1.",
+    "target": "我建议移除这个%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[6].lines[7]",
+        "prefix_offset": "0xadc",
+        "payload_offset": "0xae0"
+      }
+    ]
+  },
+  {
+    "source": "Hands up! Drop the %1!",
+    "target": "举起手！放下%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[6].lines[8]",
+        "prefix_offset": "0xaff",
+        "payload_offset": "0xb03"
+      }
+    ]
+  },
+  {
+    "source": "A moment of silence for %1 here.",
+    "target": "为这里的%1默哀片刻。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[16].lines[7]",
+        "prefix_offset": "0x1c09",
+        "payload_offset": "0x1c0d"
+      }
+    ]
+  },
+  {
+    "source": "Get in line, %1.",
+    "target": "排好队，%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[17].lines[0]",
+        "prefix_offset": "0x1c63",
+        "payload_offset": "0x1c67"
+      }
+    ]
+  },
+  {
+    "source": "You look like you want some, too, %1!",
+    "target": "%1，看来你也想挨打！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[17].lines[1]",
+        "prefix_offset": "0x1c79",
+        "payload_offset": "0x1c7d"
+      }
+    ]
+  },
+  {
+    "source": "They call me %1-bane!",
+    "target": "他们叫我%1克星！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[21].lines[0]",
+        "prefix_offset": "0x2234",
+        "payload_offset": "0x2238"
+      }
+    ]
+  },
+  {
+    "source": "Lights out, %1!",
+    "target": "关灯了，%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[22].lines[0]",
+        "prefix_offset": "0x22c4",
+        "payload_offset": "0x22c8"
+      }
+    ]
+  },
+  {
+    "source": "Away with you, %1!",
+    "target": "滚开，%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[22].lines[1]",
+        "prefix_offset": "0x22d9",
+        "payload_offset": "0x22dd"
+      }
+    ]
+  },
+  {
+    "source": "Die, %1!",
+    "target": "死吧，%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[22].lines[2]",
+        "prefix_offset": "0x22f3",
+        "payload_offset": "0x22f7"
+      }
+    ]
+  },
+  {
+    "source": "End of the road, %1!",
+    "target": "到头了，%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[22].lines[3]",
+        "prefix_offset": "0x2307",
+        "payload_offset": "0x230b"
+      }
+    ]
+  },
+  {
+    "source": "Show us your guts, %1!",
+    "target": "%1，让我看看你的内脏！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[23].lines[0]",
+        "prefix_offset": "0x2394",
+        "payload_offset": "0x2398"
+      }
+    ]
+  },
+  {
+    "source": "Let's see what you're made of, %1!",
+    "target": "%1，让我看看你的构造！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[23].lines[1]",
+        "prefix_offset": "0x23b0",
+        "payload_offset": "0x23b4"
+      }
+    ]
+  },
+  {
+    "source": "Time to get naked, %1.",
+    "target": "%1，该卸光装备了。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[23].lines[8]",
+        "prefix_offset": "0x24ba",
+        "payload_offset": "0x24be"
+      }
+    ]
+  },
+  {
+    "source": "That %1 is looking suspicious over there!",
+    "target": "那边的%1很可疑！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[24].lines[0]",
+        "prefix_offset": "0x25ef",
+        "payload_offset": "0x25f3"
+      }
+    ]
+  },
+  {
+    "source": "That %1 is eyeing me funny.",
+    "target": "那个%1看我的眼神不对劲。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[24].lines[1]",
+        "prefix_offset": "0x2620",
+        "payload_offset": "0x2624"
+      }
+    ]
+  },
+  {
+    "source": "Race you to that %1!",
+    "target": "比比谁先到那个%1那里！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[24].lines[14]",
+        "prefix_offset": "0x28c4",
+        "payload_offset": "0x28c8"
+      }
+    ]
+  },
+  {
+    "source": "Let's fight that %1!",
+    "target": "干掉那个%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[25].lines[1]",
+        "prefix_offset": "0x292a",
+        "payload_offset": "0x292e"
+      }
+    ]
+  },
+  {
+    "source": "Look at that %1 over there, just asking for a beating.",
+    "target": "瞧那边的%1，简直欠揍。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[25].lines[2]",
+        "prefix_offset": "0x2946",
+        "payload_offset": "0x294a"
+      }
+    ]
+  },
+  {
+    "source": "Poor %1.",
+    "target": "可怜的%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[32].lines[0]",
+        "prefix_offset": "0x3743",
+        "payload_offset": "0x3747"
+      }
+    ]
+  },
+  {
+    "source": "Eat that, %1!",
+    "target": "吃我一招，%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[32].lines[1]",
+        "prefix_offset": "0x3757",
+        "payload_offset": "0x375b"
+      }
+    ]
+  },
+  {
+    "source": "Sliced %1, my favorite!",
+    "target": "切片%1，我的最爱！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[32].lines[2]",
+        "prefix_offset": "0x376e",
+        "payload_offset": "0x3772"
+      }
+    ]
+  },
+  {
+    "source": "That %1 won't be bothering us anymore.",
+    "target": "那个%1不会再烦我们了。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[32].lines[10]",
+        "prefix_offset": "0x3898",
+        "payload_offset": "0x389c"
+      }
+    ]
+  },
+  {
+    "source": "Not so fast, %1!",
+    "target": "别急，%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[36].lines[0]",
+        "prefix_offset": "0x4003",
+        "payload_offset": "0x4007"
+      }
+    ]
+  },
+  {
+    "source": "It's %1 hunting season!",
+    "target": "猎杀%1的季节到了！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[37].lines[8]",
+        "prefix_offset": "0x4246",
+        "payload_offset": "0x424a"
+      }
+    ]
+  },
+  {
+    "source": "Too slow, %1!",
+    "target": "太慢了，%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[37].lines[13]",
+        "prefix_offset": "0x4307",
+        "payload_offset": "0x430b"
+      }
+    ]
+  },
+  {
+    "source": "You + me = %1.",
+    "target": "你＋我＝%1。",
+    "kind": "build",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[46].lines[1]",
+        "prefix_offset": "0x50ac",
+        "payload_offset": "0x50b0"
+      }
+    ]
+  },
+  {
+    "source": "We make the best %1.",
+    "target": "我们的%1配置最强。",
+    "kind": "build",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[46].lines[2]",
+        "prefix_offset": "0x50c0",
+        "payload_offset": "0x50c4"
+      }
+    ]
+  },
+  {
+    "source": "Bravo on the %1 loadout.",
+    "target": "这套%1配置真棒。",
+    "kind": "build",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[46].lines[4]",
+        "prefix_offset": "0x5107",
+        "payload_offset": "0x510b"
+      }
+    ]
+  },
+  {
+    "source": "This %1 is great!",
+    "target": "这%1真棒！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[1].lines[2][0]",
+        "prefix_offset": "0x9ff",
+        "payload_offset": "0xa03"
+      }
+    ]
+  },
+  {
+    "source": "My %1 is bored here.",
+    "target": "我的%1在这里闲得发慌。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[1].lines[10][0]",
+        "prefix_offset": "0xabb",
+        "payload_offset": "0xabf"
+      }
+    ]
+  },
+  {
+    "source": "%1 don't fail me now!",
+    "target": "%1，别掉链子！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[1].lines[11][0]",
+        "prefix_offset": "0xad7",
+        "payload_offset": "0xadb"
+      }
+    ]
+  },
+  {
+    "source": "This %1 is fire.",
+    "target": "这%1太强了。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[1].lines[18][1]",
+        "prefix_offset": "0xbc3",
+        "payload_offset": "0xbc7"
+      }
+    ]
+  },
+  {
+    "source": "%1 READY.",
+    "target": "%1就绪。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[1].lines[28][0]",
+        "prefix_offset": "0xd95",
+        "payload_offset": "0xd99"
+      }
+    ]
+  },
+  {
+    "source": "My worst nightmare! %1!",
+    "target": "我的噩梦！%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[2].lines[27][0]",
+        "prefix_offset": "0x1299",
+        "payload_offset": "0x129d"
+      }
+    ]
+  },
+  {
+    "source": "ANALYZING %1.",
+    "target": "分析%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[2].lines[28][0]",
+        "prefix_offset": "0x12b8",
+        "payload_offset": "0x12bc"
+      },
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[3].lines[28][0]",
+        "prefix_offset": "0x17d4",
+        "payload_offset": "0x17d8"
+      }
+    ]
+  },
+  {
+    "source": "Is that @ %1? Spooky.",
+    "target": "那是个%1？真吓人。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[3].lines[11][0]",
+        "prefix_offset": "0x157f",
+        "payload_offset": "0x1583"
+      }
+    ]
+  },
+  {
+    "source": "Nice %1, can I have it?",
+    "target": "不错的%1，能给我吗？",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[3].lines[17][0]",
+        "prefix_offset": "0x1655",
+        "payload_offset": "0x1659"
+      }
+    ]
+  },
+  {
+    "source": "That %1 looks sus.",
+    "target": "那%1看着不对劲。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[3].lines[18][0]",
+        "prefix_offset": "0x1674",
+        "payload_offset": "0x1678"
+      }
+    ]
+  },
+  {
+    "source": "That %1 is so last beta.",
+    "target": "那%1上个测试版就过时了。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[3].lines[19][0]",
+        "prefix_offset": "0x16af",
+        "payload_offset": "0x16b3"
+      }
+    ]
+  },
+  {
+    "source": "To battle, %1!",
+    "target": "出战，%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[4].lines[5][0]",
+        "prefix_offset": "0x1abc",
+        "payload_offset": "0x1ac0"
+      }
+    ]
+  },
+  {
+    "source": "%1 don't fail me now...",
+    "target": "%1，别掉链子……",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[4].lines[24][0]",
+        "prefix_offset": "0x1dfd",
+        "payload_offset": "0x1e01"
+      }
+    ]
+  },
+  {
+    "source": "AIMING %1.",
+    "target": "瞄准%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[4].lines[28][0]",
+        "prefix_offset": "0x1e83",
+        "payload_offset": "0x1e87"
+      }
+    ]
+  },
+  {
+    "source": "Just take the L, %1.",
+    "target": "%1，认输吧。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[5].lines[18][1]",
+        "prefix_offset": "0x245e",
+        "payload_offset": "0x2462"
+      }
+    ]
+  },
+  {
+    "source": "Down with any and all %1!",
+    "target": "打倒所有%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[6].lines[5][1]",
+        "prefix_offset": "0x290b",
+        "payload_offset": "0x290f"
+      }
+    ]
+  },
+  {
+    "source": "Sorry about your %1.",
+    "target": "你的%1没了，真遗憾。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[6].lines[8][0]",
+        "prefix_offset": "0x295b",
+        "payload_offset": "0x295f"
+      }
+    ]
+  },
+  {
+    "source": "LOL %1.",
+    "target": "哈哈，%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[6].lines[18][0]",
+        "prefix_offset": "0x2b2e",
+        "payload_offset": "0x2b32"
+      }
+    ]
+  },
+  {
+    "source": "Scratch one %1!",
+    "target": "干掉一个%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[6].lines[23][0]",
+        "prefix_offset": "0x2c57",
+        "payload_offset": "0x2c5b"
+      }
+    ]
+  },
+  {
+    "source": "%1 DESTROYED.",
+    "target": "%1已摧毁。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[6].lines[28][0]",
+        "prefix_offset": "0x2d87",
+        "payload_offset": "0x2d8b"
+      }
+    ]
+  },
+  {
+    "source": "Amazing, that's one %1 down.",
+    "target": "厉害，一个%1没了。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[7].lines[13][0]",
+        "prefix_offset": "0x327b",
+        "payload_offset": "0x327f"
+      }
+    ]
+  },
+  {
+    "source": "OMG my %1!",
+    "target": "天啊，我的%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[7].lines[18][1]",
+        "prefix_offset": "0x33ae",
+        "payload_offset": "0x33b2"
+      }
+    ]
+  },
+  {
+    "source": "NBD, just @ %1.",
+    "target": "小事，才@%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[7].lines[18][2]",
+        "prefix_offset": "0x33bc",
+        "payload_offset": "0x33c0"
+      }
+    ]
+  },
+  {
+    "source": "COMPENSATING FOR %1.",
+    "target": "补偿%1的损失。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue6.bin",
+        "source_sha256": "fa2c9b325be1d5da798eb0bbe6596019858904368d2acf275acb4d923bc38fc7",
+        "record_path": "records[7].lines[28][0]",
+        "prefix_offset": "0x35e2",
+        "payload_offset": "0x35e6"
+      }
+    ]
+  },
+  {
+    "source": "I got a new %1 slot! What you got?",
+    "target": "我多了个%1槽！你呢？",
+    "kind": "slot",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[5].lines[1]",
+        "prefix_offset": "0x65c",
+        "payload_offset": "0x660"
+      }
+    ]
+  },
+  {
+    "source": "Mmm, shiny new %1 slot...",
+    "target": "嗯，崭新的%1槽……",
+    "kind": "slot",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[5].lines[2]",
+        "prefix_offset": "0x685",
+        "payload_offset": "0x689"
+      }
+    ]
+  },
+  {
+    "source": "Thinking of how to best use my new %1 slot.",
+    "target": "想想怎么用好新的%1槽。",
+    "kind": "slot",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[5].lines[6]",
+        "prefix_offset": "0x726",
+        "payload_offset": "0x72a"
+      }
+    ]
+  },
+  {
+    "source": "Any ideas for what to do with my new %1 slot?",
+    "target": "我的新%1槽，你有什么主意？",
+    "kind": "slot",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[5].lines[7]",
+        "prefix_offset": "0x758",
+        "payload_offset": "0x75c"
+      }
+    ]
+  },
+  {
+    "source": "Now we're talking, lots of %1 slots for me.",
+    "target": "这才像话，给我好多%1槽。",
+    "kind": "slot",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[6].lines[3]",
+        "prefix_offset": "0x84e",
+        "payload_offset": "0x852"
+      }
+    ]
+  },
+  {
+    "source": "Clearly I like %1 slots. Sue me.",
+    "target": "我就是喜欢%1槽。告我啊。",
+    "kind": "slot",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[6].lines[6]",
+        "prefix_offset": "0x8dc",
+        "payload_offset": "0x8e0"
+      }
+    ]
+  },
+  {
+    "source": "One can never have too many %1 slots.",
+    "target": "%1槽再多也不嫌多。",
+    "kind": "slot",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[6].lines[10]",
+        "prefix_offset": "0x97b",
+        "payload_offset": "0x97f"
+      }
+    ]
+  },
+  {
+    "source": "Haha you got ANOTHER %1 slot? Boooooriiiiiing...",
+    "target": "哈，你又添了个%1槽？无聊透了……",
+    "kind": "slot",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[7].lines[0]",
+        "prefix_offset": "0x9dd",
+        "payload_offset": "0x9e1"
+      }
+    ]
+  },
+  {
+    "source": "Hey, you wouldn't happen to have a %1, would you?",
+    "target": "喂，你该不会正好有个%1吧？",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[8].lines[0]",
+        "prefix_offset": "0xb0e",
+        "payload_offset": "0xb12"
+      }
+    ]
+  },
+  {
+    "source": "Sure would be nice to find a %1 around here...",
+    "target": "要能在这找到%1就好了……",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[8].lines[3]",
+        "prefix_offset": "0xb83",
+        "payload_offset": "0xb87"
+      }
+    ]
+  },
+  {
+    "source": "If you spot a good %1 let me know, yeah?",
+    "target": "看到好的%1就告诉我，好吗？",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[8].lines[5]",
+        "prefix_offset": "0xbdf",
+        "payload_offset": "0xbe3"
+      }
+    ]
+  },
+  {
+    "source": "What's it take to get a good %1 around here?",
+    "target": "在这找个好%1怎么就那么难？",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[8].lines[6]",
+        "prefix_offset": "0xc0e",
+        "payload_offset": "0xc12"
+      }
+    ]
+  },
+  {
+    "source": "Don't worry, %1, we'll be destroying things in no time.",
+    "target": "别担心，%1，我们马上就能大肆破坏了。",
+    "kind": "identity",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[9].lines[4]",
+        "prefix_offset": "0xd1a",
+        "payload_offset": "0xd1e"
+      }
+    ]
+  },
+  {
+    "source": "Going to be sad to eventually lose this precious %1.",
+    "target": "迟早会失去这宝贝%1，想想就难过。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[9].lines[5]",
+        "prefix_offset": "0xd58",
+        "payload_offset": "0xd5c"
+      }
+    ]
+  },
+  {
+    "source": "Look at me, I'm a %1!",
+    "target": "看，我是个%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[12].lines[0]",
+        "prefix_offset": "0xf86",
+        "payload_offset": "0xf8a"
+      }
+    ]
+  },
+  {
+    "source": "%1 build feels good. Could be better, though.",
+    "target": "%1配置挺好。但还能更好。",
+    "kind": "build",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[12].lines[1]",
+        "prefix_offset": "0xfa2",
+        "payload_offset": "0xfa6"
+      }
+    ]
+  },
+  {
+    "source": "Neat %1 build, but I could do better.",
+    "target": "不错的%1配置，但我能做得更好。",
+    "kind": "build",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[13].lines[0]",
+        "prefix_offset": "0x10b5",
+        "payload_offset": "0x10b9"
+      }
+    ]
+  },
+  {
+    "source": "I wonder if I'll ever have a chance to use my %1.",
+    "target": "不知有没有机会用上我的%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[18].lines[5]",
+        "prefix_offset": "0x1cbc",
+        "payload_offset": "0x1cc0"
+      }
+    ]
+  },
+  {
+    "source": "Thinking about swapping in my %1...",
+    "target": "考虑换上我的%1……",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[18].lines[6]",
+        "prefix_offset": "0x1cf4",
+        "payload_offset": "0x1cf8"
+      }
+    ]
+  },
+  {
+    "source": "Wonder if it makes sense to use my %1 now...",
+    "target": "现在用我的%1合适吗……",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[18].lines[7]",
+        "prefix_offset": "0x1d1e",
+        "payload_offset": "0x1d22"
+      }
+    ]
+  },
+  {
+    "source": "Decisions, decisions... My %1 are still just sitting in inventory waiting for their chance to shine.",
+    "target": "真难选……我的%1还躺在库存里，等着大显身手。",
+    "kind": "list",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[18].lines[8]",
+        "prefix_offset": "0x1d51",
+        "payload_offset": "0x1d55"
+      }
+    ]
+  },
+  {
+    "source": "This %1 sucks.",
+    "target": "这%1烂透了。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[19].lines[0]",
+        "prefix_offset": "0x1df2",
+        "payload_offset": "0x1df6"
+      }
+    ]
+  },
+  {
+    "source": "I like my %1.",
+    "target": "我喜欢我的%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[19].lines[4]",
+        "prefix_offset": "0x1e56",
+        "payload_offset": "0x1e5a"
+      }
+    ]
+  },
+  {
+    "source": "I bet you wish you had my %1.",
+    "target": "你肯定也想要我的%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[19].lines[6]",
+        "prefix_offset": "0x1e7b",
+        "payload_offset": "0x1e7f"
+      }
+    ]
+  },
+  {
+    "source": "I feel like I could use like three more %1.",
+    "target": "感觉还能再来三个%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[19].lines[7]",
+        "prefix_offset": "0x1e9f",
+        "payload_offset": "0x1ea3"
+      }
+    ]
+  },
+  {
+    "source": "If the Unaware want my %1, they'll have to come take it over our dead bodies!",
+    "target": "蒙昧者想抢我的%1，就从我们尸体上踏过去！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[19].lines[13]",
+        "prefix_offset": "0x1fd6",
+        "payload_offset": "0x1fda"
+      }
+    ]
+  },
+  {
+    "source": "I have a funny feeling that my %1 is going to break soon.",
+    "target": "有种怪感觉，我的%1快坏了。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[19].lines[14]",
+        "prefix_offset": "0x202a",
+        "payload_offset": "0x202e"
+      }
+    ]
+  },
+  {
+    "source": "We need more of these %1.",
+    "target": "这种%1还得多来几个。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[19].lines[15]",
+        "prefix_offset": "0x206a",
+        "payload_offset": "0x206e"
+      }
+    ]
+  },
+  {
+    "source": "How's that %1 working out for you?",
+    "target": "你的%1用着怎么样？",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[20].lines[0]",
+        "prefix_offset": "0x2122",
+        "payload_offset": "0x2126"
+      }
+    ]
+  },
+  {
+    "source": "I'll give you 500 Matter for your %1. NOT! Piece of junk... who'd want that thing.",
+    "target": "拿500物质换你的%1。才怪！破烂货，谁稀罕。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[20].lines[2]",
+        "prefix_offset": "0x2184",
+        "payload_offset": "0x2188"
+      }
+    ]
+  },
+  {
+    "source": "You do know you're using an older variant of the %1 there, yeah?",
+    "target": "你知道你用的是旧款%1，对吧？",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[20].lines[7]",
+        "prefix_offset": "0x2284",
+        "payload_offset": "0x2288"
+      }
+    ]
+  },
+  {
+    "source": "Aw yeah, this %1 will serve me well...",
+    "target": "好啊，这%1肯定好用……",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[22].lines[4]",
+        "prefix_offset": "0x2663",
+        "payload_offset": "0x2667"
+      }
+    ]
+  },
+  {
+    "source": "I hope this %1 lasts...",
+    "target": "希望这%1能撑久点……",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[22].lines[5]",
+        "prefix_offset": "0x2690",
+        "payload_offset": "0x2694"
+      }
+    ]
+  },
+  {
+    "source": "Such a lovely %1.",
+    "target": "多可爱的%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[22].lines[8]",
+        "prefix_offset": "0x2715",
+        "payload_offset": "0x2719"
+      }
+    ]
+  },
+  {
+    "source": "I wouldn't stand in front of my %1 if I were you.",
+    "target": "我要是你，就不站在我的%1前面。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[23].lines[7]",
+        "prefix_offset": "0x28df",
+        "payload_offset": "0x28e3"
+      }
+    ]
+  },
+  {
+    "source": "Need targets to test this new %1.",
+    "target": "需要目标来测试这个新 %1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[23].lines[9]",
+        "prefix_offset": "0x2970",
+        "payload_offset": "0x2974"
+      }
+    ]
+  },
+  {
+    "source": "My %1 would like to have a word with you.",
+    "target": "我的%1想跟你谈谈。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[25].lines[18]",
+        "prefix_offset": "0x2fb0",
+        "payload_offset": "0x2fb4"
+      }
+    ]
+  },
+  {
+    "source": "It's %1 time!",
+    "target": "轮到%1登场！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[25].lines[19]",
+        "prefix_offset": "0x2fe0",
+        "payload_offset": "0x2fe4"
+      }
+    ]
+  },
+  {
+    "source": "Why look at what I have here... %1!",
+    "target": "看看我有什么……%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[25].lines[20]",
+        "prefix_offset": "0x2ff4",
+        "payload_offset": "0x2ff8"
+      }
+    ]
+  },
+  {
+    "source": "Welcome everyone, meet my %1!",
+    "target": "各位，认识一下我的%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[25].lines[27]",
+        "prefix_offset": "0x30cc",
+        "payload_offset": "0x30d0"
+      }
+    ]
+  },
+  {
+    "source": "Hm, I swear there was a %1 there JUST A SECOND AGO...",
+    "target": "嗯，我发誓刚才这里还有个%1……",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[26].lines[2]",
+        "prefix_offset": "0x3200",
+        "payload_offset": "0x3204"
+      }
+    ]
+  },
+  {
+    "source": "I was just about to take that %1.",
+    "target": "我正要拿那个%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[26].lines[3]",
+        "prefix_offset": "0x323c",
+        "payload_offset": "0x3240"
+      }
+    ]
+  },
+  {
+    "source": "You know who else wanted that %1? ME, that's who!",
+    "target": "知道谁也想要那个%1吗？我！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[26].lines[7]",
+        "prefix_offset": "0x3321",
+        "payload_offset": "0x3325"
+      }
+    ]
+  },
+  {
+    "source": "I can't believe you'd deny me my %1...",
+    "target": "不敢信，你竟不给我%1……",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[26].lines[8]",
+        "prefix_offset": "0x3359",
+        "payload_offset": "0x335d"
+      }
+    ]
+  },
+  {
+    "source": "That %1 could've saved your life in the right hands, you know? My hands! Well, I'm not sure these count as hands...",
+    "target": "%1用对了能救命，你知道吗？比如交给我！虽然我这也未必算手……",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[27].lines[11]",
+        "prefix_offset": "0x3670",
+        "payload_offset": "0x3674"
+      }
+    ]
+  },
+  {
+    "source": "What did that %1 ever do to you?",
+    "target": "那个%1招你惹你了？",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[28].lines[1]",
+        "prefix_offset": "0x383f",
+        "payload_offset": "0x3843"
+      }
+    ]
+  },
+  {
+    "source": "What if we needed that %1 later?",
+    "target": "万一以后要用那个%1呢？",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[28].lines[4]",
+        "prefix_offset": "0x389e",
+        "payload_offset": "0x38a2"
+      }
+    ]
+  },
+  {
+    "source": "Seriously? Why my %1?",
+    "target": "认真的？为什么偏是我的%1？",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[30].lines[7]",
+        "prefix_offset": "0x3e50",
+        "payload_offset": "0x3e54"
+      }
+    ]
+  },
+  {
+    "source": "How dare they destroy my %1.",
+    "target": "竟敢毁掉我的%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[30].lines[9]",
+        "prefix_offset": "0x3e9e",
+        "payload_offset": "0x3ea2"
+      }
+    ]
+  },
+  {
+    "source": "Oh well, better the %1 than my core. Or should I say OUR core, hahaha!",
+    "target": "算了，坏%1总比坏核心强。或者说，我们的核心，哈哈！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[30].lines[10]",
+        "prefix_offset": "0x3ec1",
+        "payload_offset": "0x3ec5"
+      }
+    ]
+  },
+  {
+    "source": "What are the chances they'd hit my %1? Okay, I admit probably not all THAT bad...",
+    "target": "偏偏打中我的%1，概率多大？好吧，也许真没多小……",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[30].lines[17]",
+        "prefix_offset": "0x3ff1",
+        "payload_offset": "0x3ff5"
+      }
+    ]
+  },
+  {
+    "source": "My %1!",
+    "target": "我的%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[30].lines[27]",
+        "prefix_offset": "0x4114",
+        "payload_offset": "0x4118"
+      }
+    ]
+  },
+  {
+    "source": "Hey I want that %1.",
+    "target": "喂，我要那个%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[31].lines[0]",
+        "prefix_offset": "0x4153",
+        "payload_offset": "0x4157"
+      }
+    ]
+  },
+  {
+    "source": "I got dibs on the %1.",
+    "target": "%1我先看上的。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[31].lines[1]",
+        "prefix_offset": "0x416d",
+        "payload_offset": "0x4171"
+      }
+    ]
+  },
+  {
+    "source": "The %1 is mine.",
+    "target": "%1是我的。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[31].lines[2]",
+        "prefix_offset": "0x4189",
+        "payload_offset": "0x418d"
+      }
+    ]
+  },
+  {
+    "source": "Ooh I want the %1.",
+    "target": "哦，我想要那个%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[31].lines[3]",
+        "prefix_offset": "0x41a7",
+        "payload_offset": "0x41ab"
+      }
+    ]
+  },
+  {
+    "source": "Leave the %1 for me, please.",
+    "target": "请把%1留给我。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[31].lines[5]",
+        "prefix_offset": "0x41d5",
+        "payload_offset": "0x41d9"
+      }
+    ]
+  },
+  {
+    "source": "Gimme %1.",
+    "target": "给我%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[31].lines[8]",
+        "prefix_offset": "0x4249",
+        "payload_offset": "0x424d"
+      }
+    ]
+  },
+  {
+    "source": "I want the %1.",
+    "target": "我要%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[31].lines[13]",
+        "prefix_offset": "0x42d3",
+        "payload_offset": "0x42d7"
+      }
+    ]
+  },
+  {
+    "source": "I need the %1.",
+    "target": "我需要%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[31].lines[14]",
+        "prefix_offset": "0x42e8",
+        "payload_offset": "0x42ec"
+      }
+    ]
+  },
+  {
+    "source": "I could use a good %1 right about now...",
+    "target": "现在真需要一个好%1……",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[31].lines[15]",
+        "prefix_offset": "0x42fd",
+        "payload_offset": "0x4301"
+      }
+    ]
+  },
+  {
+    "source": "How convenient of this %1 to just be sitting there.",
+    "target": "这%1正好躺在这里，真方便。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[31].lines[19]",
+        "prefix_offset": "0x439b",
+        "payload_offset": "0x439f"
+      }
+    ]
+  },
+  {
+    "source": "Imma heading for that %1 and ain't no one gonna stop me.",
+    "target": "我要去拿那个%1，谁也别拦我。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[31].lines[21]",
+        "prefix_offset": "0x43fe",
+        "payload_offset": "0x4402"
+      }
+    ]
+  },
+  {
+    "source": "%1 for me!",
+    "target": "%1归我！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[31].lines[22]",
+        "prefix_offset": "0x4441",
+        "payload_offset": "0x4445"
+      }
+    ]
+  },
+  {
+    "source": "Don't get between a bot and their %1.",
+    "target": "别挡在机器人和它的%1之间。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[31].lines[25]",
+        "prefix_offset": "0x4491",
+        "payload_offset": "0x4495"
+      }
+    ]
+  },
+  {
+    "source": "We meet again, oh %1!",
+    "target": "又见面了，%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[39].lines[4]",
+        "prefix_offset": "0x4fcb",
+        "payload_offset": "0x4fcf"
+      }
+    ]
+  },
+  {
+    "source": "What did that poor %1 ever do to you?",
+    "target": "那个可怜的%1招你惹你了？",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[42].lines[7]",
+        "prefix_offset": "0x565d",
+        "payload_offset": "0x5661"
+      }
+    ]
+  },
+  {
+    "source": "So long, %1.",
+    "target": "再见，%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[56].lines[2]",
+        "prefix_offset": "0x7867",
+        "payload_offset": "0x786b"
+      }
+    ]
+  },
+  {
+    "source": "Take this %1.",
+    "target": "拿着这%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[57].lines[3]",
+        "prefix_offset": "0x7911",
+        "payload_offset": "0x7915"
+      }
+    ]
+  },
+  {
+    "source": "Take this %1. You need it more than I do.",
+    "target": "拿着这%1。你比我更需要。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[57].lines[4]",
+        "prefix_offset": "0x7929",
+        "payload_offset": "0x792d"
+      }
+    ]
+  },
+  {
+    "source": "I picked this %1 up earlier, seems like you need it.",
+    "target": "刚捡的%1，看起来你需要。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[57].lines[12]",
+        "prefix_offset": "0x7a30",
+        "payload_offset": "0x7a34"
+      }
+    ]
+  },
+  {
+    "source": "How about this %1.",
+    "target": "这个%1怎么样？",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[57].lines[13]",
+        "prefix_offset": "0x7a6b",
+        "payload_offset": "0x7a6f"
+      }
+    ]
+  },
+  {
+    "source": "I've got this %1 just for you.",
+    "target": "这%1专门给你留的。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[57].lines[15]",
+        "prefix_offset": "0x7aa5",
+        "payload_offset": "0x7aa9"
+      }
+    ]
+  },
+  {
+    "source": "Picked up this %1 earlier because I knew you'd eventually need it.",
+    "target": "早知道你会需要，就捡了这个%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[57].lines[16]",
+        "prefix_offset": "0x7aca",
+        "payload_offset": "0x7ace"
+      }
+    ]
+  },
+  {
+    "source": "How would you like a brand new %1. Okay, maybe not so amazing, but better than nothing.",
+    "target": "要个崭新的%1吗？好吧，也没多好，但总比没有强。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[57].lines[17]",
+        "prefix_offset": "0x7b13",
+        "payload_offset": "0x7b17"
+      }
+    ]
+  },
+  {
+    "source": "Need this %1?",
+    "target": "需要这%1吗？",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[57].lines[20]",
+        "prefix_offset": "0x7bca",
+        "payload_offset": "0x7bce"
+      }
+    ]
+  },
+  {
+    "source": "Want this %1?",
+    "target": "想要这%1吗？",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[57].lines[21]",
+        "prefix_offset": "0x7bde",
+        "payload_offset": "0x7be2"
+      }
+    ]
+  },
+  {
+    "source": "You look like you need this %1.",
+    "target": "你看着需要这个%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[57].lines[22]",
+        "prefix_offset": "0x7bf2",
+        "payload_offset": "0x7bf6"
+      }
+    ]
+  },
+  {
+    "source": "You can thank CaptainWinky for this %1.",
+    "target": "这%1你得谢谢CaptainWinky。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[57].lines[27]",
+        "prefix_offset": "0x7cab",
+        "payload_offset": "0x7caf"
+      }
+    ]
+  },
+  {
+    "source": "Sick, huge damage bonus against %1 targets incoming.",
+    "target": "爽，对%1目标的伤害要大涨了。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue1.bin",
+        "source_sha256": "b586d84938f5e64c14d576d04bc6a27a2ac53ca460952c6c3dd38f6c2fa8a107",
+        "record_path": "records[70].lines[1]",
+        "prefix_offset": "0x87e4",
+        "payload_offset": "0x87e8"
+      }
+    ]
+  },
+  {
+    "source": "What you going to do with that %1?",
+    "target": "拿那个%1干嘛？",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue4.bin",
+        "source_sha256": "d58669301d95c464e94dc73a2afb4037237147b6acecf04ab210b1ccaad1a02a",
+        "record_path": "groups[1][0]",
+        "prefix_offset": "0x200",
+        "payload_offset": "0x204"
+      }
+    ]
+  },
+  {
+    "source": "Time to fab some cope %1.",
+    "target": "该造些%1安慰自己了。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue4.bin",
+        "source_sha256": "d58669301d95c464e94dc73a2afb4037237147b6acecf04ab210b1ccaad1a02a",
+        "record_path": "groups[1][5]",
+        "prefix_offset": "0x29b",
+        "payload_offset": "0x29f"
+      }
+    ]
+  },
+  {
+    "source": "Sending more %1...",
+    "target": "正在送来更多%1……",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue4.bin",
+        "source_sha256": "d58669301d95c464e94dc73a2afb4037237147b6acecf04ab210b1ccaad1a02a",
+        "record_path": "groups[3][1]",
+        "prefix_offset": "0x4fe",
+        "payload_offset": "0x502"
+      }
+    ]
+  },
+  {
+    "source": "But %1 is dangerous!",
+    "target": "但%1很危险啊！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue4.bin",
+        "source_sha256": "d58669301d95c464e94dc73a2afb4037237147b6acecf04ab210b1ccaad1a02a",
+        "record_path": "groups[7][0]",
+        "prefix_offset": "0x6f0",
+        "payload_offset": "0x6f4"
+      }
+    ]
+  },
+  {
+    "source": "%1 is no fun. You don't want to go there.",
+    "target": "%1没意思。你不会想去的。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue4.bin",
+        "source_sha256": "d58669301d95c464e94dc73a2afb4037237147b6acecf04ab210b1ccaad1a02a",
+        "record_path": "groups[7][1]",
+        "prefix_offset": "0x70b",
+        "payload_offset": "0x70f"
+      }
+    ]
+  },
+  {
+    "source": "Need %1 so bad you have to make one?",
+    "target": "这么缺%1，还得自己造？",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue4.bin",
+        "source_sha256": "d58669301d95c464e94dc73a2afb4037237147b6acecf04ab210b1ccaad1a02a",
+        "record_path": "groups[67][0]",
+        "prefix_offset": "0x2724",
+        "payload_offset": "0x2728"
+      }
+    ]
+  },
+  {
+    "source": "Let me see... %1... I can work with this.",
+    "target": "让我看看……%1……能用。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue4.bin",
+        "source_sha256": "d58669301d95c464e94dc73a2afb4037237147b6acecf04ab210b1ccaad1a02a",
+        "record_path": "groups[76][0]",
+        "prefix_offset": "0x291b",
+        "payload_offset": "0x291f"
+      }
+    ]
+  },
+  {
+    "source": "%1 valuable enough to repair?",
+    "target": "%1值得修吗？",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue4.bin",
+        "source_sha256": "d58669301d95c464e94dc73a2afb4037237147b6acecf04ab210b1ccaad1a02a",
+        "record_path": "groups[76][3]",
+        "prefix_offset": "0x2988",
+        "payload_offset": "0x298c"
+      }
+    ]
+  },
+  {
+    "source": "I like the way you think. That %1 gets me all warm and fuzzy.",
+    "target": "我喜欢你这想法。那个%1让我心里暖暖的。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[3].lines[0]",
+        "prefix_offset": "0x472",
+        "payload_offset": "0x476"
+      }
+    ]
+  },
+  {
+    "source": "It wouldn't hurt to get another %1.",
+    "target": "再来个%1也不错。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[3].lines[3]",
+        "prefix_offset": "0x524",
+        "payload_offset": "0x528"
+      }
+    ]
+  },
+  {
+    "source": "You didn't need that %1.",
+    "target": "你用不着那个%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[15].lines[1]",
+        "prefix_offset": "0x1a5b",
+        "payload_offset": "0x1a5f"
+      }
+    ]
+  },
+  {
+    "source": "I have an especially strong urge to obliterate every %1 we meet.",
+    "target": "特别想把遇到的每个%1都轰掉。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[21].lines[1]",
+        "prefix_offset": "0x2251",
+        "payload_offset": "0x2255"
+      }
+    ]
+  },
+  {
+    "source": "%1-bane!!!",
+    "target": "%1克星！！！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[22].lines[5]",
+        "prefix_offset": "0x2346",
+        "payload_offset": "0x234a"
+      }
+    ]
+  },
+  {
+    "source": "Here we come, %1!",
+    "target": "%1，我们来了！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[25].lines[0]",
+        "prefix_offset": "0x2912",
+        "payload_offset": "0x2916"
+      }
+    ]
+  },
+  {
+    "source": "Hey %1, my friend and I here would like a word with you.",
+    "target": "喂，%1，我和朋友想找你谈谈。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[25].lines[15]",
+        "prefix_offset": "0x2af6",
+        "payload_offset": "0x2afa"
+      }
+    ]
+  },
+  {
+    "source": "Hi %1, may I introduce you to my friend?",
+    "target": "你好，%1，认识一下我朋友？",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[25].lines[16]",
+        "prefix_offset": "0x2b35",
+        "payload_offset": "0x2b39"
+      }
+    ]
+  },
+  {
+    "source": "Carved that %1 up good.",
+    "target": "那个%1切得真漂亮。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[32].lines[3]",
+        "prefix_offset": "0x378f",
+        "payload_offset": "0x3793"
+      }
+    ]
+  },
+  {
+    "source": "There's no way I'm following the %1 into battle.",
+    "target": "我才不跟着%1冲进战场。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[35].lines[0]",
+        "prefix_offset": "0x3eb4",
+        "payload_offset": "0x3eb8"
+      }
+    ]
+  },
+  {
+    "source": "You won't catch me behind that %1.",
+    "target": "我可不会站在那个%1后面。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[35].lines[1]",
+        "prefix_offset": "0x3eeb",
+        "payload_offset": "0x3eef"
+      }
+    ]
+  },
+  {
+    "source": "Gotcha, %1!",
+    "target": "抓到你了，%1！",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[37].lines[14]",
+        "prefix_offset": "0x431a",
+        "payload_offset": "0x431e"
+      }
+    ]
+  },
+  {
+    "source": "Hm... \"%1\" Curious.",
+    "target": "嗯，“%1”，有趣。",
+    "kind": "identity",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[42].lines[0]",
+        "prefix_offset": "0x4961",
+        "payload_offset": "0x4965"
+      }
+    ]
+  },
+  {
+    "source": "We are %1.",
+    "target": "我们是%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[46].lines[0]",
+        "prefix_offset": "0x509b",
+        "payload_offset": "0x509f"
+      }
+    ]
+  },
+  {
+    "source": "Beware there's a new %1 in town.",
+    "target": "小心，城里来了个新%1。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[46].lines[3]",
+        "prefix_offset": "0x50dc",
+        "payload_offset": "0x50e0"
+      }
+    ]
+  },
+  {
+    "source": "Let's fill out this %1 build.",
+    "target": "把这套%1配置补齐吧。",
+    "kind": "build",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[46].lines[5]",
+        "prefix_offset": "0x5127",
+        "payload_offset": "0x512b"
+      }
+    ]
+  },
+  {
+    "source": "You are suspiciously close to your %1.",
+    "target": "你离你的%1太近了，可疑。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[50].lines[1]",
+        "prefix_offset": "0x5731",
+        "payload_offset": "0x5735"
+      }
+    ]
+  },
+  {
+    "source": "I admit I'm jealous of the attention you give your %1.",
+    "target": "我承认，你那么在意%1，我有点嫉妒。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[50].lines[2]",
+        "prefix_offset": "0x575e",
+        "payload_offset": "0x5762"
+      }
+    ]
+  },
+  {
+    "source": "We need to have a talk about your affection for that %1.",
+    "target": "你这么喜欢那个%1，我们得谈谈。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[50].lines[3]",
+        "prefix_offset": "0x579f",
+        "payload_offset": "0x57a3"
+      }
+    ]
+  },
+  {
+    "source": "It should just be you and me. Why do we need to let that %1 get in the way?",
+    "target": "本来只有你和我。为什么让那个%1碍事？",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[50].lines[4]",
+        "prefix_offset": "0x57de",
+        "payload_offset": "0x57e2"
+      }
+    ]
+  },
+  {
+    "source": "I'm not naming names, but a certain %1 is starting to bug me.",
+    "target": "我不点名，但某个%1开始惹我烦了。",
+    "kind": "atom",
+    "records": [
+      {
+        "source_file": "dialogue5.bin",
+        "source_sha256": "26062cdb876b59de731a6ce7d60cbae10caf67dc40b33c2a50fa287e6e269464",
+        "record_path": "records[50].lines[5]",
+        "prefix_offset": "0x5830",
+        "payload_offset": "0x5834"
+      }
+    ]
+  }
+]

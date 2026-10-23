@@ -23,14 +23,29 @@ static int display_literal_base(const ZhDictionary *items,const ZhDictionary *sh
 /* Combat name + native numeric hit calculation, e.g. Rifle(66-1=66%).
    Translate only the complete known name; preserve every numeric byte. */
 static int display_combat_name(const ZhDictionary *items,const ZhDictionary *shorts,const ZhDictionary *paragraphs,const char *s,size_t n,char *out,size_t cap){
- const char *open=memchr(s,'(',n);if(!open||open==s||n<6||s[n-1]!=')')return 0;
- size_t prefix=(size_t)(open-s),end=n-1;unsigned digits=0,percent=0;
+ const char *open=memchr(s,'(',n);if(!open||open==s||n<6)return 0;
+ const char *close=memchr(open,')',n-(size_t)(open-s));if(!close)return 0;
+ size_t prefix=(size_t)(open-s),end=(size_t)(close-s);unsigned digits=0,percent=0;
+ const char *result_text=NULL;
+ if(end+1<n){
+  size_t suffix=n-end-1;
+  if(suffix==4&&!memcmp(close+1," Hit",4))result_text=" 命中";
+  else if(suffix==5&&!memcmp(close+1," Miss",5))result_text=" 未命中";
+  else return 0;
+ }
  if(end-prefix>80)return 0;
  for(size_t i=prefix+1;i<end;i++){unsigned char c=s[i];if(c>='0'&&c<='9')digits++;else if(c=='%')percent++;else if(!strchr("+-=./",c))return 0;}
- if(!digits||percent!=1||s[n-2]!='%')return 0;
- char name[2048];int result=canonical_item_name_translate(display_extra_dictionary,items,shorts,paragraphs,s,prefix,name,sizeof name);if(result<=0)return result;
- size_t bytes=strlen(name),tail=n-prefix;if(bytes+tail>=cap)return -1;
- char staged[4096];if(bytes+tail>=sizeof staged)return -1;memcpy(staged,name,bytes);memcpy(staged+bytes,s+prefix,tail);staged[bytes+tail]=0;memcpy(out,staged,bytes+tail+1);return 1;
+ if(!digits||percent!=1||s[end-1]!='%')return 0;
+ size_t start=0,name_end=prefix;
+ while(start<name_end&&s[start]==' ')start++;
+ while(name_end>start&&s[name_end-1]==' ')name_end--;
+ if(start==name_end)return 0;
+ char name[2048];int result=content_name_lookup(display_extra_dictionary,items,shorts,paragraphs,s+start,name_end-start,name,sizeof name);if(result<=0)return result;
+ size_t bytes=strlen(name),tail=end+1-name_end,ending=result_text?strlen(result_text):0;
+ size_t total=start+bytes+tail+ending;char staged[4096];if(total>=cap||total>=sizeof staged)return -1;
+ memcpy(staged,s,start);memcpy(staged+start,name,bytes);memcpy(staged+start+bytes,s+name_end,tail);
+ if(ending)memcpy(staged+start+bytes+tail,result_text,ending);
+ staged[total]=0;memcpy(out,staged,total+1);return 1;
 }
 /* Robot detail rows: complete NAME (0..100%) followed by optional xCOUNT.
    This is a display suffix, never a repair command or an item identifier. */
@@ -97,6 +112,7 @@ static int display_lookup(const ZhDictionary *items,const ZhDictionary *shorts,c
  }
  int literal=display_literal(items,shorts,paragraphs,s,n,out,cap);if(literal)return literal;
  int atom=content_name_lookup(display_extra_dictionary,items,shorts,paragraphs,s,n,out,cap);if(atom)return atom;
+ int event=event_dynamic_translate(display_extra_dictionary,items,shorts,paragraphs,s,n,out,cap);if(event)return event;
  /* Native command descriptors stay English; only the display label changes.
     Preserve the seen marker and quoted argument used by the menu artwork. */
  const char *verbs[]={"Record","Schematic"};const char *labels[]={"记录","图纸"};
@@ -209,7 +225,7 @@ static int display_robot_hack_row(const char *s,size_t n,char *out,size_t cap){
  }
  return 0;
 }
-static int display_translate_inner(const ZhDictionary *items,const ZhDictionary *shorts,const ZhDictionary *paragraphs,const char *s,size_t n,char *out,size_t cap){
+static int display_translate_inner_body(const ZhDictionary *items,const ZhDictionary *shorts,const ZhDictionary *paragraphs,const char *s,size_t n,char *out,size_t cap){
  if(!s||!out||!n||n>16384||cap>32768)return 0;
  for(size_t i=0;i<n;i++)if((unsigned char)s[i]>=127||((unsigned char)s[i]<32&&s[i]!='\n'))return 0;
  int robot_hack=display_robot_hack_row(s,n,out,cap);if(robot_hack)return robot_hack;
@@ -240,6 +256,19 @@ static int display_translate_inner(const ZhDictionary *items,const ZhDictionary 
  }
  if(!changed||at>=cap)return changed?-1:0;
  memcpy(out,temporary,at+1);return 1;
+}
+static int display_translate_inner(const ZhDictionary *items,const ZhDictionary *shorts,const ZhDictionary *paragraphs,const char *s,size_t n,char *out,size_t cap){
+ if(!s||!out||!n||n>16384||cap>32768)return 0;
+ /* Expanded logs prefix native turn numbers before the semantic message.
+    Resolve only the body; retain the exact turn and indentation bytes. */
+ size_t turn=0;while(turn<n&&s[turn]>='0'&&s[turn]<='9')turn++;
+ if(turn>=5&&turn<=10&&turn+2<n&&s[turn]=='_'&&s[turn+1]==' '){
+  size_t body=turn+2;
+  char translated[32768];int result=display_translate_inner_body(items,shorts,paragraphs,s+body,n-body,translated,sizeof translated);
+  if(result<=0)return result;size_t bytes=strlen(translated);if(body+bytes>=cap)return -1;
+  memcpy(out,s,body);memcpy(out+body,translated,bytes+1);return 1;
+ }
+ return display_translate_inner_body(items,shorts,paragraphs,s,n,out,cap);
 }
 /* Aggregation suffix is a separate typed field, never a wildcard spelling.
    Translate the body, then retain the exact native count marker and digits. */
