@@ -1,6 +1,8 @@
 /* Steam 260906a: exact EXE fingerprint only. Generated from cross-version references. */
 static uintptr_t native_layout_address(uintptr_t address){
  switch(address){
+ case 0x909c70: return 0x90b210;
+ case 0xcfd1cc: return 0xcfe2a4;
  case 0x4103b0: return 0x410530;
  case 0x410420: return 0x4105a0;
  case 0x416960: return 0x416ab0;
@@ -145,8 +147,18 @@ static uintptr_t native_layout_address(uintptr_t address){
  case 0xd224ac: return 0xd2358c;
  case 0xd224bc: return 0xd2359c;
  case 0xd224c0: return 0xd235a0;
+ case 0xd224c4: return 0xd235a4;
  case 0xd28c8a: return 0xd29d62;
  case 0xd2d1c4: return 0xd2e2a4;
+ case 0xd25de0: return 0xd26ed8;
+ case 0xd3c228: return 0xd3d300;
+ case 0x571db0: return 0x572ea0;
+ case 0x5773d0: return 0x5784c0;
+ case 0x5775a0: return 0x578690;
+ case 0x5776c0: return 0x5787b0;
+ case 0x577700: return 0x5787f0;
+ case 0xcf4844: return 0xcf593c;
+ case 0xcf4888: return 0xcf5980;
  case 0xd2d508: return 0xd2e5e0;
  case 0xd2ed44: return 0xd2fe20;
  case 0xd2f26c: return 0xd302f4;

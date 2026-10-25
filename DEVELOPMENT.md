@@ -39,3 +39,10 @@ GitHub 发布准备：保留 LICENSE/NOTICE，上传 assets/language-switch.gif�
 v0.2.2 默认构建已验证的 Steam 260906a 原生地址适配，表在 src/native_layout_steam.h。构建检查每个已登记地址；指定 --game-data 时还校验其上级的 COGMIND.exe 指纹。清单完整不等于通用版本兼容，也不等于所有入口均经过实机验证。
 
 动态事件规则在 data/reviewed-events/；python tools/generate_event_dynamic.py --check 检查占位符、参数类型和固定数值。生成头文件不能代替运行时参数及原生布局测试。原生数值、实体代码和未知参数不做模糊替换。
+
+
+第47批：原生终端鼠标选择器位于 `src/terminal_picker_*`，父子展开、参数页码与滚动视口分别管理。绘制在临时网格副本上完成，恢复原生状态；重复命令经当前终端与参数集合复核后才单次提交。记忆仅在会话内，不能把一次提交成功解释为黑入结果成功。
+
+`tools/generate_native_ui_robots.py --check` 校验 `data/reviewed-ui/robot-membership.json` 和生成头的一致性；提供 `--catalog` 与 `--game-data` 可重复核对337个原生字段身份。该清单只约束已验证版本的机器人分析参数，不是通用NPC识别模型。
+
+发行 `v0.2.2-r47` 仍使用0.2.2安装版本；新的修订标签与资产区分，旧标签不移动。完整版本边界见docs/LOCALIZATION-AUDIT-20261025.md。

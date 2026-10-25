@@ -11,6 +11,8 @@ parser.add_argument('--tests',action='store_true',help='Run all current-corpus r
 a=parser.parse_args();out=r/'build';out.mkdir(exist_ok=True)
 subprocess.run([sys.executable,str(r/'tools/generate_dialogue_dynamic.py'),'--check'],check=True)
 subprocess.run([sys.executable,str(r/'tools/generate_event_dynamic.py'),'--check'],check=True)
+subprocess.run([sys.executable,str(r/'tools/generate_native_ui_items.py'),'--check'],check=True)
+subprocess.run([sys.executable,str(r/'tools/generate_native_ui_robots.py'),'--check'],check=True)
 tool=os.environ.get('COGMIND_CRT_TOOLCHAIN');cc=str(Path(tool)/'i686-w64-mingw32-clang.exe') if tool else shutil.which('i686-w64-mingw32-clang.exe')
 if not cc or not Path(cc).is_file():parser.error('Set COGMIND_CRT_TOOLCHAIN to the LLVM MinGW bin directory.')
 os.environ['COGMIND_CRT_TOOLCHAIN']=str(Path(cc).parent)
@@ -33,7 +35,7 @@ if a.identity_extracted:
  run([sys.executable,r/'tools/generate_identity_manifest.py','--extracted',a.identity_extracted.resolve(),'--data-dir',a.game_data.resolve(),'--output',out/'record_identity_generated.h',*(['--terminal-native-export',a.terminal_native_export.resolve()] if a.terminal_native_export else [])])
  identity_flags=['-DRECORD_IDENTITY_MANIFEST','-I'+str(out)]
 core=out/'native_zh.dll'
-run([cc,'-O2','-Wall','-Wextra','-Werror','-DCHINESE_DEMO','-DSHELL_PROBE','-DTERMINAL_INPUT_IME',*identity_flags,'-shared',r/'src/probe.c',r/'src/text_core.c',r/'src/glyph_registry.c','-lgdi32','-lbcrypt','-Wl,--kill-at','-o',core])
+run([cc,'-O2','-Wall','-Wextra','-Werror','-DCHINESE_DEMO','-DSHELL_PROBE','-DTERMINAL_INPUT_IME',*identity_flags,'-shared',r/'src/probe.c',r/'src/text_core.c',r/'src/glyph_registry.c','-lgdi32','-lcomctl32','-lbcrypt','-Wl,--kill-at','-o',core])
 loader=out/'loader';shutil.copytree(r/'loader',loader,dirs_exist_ok=True)
 hashes=[hashlib.sha256(p.read_bytes()).hexdigest() for p in [core]+[d/n for n in names]]
 header=loader/'payload_hashes.h';text=header.read_text();matches=list(re.finditer(r'\{L"[^\"]+","([0-9a-f]{64})"\}',text))

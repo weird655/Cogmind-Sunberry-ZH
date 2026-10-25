@@ -13,6 +13,14 @@ suites={'terminal_input_tests':[],'record_binding_tests':[],'message_policy_test
 results=[]
 suites['dialogue_dynamic_tests']=[items,shorts,extra,para]
 suites['event_dynamic_tests']=[items,shorts,extra,para]
+suites['terminal_picker_tests']=[]
+suites['terminal_picker_layout_tests']=[]
+suites['terminal_picker_native_layout_tests']=[]
+suites['terminal_picker_memory_tests']=[]
+suites['picker_visible_parameters_tests']=[]
+suites['picker_item_candidates_tests']=[]
+suites['picker_load_candidates_tests']=[]
+suites['native_ui_tests']=[para,shorts,extra,items,runtime]
 for name,args in suites.items():
  out=r/'bin'/(name+'.exe')
  subprocess.run([str(cc),'-O2','-Wall','-Wextra','-Werror',str(r/'src'/(name+'.c')),str(r/'src/text_core.c'),str(r/'src/glyph_registry.c'),'-o',str(out)],check=True)
@@ -20,5 +28,5 @@ for name,args in suites.items():
  print(name,result.returncode,result.stdout.strip(),result.stderr.strip());results.append({'test':name,'exit':result.returncode,'stdout':result.stdout,'stderr':result.stderr})
  if result.returncode:raise SystemExit(result.returncode)
 (r/'test-results.json').write_text(json.dumps(results,ensure_ascii=False,indent=2),encoding='utf-8')
-subprocess.run([str(cc),'-O2','-Wall','-Wextra','-Werror','-DCHINESE_DEMO','-DSHELL_PROBE','-DTERMINAL_INPUT_IME','-shared',str(r/'src/probe.c'),str(r/'src/text_core.c'),str(r/'src/glyph_registry.c'),'-lgdi32','-Wl,--kill-at','-o',str(r/'bin/native_zh.dll')],check=True)
+subprocess.run([str(cc),'-O2','-Wall','-Wextra','-Werror','-DCHINESE_DEMO','-DSHELL_PROBE','-DTERMINAL_INPUT_IME','-shared',str(r/'src/probe.c'),str(r/'src/text_core.c'),str(r/'src/glyph_registry.c'),'-lgdi32','-lcomctl32','-Wl,--kill-at','-o',str(r/'bin/native_zh.dll')],check=True)
 

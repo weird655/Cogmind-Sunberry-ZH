@@ -2,7 +2,7 @@
 #define COGMIND_EVENT_DYNAMIC_H
 /* Reviewed complete native event scaffolds. Original records remain untouched.
    Parameters are typed; no free sentence capture or global word substitution. */
-typedef enum {EV_NONE,EV_ATOM,EV_NUMBER,EV_IDENTITY,EV_MESSAGE,EV_LINES,EV_CODE,EV_STATS,EV_ACTOR} EventValueKind;
+typedef enum {EV_NONE,EV_ATOM,EV_NUMBER,EV_IDENTITY,EV_MESSAGE,EV_LINES,EV_CODE,EV_STATS,EV_ACTOR,EV_ENTITY} EventValueKind;
 typedef struct {const char *source,*target;EventValueKind kinds[5];} EventDynamicRule;
 #include "event_dynamic_rules.h"
 typedef struct {const ZhDictionary *extra,*items,*shorts,*paragraphs;} EventDictionaries;
@@ -37,6 +37,26 @@ static inline int event_value(const EventDictionaries*,EventValueKind,const char
 static inline int event_value(const EventDictionaries *d,EventValueKind kind,const char *s,size_t n,char *out,size_t cap,unsigned depth){
  if(!n||n>4096||memchr(s,0,n)||memchr(s,'\r',n))return 0;
  if(kind==EV_STATS)return event_stats(d,s,n,out,cap,depth);
+ if(kind==EV_ENTITY){
+  /* Only a registered atomic name, a finite native proper name, or a bounded
+     generated code is admitted. Never preserve arbitrary unknown prose. */
+  if(n>160||!dialogue_parameter_safe(s,n))return 0;
+  int r=dialogue_atom(d->extra,d->items,d->shorts,d->paragraphs,s,n,out,cap);
+  if(r)return r;
+  static const char *names[]={"Optimus","Warlord","MAIN.C","Zhirov","Imprinter","Data Miner"};
+  for(unsigned i=0;i<sizeof names/sizeof names[0];i++)if(strlen(names[i])==n&&!memcmp(s,names[i],n))return event_copy(s,n,out,cap);
+  /* A generated code has two 1..8-character uppercase/digit groups, exactly
+     one hyphen, and at least one digit: e.g. RA-1N3. Letter-only proper names
+     such as EX-DEC are accepted above only when already registered. */
+  if(n<3||n>17||s[0]<'A'||s[0]>'Z')return 0;size_t dash=n;unsigned digits=0;
+  for(size_t i=0;i<n;i++){
+   if(s[i]>='0'&&s[i]<='9'){digits++;continue;}
+   if(s[i]>='A'&&s[i]<='Z')continue;
+   if(s[i]=='-'&&dash==n){dash=i;continue;}
+   return 0;
+  }
+  return digits&&dash>=1&&dash<=8&&n-dash-1>=1&&n-dash-1<=8?event_copy(s,n,out,cap):0;
+ }
  if(kind==EV_ACTOR){
   if(n>80||!event_identity(s,n))return 0;
   int code=memchr(s,'-',n)!=NULL;

@@ -96,7 +96,7 @@ static const InputCommandAlias input_command_aliases[]={
 {90,"Force(Tunnel)","强制(隧道)"},
 {91,"Force(Fedlink)","强制(联邦链接)"},
 {92,"Force(Scrapoids)","强制(废料体)"},
-{93,"Force(Scraphulk)","强制(废料巨体)"},
+{93,"Force(Scraphulk)","强制(废铁巨兽)"},
 {94,"Insert(@)","插入(@)"},
 {95,"Scanalyze","扫描分析"},
 {96,"Study(@)","研究(@)"},

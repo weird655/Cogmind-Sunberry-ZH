@@ -1,0 +1,328 @@
+[
+  {
+    "source": ">> Lost connection to %1.",
+    "target": ">> 与%1的连接已中断。",
+    "parameters": {
+      "%1": "entity"
+    },
+    "records": [
+      126
+    ],
+    "evidence": "work/final-gap-audit43-20261023/event-bank-current.json: event[126].template @ 0x2b54bc (kind=0, channel=7); native [name] and {name} are separate entities, normalized to %1/%2; native spelling and exact record identities retained in work/event44-20261024/record-identities.json"
+  },
+  {
+    "source": "%1 rewired by %2.",
+    "target": "%1被%2重新布线。",
+    "parameters": {
+      "%1": "entity",
+      "%2": "entity"
+    },
+    "records": [
+      140,
+      141
+    ],
+    "evidence": "work/final-gap-audit43-20261023/event-bank-current.json: event[140].template @ 0x2b5962 (kind=2, channel=0), event[141].template @ 0x2b59b0 (kind=2, channel=0); native [name] and {name} are separate entities, normalized to %1/%2; native spelling and exact record identities retained in work/event44-20261024/record-identities.json"
+  },
+  {
+    "source": "%1 crushed by %2.",
+    "target": "%1被%2压碎。",
+    "parameters": {
+      "%1": "entity",
+      "%2": "entity"
+    },
+    "records": [
+      157,
+      158
+    ],
+    "evidence": "work/final-gap-audit43-20261023/event-bank-current.json: event[157].template @ 0x2b5e61 (kind=2, channel=0), event[158].template @ 0x2b5eb0 (kind=2, channel=5); native [name] and {name} are separate entities, normalized to %1/%2; native spelling and exact record identities retained in work/event44-20261024/record-identities.json"
+  },
+  {
+    "source": "%1 shreds...",
+    "target": "%1撕碎……",
+    "parameters": {
+      "%1": "entity"
+    },
+    "records": [
+      182
+    ],
+    "evidence": "work/final-gap-audit43-20261023/event-bank-current.json: event[182].template @ 0x2b65be (kind=2, channel=5); native [name] and {name} are separate entities, normalized to %1/%2; native spelling and exact record identities retained in work/event44-20261024/record-identities.json"
+  },
+  {
+    "source": "%1 sundered.",
+    "target": "%1被劈开。",
+    "parameters": {
+      "%1": "entity"
+    },
+    "records": [
+      186,
+      187
+    ],
+    "evidence": "work/final-gap-audit43-20261023/event-bank-current.json: event[186].template @ 0x2b66d6 (kind=2, channel=3), event[187].template @ 0x2b6714 (kind=2, channel=0); native [name] and {name} are separate entities, normalized to %1/%2; native spelling and exact record identities retained in work/event44-20261024/record-identities.json"
+  },
+  {
+    "source": "%1 fails to hack %2.",
+    "target": "%1黑入%2失败。",
+    "parameters": {
+      "%1": "entity",
+      "%2": "entity"
+    },
+    "records": [
+      479,
+      480
+    ],
+    "evidence": "work/final-gap-audit43-20261023/event-bank-current.json: event[479].template @ 0x2bc74c (kind=2, channel=1), event[480].template @ 0x2bc79e (kind=2, channel=0); native [name] and {name} are separate entities, normalized to %1/%2; native spelling and exact record identities retained in work/event44-20261024/record-identities.json"
+  },
+  {
+    "source": "%2 resets %1, system corruption cleaned.",
+    "target": "%2重置了%1，系统损伤已清除。",
+    "parameters": {
+      "%1": "entity",
+      "%2": "entity"
+    },
+    "records": [
+      484,
+      485
+    ],
+    "evidence": "work/final-gap-audit43-20261023/event-bank-current.json: event[484].template @ 0x2bc907 (kind=2, channel=0), event[485].template @ 0x2bc96a (kind=2, channel=5); native [name] and {name} are separate entities, normalized to %1/%2; native spelling and exact record identities retained in work/event44-20261024/record-identities.json"
+  },
+  {
+    "source": "%2 resets %1, behavior restored.",
+    "target": "%2重置了%1，行为已恢复正常。",
+    "parameters": {
+      "%1": "entity",
+      "%2": "entity"
+    },
+    "records": [
+      486,
+      487
+    ],
+    "evidence": "work/final-gap-audit43-20261023/event-bank-current.json: event[486].template @ 0x2bc9cd (kind=2, channel=0), event[487].template @ 0x2bca29 (kind=2, channel=5); native [name] and {name} are separate entities, normalized to %1/%2; native spelling and exact record identities retained in work/event44-20261024/record-identities.json"
+  },
+  {
+    "source": "Splicing %1...",
+    "target": "正在接合%1……",
+    "parameters": {
+      "%1": "entity"
+    },
+    "records": [
+      506
+    ],
+    "evidence": "work/final-gap-audit43-20261023/event-bank-current.json: event[506].template @ 0x2bcfb2 (kind=2, channel=0); native [name] and {name} are separate entities, normalized to %1/%2; native spelling and exact record identities retained in work/event44-20261024/record-identities.json"
+  },
+  {
+    "source": "%2 chaos-jacking %1...",
+    "target": "%2正在混沌劫持%1……",
+    "parameters": {
+      "%1": "entity",
+      "%2": "entity"
+    },
+    "records": [
+      512
+    ],
+    "evidence": "work/final-gap-audit43-20261023/event-bank-current.json: event[512].template @ 0x2bd155 (kind=2, channel=0); native [name] and {name} are separate entities, normalized to %1/%2; native spelling and exact record identities retained in work/event44-20261024/record-identities.json"
+  },
+  {
+    "source": "%1 retrieves %2.",
+    "target": "%1收回了%2。",
+    "parameters": {
+      "%1": "entity",
+      "%2": "entity"
+    },
+    "records": [
+      607
+    ],
+    "evidence": "work/final-gap-audit43-20261023/event-bank-current.json: event[607].template @ 0x2bec60 (kind=2, channel=1); native [name] and {name} are separate entities, normalized to %1/%2; native spelling and exact record identities retained in work/event44-20261024/record-identities.json"
+  },
+  {
+    "source": "%1 resupplies.",
+    "target": "%1补充物资。",
+    "parameters": {
+      "%1": "entity"
+    },
+    "records": [
+      614
+    ],
+    "evidence": "work/final-gap-audit43-20261023/event-bank-current.json: event[614].template @ 0x2bee69 (kind=2, channel=1); native [name] and {name} are separate entities, normalized to %1/%2; native spelling and exact record identities retained in work/event44-20261024/record-identities.json"
+  },
+  {
+    "source": " %1 fails to hack %2",
+    "target": " %1黑入%2失败",
+    "parameters": {
+      "%1": "entity",
+      "%2": "entity"
+    },
+    "records": [
+      731,
+      732
+    ],
+    "evidence": "work/final-gap-audit43-20261023/event-bank-current.json: event[731].template @ 0x2c0ff9 (kind=2, channel=1), event[732].template @ 0x2c1051 (kind=2, channel=0); native [name] and {name} are separate entities, normalized to %1/%2; native spelling and exact record identities retained in work/event44-20261024/record-identities.json"
+  },
+  {
+    "source": "%1 sheds %2.",
+    "target": "%1抖落了%2。",
+    "parameters": {
+      "%1": "entity",
+      "%2": "entity"
+    },
+    "records": [
+      744
+    ],
+    "evidence": "work/final-gap-audit43-20261023/event-bank-current.json: event[744].template @ 0x2c146c (kind=2, channel=2); native [name] and {name} are separate entities, normalized to %1/%2; native spelling and exact record identities retained in work/event44-20261024/record-identities.json"
+  },
+  {
+    "source": "%1 zaps %2 with an electromagnetic arc.",
+    "target": "%1用电弧电击 %2。",
+    "parameters": {
+      "%1": "entity",
+      "%2": "entity"
+    },
+    "records": [
+      746
+    ],
+    "evidence": "work/final-gap-audit43-20261023/event-bank-current.json: event[746].template @ 0x2c152f (kind=3, channel=3); native [name] and {name} are separate entities, normalized to %1/%2; native spelling and exact record identities retained in work/event44-20261024/record-identities.json"
+  },
+  {
+    "source": "%1 freezes %2.",
+    "target": "%1冻结了%2。",
+    "parameters": {
+      "%1": "entity",
+      "%2": "entity"
+    },
+    "records": [
+      748
+    ],
+    "evidence": "work/final-gap-audit43-20261023/event-bank-current.json: event[748].template @ 0x2c15f3 (kind=3, channel=3); native [name] and {name} are separate entities, normalized to %1/%2; native spelling and exact record identities retained in work/event44-20261024/record-identities.json"
+  },
+  {
+    "source": "%1 flees.",
+    "target": "%1逃离了。",
+    "parameters": {
+      "%1": "entity"
+    },
+    "records": [
+      2233
+    ],
+    "evidence": "work/final-gap-audit43-20261023/event-bank-current.json: event[2233].template @ 0x2e9216 (kind=2, channel=13); native [name] and {name} are separate entities, normalized to %1/%2; native spelling and exact record identities retained in work/event44-20261024/record-identities.json"
+  },
+  {
+    "source": "[name]: \"Hi.\"",
+    "target": "[name]: \"你好。\"",
+    "parameters": {
+      "[name]": "entity"
+    },
+    "records": [
+      997
+    ],
+    "evidence": "evidence/dialogue44-20261024/native-record-evidence.json: event[997].template; exact full native scaffold, speaker entity only"
+  },
+  {
+    "source": "[name]: \"Cogito ergo sum.\"",
+    "target": "[name]：“我思故我在。”",
+    "parameters": {
+      "[name]": "entity"
+    },
+    "records": [
+      1100
+    ],
+    "evidence": "evidence/dialogue44-20261024/native-record-evidence.json: event[1100].template; exact full native scaffold, speaker entity only"
+  },
+  {
+    "source": "[name]: \"[name] out!\"",
+    "target": "[name]: \"[name]撤了！\"",
+    "parameters": {
+      "[name]": "entity"
+    },
+    "records": [
+      1112
+    ],
+    "evidence": "evidence/dialogue44-20261024/native-record-evidence.json: event[1112].template; exact full native scaffold, speaker entity only"
+  },
+  {
+    "source": "[name]: \"Can we win this? Even if we take Scraptown, they'll hit us from Junction 34.\"",
+    "target": "[name]：“我们能赢吗？就算拿下废料镇，它们还会从34号交叉口打过来。”",
+    "parameters": {
+      "[name]": "entity"
+    },
+    "records": [
+      1440
+    ],
+    "evidence": "evidence/dialogue44-20261024/native-record-evidence.json: event[1440].template; exact full native scaffold, speaker entity only"
+  },
+  {
+    "source": "[name] mumbles: \"Who knows where that last prototype ended up, probably tossed aside somewhere as if it were useless junk...\"",
+    "target": "[name]嘀咕道：“谁知道上一件原型最后落到哪儿了，恐怕被当成没用的垃圾，随手扔在什么地方了……”",
+    "parameters": {
+      "[name]": "entity"
+    },
+    "records": [
+      1844
+    ],
+    "evidence": "evidence/dialogue44-20261024/native-record-evidence.json: event[1844].template; exact full native scaffold, speaker entity only"
+  },
+  {
+    "source": "[name]: \"Give us 100,000 units of matter and we'll let you pass... I didn't think so. We'll just take whatever you've got on you. Literally.\"",
+    "target": "[name]：“交出100,000单位物质，我们就放你过去……我就知道你拿不出来。那就把你身上所有东西都拿走。连你本身也算上。”",
+    "parameters": {
+      "[name]": "entity"
+    },
+    "records": [
+      1887
+    ],
+    "evidence": "evidence/dialogue44-20261024/native-record-evidence.json: event[1887].template; exact full native scaffold, speaker entity only"
+  },
+  {
+    "source": "[name]: \"Did you know I was the only one caught in the recent operation to infiltrate Section 7, and I wasn't even there! How shameful. I was redirecting transmissions on the 0b10 network from within a garrison when a wave of sentries passed through. Nothing I could do but surrender...\"",
+    "target": "[name]：“你知道吗，最近那次潜入第7区的行动，只有我被抓了，可我当时根本没在那儿！真丢人。我正在一处驻军里给0b10网络的传输改道，一队哨兵正好经过。我除了投降也没别的办法……”",
+    "parameters": {
+      "[name]": "entity"
+    },
+    "records": [
+      2256
+    ],
+    "evidence": "evidence/dialogue44-20261024/native-record-evidence.json: event[2256].template; exact full native scaffold, speaker entity only"
+  },
+  {
+    "source": "[name]: \"Gyrokinetic Scythe.\"",
+    "target": "[name]：“陀螺动力镰刀。”",
+    "parameters": {
+      "[name]": "entity"
+    },
+    "records": [
+      967
+    ],
+    "evidence": "evidence/dialogue44-20261024/native-record-evidence.json: event[967].template; exact full native scaffold, speaker entity only"
+  },
+  {
+    "source": "[name]: \"Supersonic Node Thruster.\"",
+    "target": "[name]：“超音速节点推进器。”",
+    "parameters": {
+      "[name]": "entity"
+    },
+    "records": [
+      968
+    ],
+    "evidence": "evidence/dialogue44-20261024/native-record-evidence.json: event[968].template; exact full native scaffold, speaker entity only"
+  },
+  {
+    "source": "[name]: \"Variable Graphene Refractor.\"",
+    "target": "[name]：“可变石墨烯折射器。”",
+    "parameters": {
+      "[name]": "entity"
+    },
+    "records": [
+      969
+    ],
+    "evidence": "evidence/dialogue44-20261024/native-record-evidence.json: event[969].template; exact full native scaffold, speaker entity only"
+  },
+  {
+    "source": "[name]: \"Metadispersion Armor?\"",
+    "target": "[name]：“元色散装甲？”",
+    "parameters": {
+      "[name]": "entity"
+    },
+    "records": [
+      972
+    ],
+    "evidence": "evidence/dialogue44-20261024/native-record-evidence.json: event[972].template; exact full native scaffold, speaker entity only"
+  }
+]

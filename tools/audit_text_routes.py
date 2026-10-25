@@ -11,7 +11,7 @@ def audit(root):
  if len(ids)!=len(specs) or len(set(ids))!=len(ids):errors.append('registry enum/table mismatch')
  if len({s[2] for s in specs})!=len(specs):errors.append('duplicate registry names')
  # Pure matching helpers deliberately remain below the shared service boundary.
- helpers={'text_core.h','text_core.c','translation_overlay.h','canonical_item_names.h','content_names.h','dialogue_dynamic.h','event_dynamic.h','event_stats.h','display_text.h','item_name_text.h','linked_text.h','repair_text.h','ui_text.h','terminal_text.h','message_resolver.h'}
+ helpers={'text_core.h','text_core.c','translation_overlay.h','canonical_item_names.h','content_names.h','dialogue_dynamic.h','event_dynamic.h','event_stats.h','native_ui_text.h','display_text.h','item_name_text.h','linked_text.h','repair_text.h','ui_text.h','terminal_text.h','message_resolver.h'}
  offline={'content_audit.c','perf_bench.c'}
  bypass=re.compile(r'\b(?:zh_translate(?:_exact|_normalized_exact|_unique_prefix|_overlay)?|display_translate|terminal_translate|dialogue_dynamic_translate|event_dynamic_translate|canonical_item_name_translate|message_resolve(?:_profile|_terminal)?)\s*\(')
  for p in sorted(src.iterdir()):

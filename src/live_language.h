@@ -39,6 +39,7 @@ static int __cdecl live_poll(void *event){
     if(e[0]==3&&live_shortcut_held){live_shortcut_held=0;continue;}
    }
   }
+  if(terminal_input_event(event))continue;
   /* A text transition never moves native buttons or link hitboxes. Avoid
      accepting clicks while their text is crossing the viewport edge. */
   if(live_phase&&(e[0]==5||e[0]==6))continue;

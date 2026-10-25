@@ -5,7 +5,7 @@ root=Path(__file__).resolve().parents[1];p=argparse.ArgumentParser();p.add_argum
 rows=json.loads((root/'data/reviewed-events/event-rules.json').read_text(encoding='utf-8'))
 marker=re.compile(r'%[123]|\{(?:name|ufd_name)\}|\[name\]')
 mapping={'%1':0,'%2':1,'%3':2,'{name}':3,'[name]':3,'{ufd_name}':4}
-kinds={'atom':'EV_ATOM','number':'EV_NUMBER','identity':'EV_IDENTITY','message':'EV_MESSAGE','lines':'EV_LINES','code':'EV_CODE','stats':'EV_STATS','actor':'EV_ACTOR'}
+kinds={'atom':'EV_ATOM','number':'EV_NUMBER','identity':'EV_IDENTITY','message':'EV_MESSAGE','lines':'EV_LINES','code':'EV_CODE','stats':'EV_STATS','actor':'EV_ACTOR','entity':'EV_ENTITY'}
 out='/* Generated from reviewed native event templates. */\nstatic const EventDynamicRule event_dynamic_rules[]={\n';seen=set()
 for row in rows:
  s,t=row['source'],row['target'];assert s not in seen;seen.add(s)

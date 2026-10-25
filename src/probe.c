@@ -19,6 +19,10 @@ static void live_shell_capture_add(void*,void*,int,int,int);
 static void live_shell_capture_meta(void*,void*);
 static void live_tick(void);
 static void terminal_input_tick(void);
+static int terminal_input_event(void*);
+static void *terminal_input_draw_view(void*);
+static void terminal_input_draw_overlay(void*,void*,void*);
+static int terminal_input_draw_background_full(void*,void*);
 static void terminal_input_note_print(void*,void*,const char*);
 #ifdef TERMINAL_INPUT_FIXTURE
 static void terminal_input_fixture(void*);
@@ -239,7 +243,11 @@ static void __attribute__((fastcall)) hooked_draw(void *self,void *unused,void *
   uint32_t *cells=(void*)o[4];
   for(unsigned i=0;i<o[2]*o[3];i++)if(cells[i*5+1]>=320&&cells[i*5+1]<=323&&cells[i*5]==0&&cells[i*5+2]==cells[i*5+1])matches++;
  }
- original_draw(self,destination,options);
+ void *picker_view=terminal_input_draw_view(self);
+ /* Native argument two is the previous-cell comparison canvas. A custom
+    view must repaint blanks too, including the first frame after closing. */
+ original_draw(self,destination,terminal_input_draw_background_full(self,picker_view)?NULL:options);
+ if(picker_view)terminal_input_draw_overlay(self,destination,picker_view);
  perf_add(2,perf_start);if(readable(o,20)&&o[2]>=80&&o[3]>=25)perf_add(3,perf_start);
  if(matches && rendered++<16){
   fprintf(logfile,"NATIVE-DRAW self=%p grid=%ux%u CJK-half-cells=%u returned=1\n",self,o[2],o[3],matches);
@@ -345,6 +353,10 @@ static int inventory_name(void *self,int x,int y,void *s,uintptr_t caller){
 #include "terminal_input_fixture.h"
 #else
 static void terminal_input_tick(void){}
+static int terminal_input_event(void *event){(void)event;return 0;}
+static void *terminal_input_draw_view(void *owner){(void)owner;return NULL;}
+static void terminal_input_draw_overlay(void *owner,void *destination,void *view){(void)owner;(void)destination;(void)view;}
+static int terminal_input_draw_background_full(void *owner,void *view){(void)owner;(void)view;return 0;}
 static void terminal_input_note_print(void *owner,void *text,const char *target){(void)owner;(void)text;(void)target;}
 #endif
 #include "log_content.h"

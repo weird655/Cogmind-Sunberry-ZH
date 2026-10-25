@@ -5,6 +5,7 @@
 #include "translation_overlay.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "native_ui_text.h"
 static int display_columns(const char *s){int width=0;for(size_t at=0,n=strlen(s);at<n;){size_t used;uint32_t cp;if(!zh_decode(s+at,n-at,&used,&cp)||cp<32||cp==127)return -1;width+=cp<128?1:2;at+=used;}return width;}
 static int display_literal_base(const ZhDictionary *items,const ZhDictionary *shorts,const ZhDictionary *paragraphs,const char *s,size_t n,char *out,size_t cap){
  int canonical=content_name_lookup(display_extra_dictionary,items,shorts,paragraphs,s,n,out,cap);if(canonical)return canonical;
@@ -81,6 +82,7 @@ static int display_literal(const ZhDictionary *items,const ZhDictionary *shorts,
 /* Combine complete UI and paragraph corpora only at display boundaries. */
 static int display_lookup(const ZhDictionary *items,const ZhDictionary *shorts,const ZhDictionary *paragraphs,const char *s,size_t n,char *out,size_t cap){
  if(terminal_runtime_dictionary){int patch=zh_translate(terminal_runtime_dictionary,s,n,out,cap,NULL);if(patch)return patch;}
+ int native_ui=native_ui_text(items,shorts,paragraphs,s,n,out,cap);if(native_ui)return native_ui;
  static const struct {const char *source,*target;} difficulty[]={
   {"E X P L O R E R","探 险 家"},{"A D V E N T U R E R","冒 险 家"},{"R O G U E","浪 人"}
  };
