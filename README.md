@@ -1,6 +1,6 @@
-# Cogmind 中文 · 太阳莓
+# Cogmind 中文补丁
 
-**按一下，让另一种语言逐字接管画面。**
+**中英文语言切换，逐字接管画面。**
 
 <p align="center">
   <a href="assets/language-switch.gif"><img src="assets/language-switch.gif" width="360" alt="Cogmind 局内中英文逐字替换演示"></a>
